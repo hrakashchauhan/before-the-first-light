@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QuestDefinition",
+  "type": "object",
+  "required": [
+    "id",
+    "chapterId",
+    "titleKey",
+    "descriptionKey",
+    "status",
+    "completionFlag"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "chapterId": {
+      "type": "string"
+    },
+    "titleKey": {
+      "type": "string"
+    },
+    "descriptionKey": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "locked",
+        "available",
+        "active",
+        "completed"
+      ]
+    },
+    "completionFlag": {
+      "type": "string"
+    },
+    "interactionTargetId": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
