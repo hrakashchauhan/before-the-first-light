@@ -30,6 +30,12 @@ export function usePlayerMovement(initialPos: WorldPosition = PLAYER_START, bloc
     if (held && !blockedRef.current) pressed.current.add(key)
     else pressed.current.delete(key)
   }, [])
+  const teleport = useCallback((position: WorldPosition) => {
+    const next = { position, rotationY: 0.24, isMoving: false }
+    motion.current = next
+    pressed.current.clear()
+    setMovement(next)
+  }, [])
 
   useEffect(() => {
     const down = (event: KeyboardEvent) => {
@@ -75,7 +81,7 @@ export function usePlayerMovement(initialPos: WorldPosition = PLAYER_START, bloc
       setMovement(motion.current)
     }
   }, [])
-  return { ...movement, step, setDirectionHeld }
+  return { ...movement, step, setDirectionHeld, teleport }
 }
 
 export function MovementClock({ step }: { step: (delta: number) => void }) {

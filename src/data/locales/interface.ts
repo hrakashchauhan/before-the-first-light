@@ -1,6 +1,6 @@
 export type Language = 'en' | 'hi'
 const en = {
-  chapter: 'Chapter I', homecoming: 'Homecoming', objective: 'Current objective', guide: 'How to play', guideTitle: 'How to play', guideIntro: 'Move through the household, listen, and help one task at a time.', guideHint: 'Current hint', guideMovePanel: 'Drag this panel by its heading',
+  chapter: 'Chapter I', homecoming: 'Homecoming', objective: 'Current objective', guide: 'How to play', guideTitle: 'How to play', guideIntro: 'Move through the household, listen, and help one task at a time.', guideHint: 'Current hint', guideMovePanel: 'Drag this panel by its heading', route: 'Route map', routeTitle: 'The morning route', routeIntro: 'Each stop opens through the work that comes before it. Revisit any stop you have reached.', cycle: 'Cycle', travel: 'Go here', locked: 'Not open yet', routeNote: 'The map helps you find your way; the story still moves through real conversations and tasks.',
   journal: 'Journal', pause: 'Pause', resume: 'Resume', morning: 'Early morning',
   region: 'Bihar, India', courtyard: 'Family courtyard', lane: 'Village lane', ghat: 'Pond steps',
   move: 'Move', interact: 'Interact', zoom: 'Zoom', reset: 'Reset camera', zoomIn: 'Zoom in', zoomOut: 'Zoom out',
@@ -15,7 +15,7 @@ const en = {
   guideSteps: ['Use W A S D or the on-screen arrows to walk.', 'When an action appears, press E or click it.', 'Open the journal to review the current objective and completed work.', 'Use the mouse wheel, +, −, or 0 to frame the camera.'],
 }
 const hi: typeof en = {
-  chapter: 'अध्याय १', homecoming: 'घर वापसी', objective: 'अभी का काम', guide: 'कैसे खेलें', guideTitle: 'कैसे खेलें', guideIntro: 'घर और गली में चलें, बातें सुनें और एक-एक काम में हाथ बँटाएँ।', guideHint: 'अभी का संकेत', guideMovePanel: 'शीर्षक पकड़कर इस पैनल को खिसकाएँ',
+  chapter: 'अध्याय १', homecoming: 'घर वापसी', objective: 'अभी का काम', guide: 'कैसे खेलें', guideTitle: 'कैसे खेलें', guideIntro: 'घर और गली में चलें, बातें सुनें और एक-एक काम में हाथ बँटाएँ।', guideHint: 'अभी का संकेत', guideMovePanel: 'शीर्षक पकड़कर इस पैनल को खिसकाएँ', route: 'रास्ते का नक्शा', routeTitle: 'सुबह का रास्ता', routeIntro: 'हर पड़ाव उससे पहले हुए काम के बाद खुलता है। जहाँ पहुँच चुके हैं, वहाँ फिर जा सकते हैं।', cycle: 'चक्र', travel: 'यहाँ जाएँ', locked: 'अभी बंद है', routeNote: 'नक्शा रास्ता दिखाता है; कहानी फिर भी बातचीत और काम से आगे बढ़ती है।',
   journal: 'डायरी', pause: 'विराम', resume: 'खेल जारी रखें', morning: 'सुबह का समय',
   region: 'बिहार, भारत', courtyard: 'घर का आँगन', lane: 'गाँव की गली', ghat: 'तालाब का घाट',
   move: 'चलें', interact: 'बात करें या देखें', zoom: 'ज़ूम', reset: 'कैमरा रीसेट करें', zoomIn: 'पास से देखें', zoomOut: 'दूर से देखें',

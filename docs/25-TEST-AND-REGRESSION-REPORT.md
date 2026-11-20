@@ -49,4 +49,5 @@ The original M08 baseline below is retained for traceability. The current releas
 - `npm run build`: **PASS**, 4.13 seconds, with Vite's advisory large JavaScript chunk warning.
 - Independent Chrome route test: **PASS** for HUD, zoom limits and reset, journal pause and focus, dialogue pause, fresh-save household progression, reload persistence, Hindi settings, debug preview isolation, and mobile overflow. Evidence is in `references/evidence/courtyard/firstlight-redteam.json` and the accompanying screenshots.
 - Chrome guide check: **PASS** for opening the visible help button, rendering the live objective hint, dragging the guide panel, closing it, and leaving zero page errors.
+- Chrome route-map check: **PASS** for rendering all eight cycle stops, showing the current route, direct travel to an available stop, closing the map, and leaving zero page errors.
 - Browser page errors: **0** in the successful independent run. Vitest still prints Three.js's CJS deprecation warning from the test runner.

@@ -119,6 +119,23 @@ kbd { font: 10px 'DM Sans',sans-serif; display: inline-grid; place-items: center
 .guide-steps { display: grid; gap: 14px; list-style: none; margin: 22px 0 28px; padding: 0; }
 .guide-steps li { display: flex; align-items: center; gap: 13px; color: #e6dfca; font-size: 13px; line-height: 1.45; }
 .guide-steps svg { flex: 0 0 auto; color: #e8c886; }
+.route-panel { width: min(540px,calc(100% - 32px)); }
+.route-cycle { display: flex; align-items: baseline; gap: 10px; padding: 12px 0 16px; border-bottom: 1px solid #acb39438; color: #d3cbb8; font-size: 11px; }
+.route-cycle span { text-transform: uppercase; letter-spacing: .16em; color: #d3b98b; font-size: 9px; }
+.route-cycle strong { color: #f2d19a; font-family: 'Spectral','Nirmala UI',serif; font-size: 18px; font-weight: 500; }
+.route-cycle small { margin-left: auto; color: #abb49d; }
+.route-list { list-style: none; margin: 20px 0; padding: 0; display: grid; gap: 7px; }
+.route-list li button { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 11px; text-align: left; color: #e9e0ca; background: #1c292033; border: 1px solid transparent; border-radius: 4px; }
+.route-list li.is-current button { border-color: #d8bb7c88; background: #53614555; }
+.route-list li.is-locked button { opacity: .42; cursor: not-allowed; }
+.route-list li:not(.is-locked) button:hover { border-color: #d8bb7c66; background: #53614577; }
+.route-marker { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; background: #3f523c; color: #f0d39a; flex: 0 0 auto; }
+.is-complete .route-marker { background: #c0c99e; color: #243225; }
+.route-list li button > span:nth-child(2) { display: grid; gap: 2px; }
+.route-list li strong { font-size: 12px; font-weight: 600; }
+.route-list li small { color: #aeb59f; font-size: 10px; }
+.route-list li em { margin-left: auto; color: #e6c887; font-style: normal; font-size: 10px; }
+.route-note { color: #bfc5b2 !important; font-size: 11px !important; }
 .conversation { position: fixed; top: auto; bottom: 44px; width: min(680px,calc(100% - 48px)); padding: 22px 28px; border-left: 3px solid #d1b37a; }
 .conversation::backdrop { background: transparent; }
 .speaker-line { display: flex; gap: 9px; align-items: center; color: #e0c493; }

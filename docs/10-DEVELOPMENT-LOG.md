@@ -216,6 +216,9 @@ Added the pond-step first-light beat (`q_dawn_walk`) and morning-sharing epilogu
 ### 2026-11-21 — Interactive how-to-play guide
 Added a visible help button to the HUD. The guide explains movement, interaction, journal and camera controls, surfaces the live objective description as a contextual hint, supports English/Hindi copy, closes with keyboard or mouse, and can be repositioned by dragging its heading. Chrome automation verified opening, hint rendering, drag repositioning, closing, and zero page errors.
 
+### 2026-11-21 — Morning route map and cycle flow
+Added a route map that makes the household cycle legible: veranda, courtyard work, wheat mat, basket maker, pond steps, first light, homecoming, and morning sharing. Each stop shows its use/day label, completed state, current availability, and a direct travel action for revisiting reached stops. Direct travel only moves the player; story flags still advance through the real walk, dialogue, and task interactions. Chrome automation verified all eight stops render and direct travel closes the map and changes the player position without page errors.
+
 
 
 
