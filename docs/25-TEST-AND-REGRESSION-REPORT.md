@@ -8,6 +8,8 @@
 
 ## 1. Automated Test Execution Telemetry
 
+The original M08 baseline below is retained for traceability. The current release run is recorded in the final verification section.
+
 ```text
  RUN  v5.1.1 D:/Codex Game JAm/Chhath game
 

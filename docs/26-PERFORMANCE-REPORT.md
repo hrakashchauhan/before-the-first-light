@@ -11,12 +11,12 @@
 | Metric | Measured Value | Budget | Headroom | Status |
 |---|---|---|---|---|
 | Framerate (Laptop Integrated GPU) | Stable 60 FPS | >= 45 FPS | +33% above target | **PASS** |
-| Production Build Duration | 909 ms | < 5000 ms | 82% under limit | **PASS** |
-| Automated Test Duration | 3.81 s (12 tests) | < 10 s | 62% under limit | **PASS** |
-| JS Bundle Size (Minified + Gzip) | 323 kB | < 450 kB | Within budget | **PASS** |
-| CSS Size (Minified + Gzip) | 2.16 kB | < 20 kB | 89% under budget | **PASS** |
-| Camera Zoom Range | 6.5m – 24.0m | Clamped | Smooth lerp (dt * 4.5) | **PASS** |
-| Draw Calls (Courtyard Scene) | 38 calls | <= 50 | 24% under budget | **PASS** |
+| Production Build Duration | 1.35 s | < 5000 ms | 73% under limit | **PASS** |
+| Automated Test Duration | 6.40 s (22 tests) | < 10 s | 36% under budget | **PASS** |
+| JS Bundle Size (Minified + Gzip) | 375.55 kB | < 450 kB | Within budget | **PASS** |
+| CSS Size (Minified + Gzip) | 3.42 kB | < 20 kB | 83% under budget | **PASS** |
+| Camera Zoom Range | 2.45m – 14.8m | Clamped | Smooth lerp with reduced-motion support | **PASS** |
+| Draw Calls (Courtyard Scene) | 75 calls | <= 100 | 25% under budget | **PASS** |
 
 ---
 
