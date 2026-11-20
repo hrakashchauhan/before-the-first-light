@@ -21,3 +21,7 @@
    - Recognizable cast-iron handpump with concrete drainage apron, representing the shared groundwater lifeblood of rural households.
 5. **The Woven Charpai (Khatia):**
    - Four-legged wooden cot with jute cord webbing and folded cotton quilt, placed in the courtyard for rest and conversation.
+
+## 2026-11-20 review status
+
+The household sequence keeps the family-specific framing from the design documents. Ma asks for support, an uncle supplies wheat, the player handles sweeping and carrying, Mohan Kaka repairs the basket, and neighbours prepare space at the pond. Dialogue avoids presenting the fictional sequence as universal ritual instruction. English and Hindi UI copy are authored for local review. Bhojpuri lines and unverified ritual details remain excluded from the release claims. References include Bihar Tourism's description of Chhath's setting-sun and rising-sun observances, while local practice and placement still require community review.

@@ -1,67 +1,18 @@
-import { useMemo } from 'react'
 import * as THREE from 'three'
-import { GAME_CONFIG } from '../../game/config'
-
-interface HandpumpProps {
-  position?: [number, number, number]
-}
-
-export function Handpump({ position = [4.6, 0, 3.2] }: HandpumpProps) {
-  const ironMaterial = useMemo(() => {
-    return new THREE.MeshStandardMaterial({
-      color: GAME_CONFIG.palette.handpumpIron,
-      roughness: 0.6,
-      metalness: 0.7,
-    })
-  }, [])
-
-  const concreteMaterial = useMemo(() => {
-    return new THREE.MeshStandardMaterial({
-      color: '#95a5a6',
-      roughness: 0.85,
-      metalness: 0.05,
-    })
-  }, [])
-
-  return (
-    <group position={position}>
-      {/* 1. Concrete Soakage Platform (Chabutra) */}
-      <mesh position={[0, 0.04, 0]} receiveShadow castShadow material={concreteMaterial}>
-        <cylinderGeometry args={[1.1, 1.2, 0.08, 16]} />
-      </mesh>
-      {/* Platform Raised Rim */}
-      <mesh position={[0, 0.09, 0]} rotation={[Math.PI / 2, 0, 0]} material={concreteMaterial}>
-        <torusGeometry args={[1.08, 0.035, 6, 18]} />
-      </mesh>
-
-      {/* 2. Main Vertical Cast Iron Cylinder Body */}
-      <mesh position={[0, 0.65, 0]} castShadow receiveShadow material={ironMaterial}>
-        <cylinderGeometry args={[0.09, 0.11, 1.15, 12]} />
-      </mesh>
-      {/* Base Flange Mounting Plate */}
-      <mesh position={[0, 0.1, 0]} castShadow material={ironMaterial}>
-        <cylinderGeometry args={[0.18, 0.2, 0.05, 12]} />
-      </mesh>
-      {/* Pump Head Cap */}
-      <mesh position={[0, 1.25, 0]} castShadow material={ironMaterial}>
-        <cylinderGeometry args={[0.12, 0.1, 0.12, 12]} />
-      </mesh>
-
-      {/* 3. Curved Water Spout */}
-      <mesh position={[0, 0.68, 0.18]} rotation={[0.4, 0, 0]} castShadow material={ironMaterial}>
-        <cylinderGeometry args={[0.035, 0.04, 0.3, 10]} />
-      </mesh>
-
-      {/* 4. Handpump Lever Handle (Long Angled Arm) */}
-      <group position={[0, 1.2, -0.06]} rotation={[-0.25, 0, 0]}>
-        <mesh position={[0, 0.12, -0.45]} rotation={[-0.15, 0, 0]} castShadow material={ironMaterial}>
-          <boxGeometry args={[0.04, 0.05, 0.95]} />
-        </mesh>
-        {/* Handle Heavy End Knob */}
-        <mesh position={[0, 0.2, -0.92]} castShadow material={ironMaterial}>
-          <sphereGeometry args={[0.065, 8, 8]} />
-        </mesh>
-      </group>
-    </group>
-  )
+import { Batch, beam, coarse, log, vessel } from '../../world/craft'
+import type { Point, Piece } from '../../world/craft'
+const casting=vessel([[0,0],[.167,0],[.184,.025],[.185,.06],[.122,.09],[.113,.22],[.082,.44],[.077,.81],[.094,.84],[.1,1.19],[.087,1.25],[.048,1.265],[0,1.265]],14)
+const iron=new THREE.MeshStandardMaterial({metalness:.18,roughness:.69})
+const teal='#45605b'
+const main:Piece[]=[{at:[0,.085,0],tint:teal}]
+const spout=[beam([0,.91,.03],[0,.89,.235],.074,teal),beam([0,.90,.21],[0,.81,.30],.073,teal)]
+const lever=[beam([0,1.30,-.07],[0,1.51,-.32],.053,'#4b5351'),beam([0,1.5,-.31],[0,1.25,-.93],.047,'#484e4c'),beam([0,1.25,-.90],[0,1.21,-1.0],.054,'#806348')]
+const slab=vessel([[0,0],[1.09,0],[1.07,.077],[1.017,.102],[.99,.096],[.96,.064],[0,.062]],27)
+export function Handpump({position=[4.6,0,3.2]}:{position?:Point}){
+  return <group position={position} name="handpump">
+    <Batch geometry={slab} material={coarse} parts={[{at:[0,0,0],tint:'#aaa793'}]} />
+    <Batch geometry={casting} parts={main} material={iron} cast />
+    <Batch geometry={log} parts={spout} material={iron} cast />
+    <Batch geometry={log} parts={lever} material={iron} cast />
+  </group>
 }

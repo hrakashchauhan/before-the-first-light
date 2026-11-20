@@ -14,6 +14,10 @@ Record consequential choices here.
 | D008 | 2026-11-20 | Bounded Camera Zoom with smooth lerp & dual controls | Accommodates both keyboard/wheel desktop users and on-screen HUD buttons | Fixed non-interactive camera | User requires free-orbiting cinematic camera |
 | D009 | 2026-11-20 | Dual-Layer Interface: Contextual HUD + Collapsible Dev Drawer | Unobtrusive player immersion with instant dev verification tools | Cluttered permanent debug overlay | When release build drops developer tools |
 | D010 | 2026-11-20 | Multi-Zone Continuous Navigation (Courtyard → Lane → Ghat) | Mathematical multi-region corridor collision with zero WASM/physics engine overhead | Rigid-body trigger volumes | Full 3D terrain navmesh needed |
+| D011 | 2026-11-20 | Low three-quarter perspective camera, 2.45–14.8m bounded zoom | Keeps the horizon, veranda, household scale, and faces readable while retaining an authored view | Orthographic diorama, free orbit | Revisit for a later cinematic chapter |
+| D012 | 2026-11-20 | English/Hindi UI with fictional household dialogue | Supports accessibility and keeps culturally specific wording reviewable | Unreviewed dialect writing | Local review before release |
+| D013 | 2026-11-20 | Procedural human geometry for Devraj and Ma | Delivers original face and clothing geometry without unverified redistribution rights | External rigged GLB | Verified licensed models become available |
+| D014 | 2026-11-20 | Static shadow refresh cadence and simplified distant materials | Reduces repeated shadow and fragment work on an integrated GPU | Full dynamic shadows and heavier shaders | Reprofile after further scene expansion |
 
 
 Do not silently reverse a decision. Add a new entry and explain why.

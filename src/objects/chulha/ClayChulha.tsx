@@ -1,87 +1,39 @@
-import { useMemo } from 'react'
-import * as THREE from 'three'
-import { GAME_CONFIG } from '../../game/config'
+import { Batch, beam, coarse, doubleMatte, earth, log, surface, vessel } from '../../world/craft'
+import type { Piece, Point } from '../../world/craft'
 
-interface ClayChulhaProps {
-  position?: [number, number, number]
-  isReady?: boolean
+function buildBody(){
+  const v:number[]=[],ix:number[]=[]
+  const rings=[[.33,.03],[.335,.09],[.296,.35],[.27,.39],[.185,.37],[.173,.11],[.18,.055]]
+  const n=28
+  for(let i=0;i<=n;i++){
+    const a=.55+i*(Math.PI*2-1.10)/n
+    for (const [rr,y] of rings){
+      const r=rr*(1+.022*Math.sin(3*a)+.014*Math.cos(5*a))
+      v.push(Math.sin(a)*r,y+.014*Math.sin(a*3)*y/.39, Math.cos(a)*r*1.12)
+    }
+    if(i<n)for(let j=0;j<rings.length-1;j++){
+      const p=i*rings.length+j,q=p+rings.length
+      ix.push(p,q,p+1,q,q+1,p+1)
+    }
+  }
+  for(const i of [0,n]) {
+    const a=i*rings.length
+    for (let k=1;k<rings.length-1;k++)ix.push(a,a+k,a+k+1)
+  }
+  return surface(v,ix)
 }
-
-export function ClayChulha({ position = [3.2, 0.16, -1.8], isReady = true }: ClayChulhaProps) {
-  const clayMaterial = useMemo(() => {
-    return new THREE.MeshStandardMaterial({
-      color: isReady ? GAME_CONFIG.palette.clayChulha : '#8a5035',
-      roughness: 0.88,
-      metalness: 0.04,
-    })
-  }, [isReady])
-
-  const sootMaterial = useMemo(() => {
-    return new THREE.MeshStandardMaterial({
-      color: '#3d2b24',
-      roughness: 0.95,
-    })
-  }, [])
-
-  const woodStickMaterial = useMemo(() => {
-    return new THREE.MeshStandardMaterial({
-      color: '#5c3d26',
-      roughness: 0.8,
-    })
-  }, [])
-
-  return (
-    <group position={position}>
-      {/* 1. Mud Base Plinth (Chulha Chauki) */}
-      <mesh position={[0, 0.04, 0]} receiveShadow castShadow material={clayMaterial}>
-        <boxGeometry args={[0.9, 0.08, 0.9]} />
-      </mesh>
-
-      {/* 2. U-shaped Clay Stove Walls */}
-      {/* Back Wall */}
-      <mesh position={[0, 0.22, -0.24]} castShadow receiveShadow material={clayMaterial}>
-        <boxGeometry args={[0.58, 0.28, 0.16]} />
-      </mesh>
-      {/* Left Wall */}
-      <mesh position={[-0.24, 0.22, 0.02]} castShadow receiveShadow material={clayMaterial}>
-        <boxGeometry args={[0.16, 0.28, 0.52]} />
-      </mesh>
-      {/* Right Wall */}
-      <mesh position={[0.24, 0.22, 0.02]} castShadow receiveShadow material={clayMaterial}>
-        <boxGeometry args={[0.16, 0.28, 0.52]} />
-      </mesh>
-
-      {/* 3. Pot Rests / Horns on Rim */}
-      {/* Back Rest */}
-      <mesh position={[0, 0.38, -0.22]} castShadow material={clayMaterial}>
-        <coneGeometry args={[0.045, 0.08, 6]} />
-      </mesh>
-      {/* Left Rest */}
-      <mesh position={[-0.22, 0.38, 0.1]} castShadow material={clayMaterial}>
-        <coneGeometry args={[0.045, 0.08, 6]} />
-      </mesh>
-      {/* Right Rest */}
-      <mesh position={[0.22, 0.38, 0.1]} castShadow material={clayMaterial}>
-        <coneGeometry args={[0.045, 0.08, 6]} />
-      </mesh>
-
-      {/* 4. Combustion Chamber Floor / Soot bed */}
-      <mesh position={[0, 0.09, 0.02]} receiveShadow material={sootMaterial}>
-        <boxGeometry args={[0.34, 0.02, 0.42]} />
-      </mesh>
-
-      {/* 5. Prepared Mango / Dry Wood Sticks ready for Prasad */}
-      {[-0.06, 0.02, 0.08].map((x, idx) => (
-        <mesh
-          key={`wood-stick-${idx}`}
-          position={[x, 0.11, 0.2]}
-          rotation={[0.12, (idx - 1) * 0.15, 0]}
-          castShadow
-          material={woodStickMaterial}
-        >
-          <cylinderGeometry args={[0.02, 0.025, 0.38, 6]} />
-        </mesh>
-      ))}
-    </group>
-  )
+const body=buildBody(), base=vessel([[0,0],[.34,0],[.38,.025],[.35,.06],[0,.061]],24)
+const rests=vessel([[0,0],[.08,0],[.075,.048],[.054,.11],[.033,.13],[0,.13]])
+const bed=vessel([[0,0],[.24,0],[.245,.015],[0,.015]],20)
+const restPieces:Piece[]=[.86,3.14,5.44].map(a=>({at:[Math.sin(a)*.23,.34,Math.cos(a)*.23],tint:earth.clay}))
+const sticks=[beam([-.1,.1,.47],[-.04,.108,.09],.038,earth.wood),beam([.03,.095,.51],[.07,.114,.12],.042,earth.darkWood)]
+export function ClayChulha({position=[3.2,.16,-2.4],isReady=true}:{position?:Point;isReady?:boolean}) {
+  const c=isReady?earth.clay:'#976f53'
+  return <group position={position} name="unlit-clay-stove">
+    <Batch geometry={base} parts={[{at:[0,0,0],size:[1,1,1.12],tint:c}]} material={coarse} cast />
+    <Batch geometry={bed} parts={[{at:[0,.061,.06],tint:earth.charcoal}]} />
+    <Batch geometry={body} parts={[{at:[0,0,0],tint:c}]} material={doubleMatte} cast />
+    <Batch geometry={rests} parts={restPieces} material={coarse} cast />
+    <Batch geometry={log} parts={sticks} cast />
+  </group>
 }

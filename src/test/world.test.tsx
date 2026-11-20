@@ -10,7 +10,8 @@ import { Charpai } from '../objects/household/Charpai'
 describe('3D Scene and Props Specification Tests', () => {
   it('defines valid camera parameters matching mild isometric requirements', () => {
     expect(GAME_CONFIG.camera.fov).toBeLessThanOrEqual(45)
-    expect(GAME_CONFIG.camera.defaultElevation).toBeGreaterThan(8)
+    expect(GAME_CONFIG.camera.defaultPitch).toBeGreaterThan(0)
+    expect(GAME_CONFIG.camera.defaultPitch).toBeLessThan(Math.PI / 8)
     expect(GAME_CONFIG.camera.defaultDistance).toBeGreaterThan(10)
     expect(GAME_CONFIG.camera.target).toEqual([0, 1.0, 0])
   })

@@ -1,41 +1,42 @@
 import { create } from 'zustand'
-import type { GameSaveV1, GameSettings } from '../../../schemas/game-state'
-
-const DEFAULT_SETTINGS: GameSettings = {
-  musicVolume: 0.8,
-  sfxVolume: 0.9,
-  subtitles: true,
-}
-
-const DEFAULT_SAVE: GameSaveV1 = {
-  schemaVersion: 1,
-  chapterId: 'homecoming',
-  timeOfDay: 'morning',
-  language: 'en',
-  activeQuestId: 'q_courtyard_clean',
-  completedQuestIds: [],
-  inventory: [],
-  worldFlags: {
-    courtyard_cleaned: false,
-    talked_to_mother: false,
-    wheat_sorted: false,
-    chulha_ready: true,
-  },
-  settings: DEFAULT_SETTINGS,
-}
+import { z } from 'zod'
+import type { GameSaveV1 } from '../../../schemas/game-state'
+import { GAME_CONFIG } from '../../game/config'
+import { COURTYARD_ANCHORS, getObjective, type TargetId } from '../interaction/household'
+import { householdStory } from './householdStory'
 
 const STORAGE_KEY = 'before_the_first_light_save_v1'
+const DEFAULT_FLAGS = { courtyard_cleaned: false, talked_to_mother: false, wheat_sorted: false, chulha_ready: true, dawn_witnessed: false, prasad_shared: false }
+const DEFAULT_SETTINGS = { musicVolume: 0.8, sfxVolume: 0.9, subtitles: true }
+const DEFAULT_SAVE: GameSaveV1 = {
+  schemaVersion: 1,
+  chapterId: 'homecoming', timeOfDay: 'morning', language: 'en',
+  activeQuestId: 'q_arrival_talk', completedQuestIds: [], inventory: [], worldFlags: DEFAULT_FLAGS, settings: DEFAULT_SETTINGS,
+}
+
+const saveSchema = z.object({
+  schemaVersion: z.literal(1),
+  chapterId: z.enum(['homecoming', 'courtyard-preparation', 'household-work', 'village-cooperation', 'festival-eve', 'sandhya-arghya', 'usha-arghya', 'parana-epilogue']),
+  timeOfDay: z.enum(['morning', 'afternoon', 'evening', 'night', 'pre-dawn', 'sunrise']),
+  language: z.enum(['en', 'hi']), activeQuestId: z.string().nullable(),
+  completedQuestIds: z.array(z.string()).default([]), inventory: z.array(z.string()).default([]),
+  worldFlags: z.record(z.string(), z.boolean()),
+  settings: z.object({ musicVolume: z.number().min(0).max(1), sfxVolume: z.number().min(0).max(1), subtitles: z.boolean() }).default(DEFAULT_SETTINGS),
+})
+
+const CLOSED_DIALOGUE = { dialogueActive: false, dialogueSpeaker: null, dialogueText: null, dialogueTargetId: null, preparationGesture: null } as const
 
 interface GameStateStore extends GameSaveV1 {
-  // Runtime dialogue & active interaction states
   dialogueActive: boolean
   dialogueSpeaker: string | null
   dialogueText: string | null
+  dialogueTargetId: TargetId | null
+  preparationGesture: 'sweep' | 'spread' | null
   cameraZoomDistance: number
   isDebugOpen: boolean
-
-  // Actions
   setCameraZoom: (distance: number) => void
+  setLanguage: (language: GameSaveV1['language']) => void
+  setSfxVolume: (volume: number) => void
   toggleDebug: () => void
   interactWithTarget: (targetId: string) => void
   closeDialogue: () => void
@@ -45,188 +46,74 @@ interface GameStateStore extends GameSaveV1 {
   resetGame: () => void
 }
 
+export function boundedZoom(distance: number) {
+  const { minDistance, maxDistance, defaultDistance } = GAME_CONFIG.camera
+  return Number.isFinite(distance) ? Math.min(maxDistance, Math.max(minDistance, distance)) : defaultDistance
+}
+
+function isTargetId(id: string): id is TargetId {
+  return Object.hasOwn(COURTYARD_ANCHORS, id)
+}
+
+const runtimeDefaults = { ...CLOSED_DIALOGUE, cameraZoomDistance: GAME_CONFIG.camera.defaultDistance, isDebugOpen: false }
+
 export const useGameStore = create<GameStateStore>((set, get) => ({
   ...DEFAULT_SAVE,
-  dialogueActive: false,
-  dialogueSpeaker: null,
-  dialogueText: null,
-  cameraZoomDistance: 13.5,
-  isDebugOpen: false,
-
-  setCameraZoom: (distance: number) => {
-    set({ cameraZoomDistance: distance })
+  ...runtimeDefaults,
+  setCameraZoom: (distance) => set({ cameraZoomDistance: boundedZoom(distance) }),
+  setLanguage: (language) => { set({ language }); get().saveGame() },
+  setSfxVolume: (volume) => {
+    if (!Number.isFinite(volume)) return
+    set((state) => ({ settings: { ...state.settings, sfxVolume: Math.min(1, Math.max(0, volume)) } }))
+    get().saveGame()
   },
+  toggleDebug: () => set((state) => ({ isDebugOpen: !state.isDebugOpen })),
+  closeDialogue: () => set(CLOSED_DIALOGUE),
+  sweepCourtyard: () => get().interactWithTarget('prop_broom'),
 
-  toggleDebug: () => {
-    set((state) => ({ isDebugOpen: !state.isDebugOpen }))
-  },
-
-  closeDialogue: () => {
-    set({ dialogueActive: false, dialogueSpeaker: null, dialogueText: null })
-  },
-
-  sweepCourtyard: () => {
-    const currentFlags = get().worldFlags
-    const completed = get().completedQuestIds
+  interactWithTarget: (id) => {
+    const state = get()
+    if (!isTargetId(id) || state.dialogueActive || state.isDebugOpen) return
+    const { speaker, text, completed } = householdStory(id, state.worldFlags, state.language)
+    const preparationGesture = completed?.flag === 'courtyard_cleaned' ? 'sweep' : completed?.flag === 'wheat_sorted' ? 'spread' : null
+    const dialogue = { dialogueActive: true, dialogueTargetId: id, dialogueSpeaker: speaker, dialogueText: text, preparationGesture } as const
+    if (!completed) {
+      set(dialogue)
+      return
+    }
+    const worldFlags = { ...state.worldFlags, [completed.flag]: true }
     set({
-      worldFlags: { ...currentFlags, courtyard_cleaned: true },
-      completedQuestIds: Array.from(new Set([...completed, 'q_courtyard_clean'])),
-      activeQuestId: 'q_wheat_sort',
-      dialogueActive: true,
-      dialogueSpeaker: 'Devraj (You)',
-      dialogueText: 'The courtyard is freshly swept. The sacred preparation ground is now clean for the wheat and offerings.',
+      ...dialogue, worldFlags,
+      chapterId: completed.chapter ?? state.chapterId,
+      timeOfDay: completed.flag === 'dawn_witnessed' ? 'sunrise' : completed.flag === 'prasad_shared' ? 'morning' : state.timeOfDay,
+      activeQuestId: getObjective(worldFlags).questId,
+      completedQuestIds: [...new Set([...state.completedQuestIds, completed.quest])],
+      inventory: completed.item ? [...new Set([...state.inventory, completed.item])] : state.inventory,
     })
     get().saveGame()
   },
 
-  interactWithTarget: (targetId: string) => {
-    if (targetId === 'prop_broom') {
-      get().sweepCourtyard()
-    } else if (targetId === 'npc_mother') {
-      const isSwept = get().worldFlags.courtyard_cleaned
-      const isWheat = get().worldFlags.wheat_sorted
-      const isBamboo = get().worldFlags.bamboo_collected
-      const isGhat = get().worldFlags.ghat_prepared
-
-      let reply = 'Welcome home, my child. The sun is rising gently. Please take the broom near the veranda and sweep the courtyard clean first.'
-      if (isGhat) {
-        reply = 'The village ghat is serene and ready, and our offerings are complete. The entire neighborhood is coming together for Sandhya Arghya.'
-      } else if (isBamboo) {
-        reply = 'Mohan Kaka’s woven baskets are so pure. Now please walk to the village pond (pokhra) to verify the ghat steps and koshi setup.'
-      } else if (isWheat) {
-        reply = 'Bless you, child. The wheat is safe in the morning sun. Now please walk down the village lane to Mohan Kaka’s workshop and collect our bamboo soop and daura.'
-      } else if (isSwept) {
-        reply = 'Bless you, child. The courtyard looks pure. Next, we must protect the wheat on the drying mat before evening.'
-      }
-
-      set({
-        dialogueActive: true,
-        dialogueSpeaker: 'Ma (Vrati)',
-        dialogueText: reply,
-        worldFlags: { ...get().worldFlags, talked_to_mother: true },
-      })
-      get().saveGame()
-    } else if (targetId === 'prop_wheat') {
-      const isSwept = get().worldFlags.courtyard_cleaned
-      if (!isSwept) {
-        set({
-          dialogueActive: true,
-          dialogueSpeaker: 'Inner Thought',
-          dialogueText: 'The wheat shouldn’t be laid out until the courtyard earth is thoroughly swept.',
-        })
-      } else {
-        const currentFlags = get().worldFlags
-        const completed = get().completedQuestIds
-        set({
-          worldFlags: { ...currentFlags, wheat_sorted: true },
-          completedQuestIds: Array.from(new Set([...completed, 'q_wheat_sort'])),
-          activeQuestId: 'q_bamboo_visit',
-          dialogueActive: true,
-          dialogueSpeaker: 'Ma',
-          dialogueText: 'The golden grain is cleaned and soaking in the pure morning sun. Now please walk down the lane to Mohan Kaka’s workshop and collect our bamboo baskets.',
-        })
-        get().saveGame()
-      }
-    } else if (targetId === 'prop_chulha') {
-      set({
-        dialogueActive: true,
-        dialogueSpeaker: 'Inner Thought',
-        dialogueText: 'The fresh clay chulha is firm, sun-cured, and sacred. Only dried mango wood will be used to prepare the Mahaprasad.',
-      })
-    } else if (targetId === 'prop_handpump') {
-      set({
-        dialogueActive: true,
-        dialogueSpeaker: 'Inner Thought',
-        dialogueText: 'Fresh, clear groundwater from the village handpump. The water runs cool and pure for household preparations.',
-      })
-    } else if (targetId === 'npc_artisan') {
-      const currentFlags = get().worldFlags
-      const completed = get().completedQuestIds
-      set({
-        worldFlags: { ...currentFlags, bamboo_collected: true },
-        completedQuestIds: Array.from(new Set([...completed, 'q_bamboo_visit'])),
-        activeQuestId: 'q_ghat_clean',
-        dialogueActive: true,
-        dialogueSpeaker: 'Mohan Kaka (Artisan)',
-        dialogueText:
-          'Pranam babu! Ham sab soop aur daura taiyaar kar dehli hai. Maai ke bol diha ki e saal ke daura bohot pukaar aur pavitrata se banawal ba. Pokhra par ghat safai chal rahal ba, jaa ke dekh la!',
-      })
-      get().saveGame()
-    } else if (targetId === 'prop_ghat_spot') {
-      const currentFlags = get().worldFlags
-      const completed = get().completedQuestIds
-      set({
-        worldFlags: { ...currentFlags, ghat_prepared: true },
-        completedQuestIds: Array.from(new Set([...completed, 'q_ghat_clean'])),
-        activeQuestId: 'q_dawn_walk',
-        dialogueActive: true,
-        dialogueSpeaker: 'Devraj (You)',
-        dialogueText:
-          'The sacred red brick ghat is radiant. The steps are swept clean of river silt, ceremonial banana stalks stand at the entrance, and clay diyas await the evening arghya.',
-      })
-      get().saveGame()
-    } else if (targetId === 'prop_sugarcane_koshi') {
-      set({
-        dialogueActive: true,
-        dialogueSpeaker: 'Devraj (You)',
-        dialogueText:
-          'The four tall sugarcane stalks form the sacred Koshi canopy above the terracotta elephant and clay lamps. An auspicious family vow honoring the Sun God.',
-      })
-    }
-  },
-
   saveGame: () => {
     try {
-      const state = get()
-      const payload: GameSaveV1 = {
-        schemaVersion: 1,
-        chapterId: state.chapterId,
-        timeOfDay: state.timeOfDay,
-        language: state.language,
-        activeQuestId: state.activeQuestId,
-        completedQuestIds: state.completedQuestIds,
-        inventory: state.inventory,
-        worldFlags: state.worldFlags,
-        settings: state.settings,
-      }
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
+      // The validation schema selects serializable fields and excludes all transient UI state.
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saveSchema.parse(get())))
       return true
-    } catch {
-      return false
-    }
+    } catch { return false }
   },
-
   loadGame: () => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY)
       if (!raw) return false
-      const parsed = JSON.parse(raw) as GameSaveV1
-      if (parsed.schemaVersion === 1 && parsed.worldFlags) {
-        set({
-          chapterId: parsed.chapterId,
-          timeOfDay: parsed.timeOfDay,
-          language: parsed.language,
-          activeQuestId: parsed.activeQuestId,
-          completedQuestIds: parsed.completedQuestIds || [],
-          inventory: parsed.inventory || [],
-          worldFlags: parsed.worldFlags,
-          settings: parsed.settings || DEFAULT_SETTINGS,
-        })
-        return true
-      }
-      return false
-    } catch {
-      return false
-    }
+      const saved = saveSchema.safeParse(JSON.parse(raw))
+      if (!saved.success) return false
+      const worldFlags = { ...DEFAULT_FLAGS, ...saved.data.worldFlags }
+      // Older v1 saves can have a stale objective after repeating broom/wheat or visiting the lane early.
+      set({ ...saved.data, ...CLOSED_DIALOGUE, worldFlags, activeQuestId: getObjective(worldFlags).questId })
+      return true
+    } catch { return false }
   },
-
   resetGame: () => {
-    localStorage.removeItem(STORAGE_KEY)
-    set({
-      ...DEFAULT_SAVE,
-      dialogueActive: false,
-      dialogueSpeaker: null,
-      dialogueText: null,
-    })
+    try { localStorage.removeItem(STORAGE_KEY) } catch { /* A storage-blocked browser can still start over in memory. */ }
+    set({ ...DEFAULT_SAVE, ...runtimeDefaults })
   },
 }))

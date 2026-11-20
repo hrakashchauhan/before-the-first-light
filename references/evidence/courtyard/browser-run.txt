@@ -1,0 +1,29 @@
+PASS Initial objective and normal player HUD
+PASS Inspector hidden on entry
+PASS Keyboard zoom clamps at close limit
+PASS Keyboard zoom clamps at far limit
+PASS Keyboard reset
+PASS Wheel zoom
+PASS Journal pauses movement
+PASS Native dialog contains focus
+PASS Mother dialogue and progression
+PASS Dialogue pauses movement
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.waitFor: Error: strict mode violation: getByRole('button', { name: /Sweep the courtyard/ }) resolved to 2 elements:
+    1) <button class="objective-link" aria-label="Journal · Sweep the courtyard">…</button> aka getByRole('button', { name: 'Journal · Sweep the courtyard' })
+    2) <button class="interaction">…</button> aka getByRole('button', { name: 'E Sweep the courtyard' })
+
+Call log:
+  - waiting for getByRole('button', { name: /Sweep the courtyard/ }) to be visible
+
+    at interact (D:\Codex Game JAm\Chhath game\tests\courtyard.browser.mjs:41:64)
+    at D:\Codex Game JAm\Chhath game\tests\courtyard.browser.mjs:95:9 {
+  log: [
+    "  - waiting for getByRole('button', { name: /Sweep the courtyard/ }) to be visible"
+  ]
+}
+
+Node.js v24.19.0

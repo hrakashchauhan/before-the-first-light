@@ -199,6 +199,20 @@ Append a new entry after every milestone. Never rewrite history to make a failed
 **Next action:** Milestone M09 — Festival & Dawn Sequence (Sandhya Arghya to Usha Arghya atmospheric lighting transition and finale).  
 **Git commit:** 1e1f0e8
 
+### 2026-11-20 — Household NPC continuation pass
+**Goal:** Make the courtyard an inhabited household with a close-readable player and Ma, camera framing and zoom, meaningful object work, bilingual clean HUD, journal and save loop.
+
+**Files added or changed:** procedural household geometry and figures, camera and movement systems, village and prop materials, HUD/dialogue/menu/debug UI, audio helper, browser route test, evidence captures, fonts, and reports 23–27.
+
+**Checks:** `npm test` 22/22, `npm run typecheck` pass, `npm run build` pass. Independent Chrome checks cover fresh-save progression, zoom, journal, dialogue, save/reload, Hindi settings, debug preview isolation, reduced motion, and mobile layout with zero page errors.
+
+**Evidence:** `references/evidence/courtyard/overview.jpg`, `portrait-study.jpg`, `player-close.jpg`, `ma-conversation.jpg`, `character-sweeping.jpg`, `browser-results.json`.
+
+**Known issues:** Mohan Kaka remains visually simpler than Devraj and Ma. Bhojpuri and locality-specific ritual details need local review. The current release preview passes the 30 FPS target in a clean 1280×720 smoke test, while concurrent test loads can reduce that measurement.
+
+### 2026-11-21 — M09/M10 release completion pass
+Added the pond-step first-light beat (`q_dawn_walk`) and morning-sharing epilogue (`q_prasad_share`), including sunrise and epilogue time-state transitions, bilingual copy, save persistence, and journal entries. Reduced shadow refresh cadence and shadow-map cost. Production preview at `http://127.0.0.1:4173/` returned HTTP 200, rendered one Canvas with zero page errors, and measured 60 FPS at 1280×720 in the clean smoke test.
+
 
 
 

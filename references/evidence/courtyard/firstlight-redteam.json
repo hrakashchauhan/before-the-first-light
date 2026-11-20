@@ -1,0 +1,125 @@
+{
+  "log": [
+    {
+      "test": "Journal Tab focus stays inside",
+      "actual": true
+    },
+    {
+      "test": "Journal blocks movement",
+      "actual": true
+    },
+    {
+      "test": "Hindi save feedback",
+      "actual": "खेल इस डिवाइस पर सहेजा गया है।"
+    },
+    {
+      "test": "Zoom in min disabled",
+      "actual": true
+    },
+    {
+      "test": "walk npc_mother",
+      "actual": "0.8708280174457552,0,-0.4300283184543251"
+    },
+    {
+      "test": "Prompt npc_mother",
+      "actual": "E\nTalk with Ma"
+    },
+    {
+      "test": "story npc_mother",
+      "actual": "You’re home. Come here, let me look at you. I’m sorting the baskets for Chhath. Will you sweep the leaves beside the mat? Your uncle brought the wheat this morning."
+    },
+    {
+      "test": "walk prop_broom",
+      "actual": "-2.918738075819489,0,-0.7246770708368556"
+    },
+    {
+      "test": "Prompt prop_broom",
+      "actual": "E\nSweep the courtyard"
+    },
+    {
+      "test": "story prop_broom",
+      "actual": "The last leaves brush away. Now we can spread the wheat here."
+    },
+    {
+      "test": "walk prop_wheat",
+      "actual": "0.9064364747007742,0,0.352166234929918"
+    },
+    {
+      "test": "Prompt prop_wheat",
+      "actual": "E\nSpread the wheat"
+    },
+    {
+      "test": "story prop_wheat",
+      "actual": "I spread the grain out to the edges. Ma keeps an eye on it while I go down the lane."
+    },
+    {
+      "test": "walk npc_artisan",
+      "actual": "10.845385853905364,0,4.286046197816159"
+    },
+    {
+      "test": "Prompt npc_artisan",
+      "actual": "E\nCollect the basket"
+    },
+    {
+      "test": "story npc_artisan",
+      "actual": "Here’s the basket your mother asked me to mend. Feel how firm the rim is now. Our neighbours are down at the pond, clearing space on the steps."
+    },
+    {
+      "test": "walk prop_ghat_spot",
+      "actual": "17.89309648676709,0,2.7355498585865736"
+    },
+    {
+      "test": "Prompt prop_ghat_spot",
+      "actual": "E\nInspect the steps"
+    },
+    {
+      "test": "story prop_ghat_spot",
+      "actual": "Someone has swept the steps already. There’s space for us beside our neighbours. Ma will want to hear about this."
+    },
+    {
+      "test": "walk npc_mother",
+      "actual": "1.811854260450005,0,-0.48043782260445855"
+    },
+    {
+      "test": "Prompt npc_mother",
+      "actual": "E\nTalk with Ma"
+    },
+    {
+      "test": "story npc_mother",
+      "actual": "You saw them at the steps? When we go down for sunrise, I’ll know whose hands made room for us there. Come sit beside me."
+    },
+    {
+      "test": "End objective",
+      "actual": "A morning together"
+    },
+    {
+      "test": "Restored",
+      "actual": "A morning together"
+    },
+    {
+      "test": "Horizontal scroll mobile",
+      "actual": false
+    },
+    {
+      "test": "journal fits mobile",
+      "actual": {
+        "x": 19,
+        "y": 78.953125,
+        "width": 352,
+        "height": 686.09375
+      }
+    },
+    {
+      "test": "console/page errors",
+      "actual": []
+    }
+  ],
+  "errs": [],
+  "snapshots": [
+    "C:\\Users\\Hraka\\AppData\\Local\\Temp\\firstlight-redteam-overview.jpg",
+    "C:\\Users\\Hraka\\AppData\\Local\\Temp\\firstlight-redteam-close.jpg",
+    "C:\\Users\\Hraka\\AppData\\Local\\Temp\\firstlight-redteam-ma.jpg",
+    "C:\\Users\\Hraka\\AppData\\Local\\Temp\\firstlight-redteam-artisan-approach.jpg",
+    "C:\\Users\\Hraka\\AppData\\Local\\Temp\\firstlight-redteam-mobile.jpg"
+  ]
+}

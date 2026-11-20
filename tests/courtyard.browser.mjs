@@ -1,0 +1,172 @@
+import assert from 'node:assert/strict'
+import { writeFile } from 'node:fs/promises'
+import { chromium } from 'playwright-core'
+
+const origin = process.env.GAME_URL || 'http://127.0.0.1:5173'
+const evidence = 'references/evidence/courtyard'
+const browser = await chromium.launch({ channel: 'chrome' })
+const page = await browser.newPage({ viewport: { width: 1280, height: 720 }, deviceScaleFactor: 1 })
+const errors = []
+const checks = []
+page.on('pageerror', error => errors.push(error.message))
+page.on('console', message => {
+  if (message.type() === 'error') errors.push(message.text())
+})
+const saveKey = 'before_the_first_light_save_v1'
+const screenshot = name => page.screenshot({ path: evidence + '/' + name + '.jpg', quality: 90 })
+const position = async () => (await page.locator('main').getAttribute('data-player')).split(',').map(Number)
+const saved = () => page.evaluate(key => JSON.parse(localStorage.getItem(key)), saveKey)
+const check = (name, value) => { assert.ok(value, name); checks.push(name); console.log('PASS ' + name) }
+const tick = () => page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => resolve())))
+async function walk(x, z) {
+  const deadline = Date.now() + 25000
+  while (Date.now() < deadline) {
+    const [px, , pz] = await position()
+    const dx = x - px, dz = z - pz
+    if (Math.hypot(dx, dz) < 0.24) return
+    const angle = Math.atan2(1, 0.22)
+    const sx = dx * Math.sin(angle) - dz * Math.cos(angle)
+    const sz = dx * Math.cos(angle) + dz * Math.sin(angle)
+    const directions = []
+    if (Math.abs(sx) > Math.abs(sz) * 0.40) directions.push(sx > 0 ? 'd' : 'a')
+    if (Math.abs(sz) > Math.abs(sx) * 0.40) directions.push(sz > 0 ? 's' : 'w')
+    for (const key of directions) await page.keyboard.down(key)
+    await page.waitForTimeout(Math.min(170, Math.hypot(dx, dz) / 2.5 * 1000))
+    for (const key of directions) await page.keyboard.up(key)
+    await tick()
+  }
+  throw new Error('Navigation did not reach ' + [x,z] + ' from ' + await position())
+}
+async function interact(action, imageName) {
+  await page.locator('button.interaction').filter({ hasText: action }).waitFor()
+  await page.keyboard.press('e')
+  await page.getByRole('dialog').waitFor()
+  await page.waitForTimeout(600)
+  if (imageName) await screenshot(imageName)
+}
+async function closeDialogue() {
+  await page.getByRole('button', { name: 'Continue', exact: true }).click()
+  await page.getByRole('dialog').waitFor({ state: 'detached' })
+}
+try {
+  await page.goto(origin + '/?inspect=1')
+  await page.evaluate(() => localStorage.clear())
+  await page.reload()
+  await page.waitForFunction(() => document.querySelector('canvas')?.dataset.performance)
+  await page.waitForTimeout(1200)
+  await screenshot('overview')
+  check('Initial objective and normal player HUD', await page.getByRole('heading', { name: 'Homecoming' }).isVisible())
+  check('Inspector hidden on entry', await page.locator('.inspector').count() === 0)
+  for (let n = 0; n < 12; n++) await page.keyboard.press('+')
+  check('Keyboard zoom clamps at close limit', await page.getByRole('button', { name: 'Zoom in', exact: true }).isDisabled())
+  await page.waitForTimeout(700)
+  await screenshot('player-close')
+  for (let n = 0; n < 14; n++) await page.keyboard.press('-')
+  check('Keyboard zoom clamps at far limit', await page.getByRole('button', { name: 'Zoom out', exact: true }).isDisabled())
+  await page.keyboard.press('0')
+  check('Keyboard reset', await page.locator('.zoom-tools output').innerText() === '1.0×')
+  await page.mouse.move(750, 400)
+  await page.mouse.wheel(0, -200)
+  await page.waitForTimeout(200)
+  check('Wheel zoom', await page.locator('.zoom-tools output').innerText() !== '1.0×')
+  await page.getByRole('button', { name: 'Reset camera', exact: true }).click()
+  await page.keyboard.press('j')
+  await page.getByRole('dialog').waitFor()
+  const beforePause = await position()
+  await page.keyboard.down('w')
+  await page.waitForTimeout(300)
+  await page.keyboard.up('w')
+  assert.deepEqual(await position(), beforePause)
+  check('Journal pauses movement', true)
+  for (let n = 0; n < 7; n++) await page.keyboard.press('Tab')
+  check('Native dialog contains focus', await page.evaluate(() => !!document.activeElement?.closest('dialog')))
+  await page.keyboard.press('Escape')
+
+  await walk(0.15,-0.55)
+  await interact('Talk with Ma', 'ma-conversation')
+  check('Mother dialogue and progression', (await saved()).worldFlags.talked_to_mother)
+  const still = await position()
+  await page.keyboard.down('w')
+  await page.waitForTimeout(200)
+  await page.keyboard.up('w')
+  assert.deepEqual(await position(), still)
+  check('Dialogue pauses movement', true)
+  await closeDialogue()
+  await walk(-3.75,1.0)
+  await walk(-3.05,-2.35)
+  await screenshot('before-sweeping')
+  await interact('Sweep the courtyard', 'sweeping')
+  check('Sweeping changes saved world state', (await saved()).worldFlags.courtyard_cleaned)
+  await closeDialogue()
+  await screenshot('after-sweeping')
+  await walk(1.5,0.8)
+  await interact('Spread the wheat', 'wheat-preparation')
+  check('Wheat task completes', (await saved()).worldFlags.wheat_sorted)
+  await closeDialogue()
+  await screenshot('wheat-spread')
+  await walk(10.85,4.29)
+  await interact('Collect the basket', 'basket-maker')
+  check('Basket collection', (await saved()).worldFlags.bamboo_collected)
+  await closeDialogue()
+  await walk(17.89,2.74)
+  await interact('Inspect the steps', 'pond-steps')
+  check('Pond visit progression', (await saved()).worldFlags.ghat_prepared)
+  await closeDialogue()
+  await interact('Inspect the steps', 'dawn-witness')
+  check('Dawn moment progression', (await saved()).worldFlags.dawn_witnessed)
+  await closeDialogue()
+  await walk(11.35,4.8)
+  await walk(6.8,4.8)
+  await walk(5.1,4.8)
+  await walk(3.0,4.8)
+  await walk(2.4,3.8)
+  await walk(1.81,-0.48)
+  await interact('Talk with Ma', 'return-to-ma')
+  check('Return home completes the slice', (await saved()).worldFlags.homecoming_shared)
+  await closeDialogue()
+  await interact('Talk with Ma', 'share-morning')
+  check('Morning sharing completes the story', (await saved()).worldFlags.prasad_shared)
+  await closeDialogue()
+  await page.reload()
+  await page.waitForFunction(() => document.querySelector('canvas')?.dataset.performance)
+  check('Reload retains complete progress', await page.getByText('A morning together', { exact: true }).isVisible())
+  await page.keyboard.press('j')
+  await screenshot('completed-journal')
+  check('Journal retains eight completed entries', await page.locator('.journal-list li').count() === 8)
+  await page.keyboard.press('Escape')
+
+  const savedBeforePreview = JSON.stringify(await saved())
+  await page.keyboard.press('Backquote')
+  await page.getByLabel('Swept yard').uncheck()
+  await page.getByLabel('Wheat', { exact: true }).selectOption('empty_mat')
+  await page.keyboard.press('Escape')
+  check('Debug preview leaves saved progress intact', JSON.stringify(await saved()) === savedBeforePreview)
+  await page.getByRole('button', { name: 'Pause', exact: true }).click()
+  await page.getByLabel('Language', { exact: true }).selectOption('hi')
+  check('Hindi settings', await page.getByRole('heading', { name: 'खेल रुका हुआ है' }).isVisible())
+  await screenshot('hindi-settings')
+  await page.getByLabel('भाषा', { exact: true }).selectOption('en')
+  await page.getByRole('button', { name: 'Save progress', exact: true }).click()
+  check('Manual save feedback', await page.getByRole('status').isVisible())
+  await page.getByRole('button', { name: 'Resume', exact: true }).click()
+
+  const readings = []
+  await page.waitForTimeout(1800)
+  for (let n = 0; n < 8; n++) {
+    await page.waitForTimeout(1050)
+    readings.push(JSON.parse(await page.locator('canvas').getAttribute('data-performance')))
+  }
+  const gpu = await page.evaluate(() => {
+    const gl = document.querySelector('canvas').getContext('webgl2')
+    const ext = gl.getExtension('WEBGL_debug_renderer_info')
+    return ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER)
+  })
+  await page.setViewportSize({width:390,height:844})
+  await page.keyboard.press('j')
+  await screenshot('mobile-journal')
+  check('390px layout has no horizontal overflow', await page.evaluate(() => document.documentElement.scrollWidth === window.innerWidth))
+  check('No browser errors', errors.length === 0)
+  await writeFile(evidence + '/browser-results.json', JSON.stringify({checks,errors,gpu,viewport:[1280,720],readings},null,2))
+} finally {
+  await browser.close()
+}

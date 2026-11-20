@@ -1,0 +1,167 @@
+
+> before-the-first-light@0.1.0 test
+> vitest run
+
+
+ RUN  v3.2.7 D:/Codex Game JAm/Chhath game
+
+ ✓ src/test/world.test.tsx (4 tests) 195ms
+(node:23736) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:24128) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ✓ src/test/player.test.tsx (9 tests) 1408ms
+   ✓ Courtyard controls and household progression > can reach every registered interaction from the courtyard entrance without crossing solid geometry  1106ms
+stderr | src/test/village.test.tsx > Village Expansion & Ghat Systems (Milestone M08) > renders VillageLane component without errors
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <instancedMesh> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+React does not recognize the `castShadow` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `castshadow` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+React does not recognize the `receiveShadow` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `receiveshadow` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<instancedMesh /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <group> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+
+stderr | src/test/village.test.tsx > Village Expansion & Ghat Systems (Milestone M08) > renders VillagePondGhat with brick ghat, pond water, and ceremonial props
+<planeGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <planeGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+The tag <mesh> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<planeGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <boxGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<ringGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <ringGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<circleGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <circleGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<torusGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <torusGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<torusGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<torusGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<torusGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<torusGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<torusGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <cylinderGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <coneGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<pointLight /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <pointLight> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<ringGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<meshBasicMaterial /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <meshBasicMaterial> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+
+stderr | src/test/village.test.tsx > Village Expansion & Ghat Systems (Milestone M08) > renders ArtisanNPC Mohan Kaka with sculpted geometry
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <sphereGeometry> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<boxGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<meshStandardMaterial /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+The tag <meshStandardMaterial> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<coneGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<cylinderGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<meshBasicMaterial /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<meshBasicMaterial /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<sphereGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<ringGeometry /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+<meshBasicMaterial /> is using incorrect casing. Use PascalCase for React components, or lowercase for HTML elements.
+
+ ✓ src/test/village.test.tsx (5 tests) 2249ms
+   ✓ Village Expansion & Ghat Systems (Milestone M08) > renders VillageLane component without errors  329ms
+   ✓ Village Expansion & Ghat Systems (Milestone M08) > renders VillagePondGhat with brick ghat, pond water, and ceremonial props  1170ms
+   ✓ Village Expansion & Ghat Systems (Milestone M08) > renders ArtisanNPC Mohan Kaka with sculpted geometry  534ms
+ ❯ src/test/foundation.test.tsx (3 tests | 1 failed) 6522ms
+   × Foundation Acceptance Tests > renders application HUD with active chapter and objective 6418ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ Foundation Acceptance Tests > validates game event map structure typing 60ms
+   ✓ Foundation Acceptance Tests > validates GameSaveV1 schema contract 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/foundation.test.tsx > Foundation Acceptance Tests > renders application HUD with active chapter and objective
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ src/test/foundation.test.tsx:9:3
+      7| 
+      8| describe('Foundation Acceptance Tests', () => {
+      9|   it('renders application HUD with active chapter and objective', () =…
+       |   ^
+     10|     render(<App />)
+     11|     expect(screen.getByRole('heading', {name:'Homecoming'})).toBeInThe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 20 passed (21)
+   Start at  23:37:44
+   Duration  114.96s (transform 25.67s, setup 60.81s, collect 88.94s, tests 10.37s, environment 148.22s, prepare 25.03s)
+

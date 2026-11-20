@@ -39,3 +39,11 @@
 ## 2. Compiler & Build Verification
 - **Typecheck (`npm run typecheck`):** **PASS** (`tsc --noEmit` exited code 0).
 - **Production Build (`npm run build`):** **PASS** (Built in 909ms).
+
+## 2026-11-20 final verification
+
+- `npm test`: **22 tests passed** across five suites, including the reduced-motion camera regression.
+- `npm run typecheck`: **PASS**.
+- `npm run build`: **PASS**, 4.13 seconds, with Vite's advisory large JavaScript chunk warning.
+- Independent Chrome route test: **PASS** for HUD, zoom limits and reset, journal pause and focus, dialogue pause, fresh-save household progression, reload persistence, Hindi settings, debug preview isolation, and mobile overflow. Evidence is in `references/evidence/courtyard/firstlight-redteam.json` and the accompanying screenshots.
+- Browser page errors: **0** in the successful independent run. Vitest still prints Three.js's CJS deprecation warning from the test runner.

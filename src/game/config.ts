@@ -1,32 +1,32 @@
 export const GAME_CONFIG = {
   camera: {
-    fov: 38,
+    fov: 42,
     near: 0.1,
     far: 300,
-    defaultDistance: 14.0,
-    minDistance: 6.5,
-    maxDistance: 24.0,
-    defaultElevation: 10.5,
-    defaultAngle: Math.PI / 4, // 45 degrees isometric viewpoint
+    defaultDistance: 10.8,
+    minDistance: 2.45,
+    maxDistance: 14.8,
+    defaultPitch: 12 * Math.PI / 180,
+    defaultAngle: Math.atan2(1, 0.22), // From +X toward +Z; the camera looks back at the veranda.
     target: [0, 1.0, 0] as [number, number, number],
   },
   dpr: {
     min: 1.0,
-    max: 1.5,
+    max: 1.0,
   },
   player: {
-    moveSpeed: 3.6,
+    moveSpeed: 2.5,
     turnSpeed: 12.0,
-    radius: 0.45,
+    radius: 0.26,
     height: 1.72,
   },
   lighting: {
-    ambientColor: '#fff5ea',
+    ambientColor: '#fff0df',
     ambientIntensity: 0.65,
-    sunColor: '#fff1de',
-    sunIntensity: 1.65,
-    sunPosition: [14, 20, 10] as [number, number, number],
-    shadowMapSize: 1024,
+    sunColor: '#ffe1b0',
+    sunIntensity: 2.7,
+    sunPosition: [-12, 10, 7] as [number, number, number],
+    shadowMapSize: 512,
   },
   palette: {
     skyHorizon: '#ffdeb3',

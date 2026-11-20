@@ -13,6 +13,9 @@ import { BroomProp } from '../objects/household/BroomProp'
 import { MotherNPC } from '../characters/npcs/MotherNPC'
 import { ArtisanNPC } from '../characters/npcs/ArtisanNPC'
 import { PlayerCharacter } from '../characters/player/PlayerCharacter'
+import { COURTYARD_ANCHORS as anchor } from '../systems/interaction/household'
+import { Batch, earth, waterJar } from './craft'
+import type { Piece } from './craft'
 
 interface VillageSceneProps {
   courtyardCleaned?: boolean
@@ -22,85 +25,42 @@ interface VillageSceneProps {
   playerRotationY: number
   isMoving: boolean
   activeTargetId?: string | null
+  dialogueTargetId?: string | null
+  paused?: boolean
+  showHouseholdProps?: boolean
+  preparationGesture?: 'sweep' | 'spread' | null
 }
-
+const lota:Piece[]=[{at:[-1.13,.32,-2.58],size:[.64,.58,.64],tint:earth.brass}]
 export function VillageScene({
-  courtyardCleaned = false,
-  goithaCount = 8,
-  wheatStage = 'spread',
-  playerPosition,
-  playerRotationY,
-  isMoving,
-  activeTargetId = null,
-}: VillageSceneProps) {
-  return (
-    <group position={[0, 0, 0]}>
-      {/* 1. Surrounding Sky Dome and Distant Trees (No Black Void!) */}
-      <VillageAtmosphere />
-
-      {/* 2. Authentic Ground Terrain & Curved Swept Courtyard */}
-      <CourtyardGround isCleaned={courtyardCleaned} />
-
-      {/* 3. Village Lane (Bamboo grove, artisan workshop, beaten earth footpath) */}
-      <VillageLane />
-
-      {/* 4. Sacred Village Pond & Brick Ghat (Pokhra, terraced steps, banana stalks, diyas, koshi) */}
-      <VillagePondGhat
-        isGhatHighlighted={activeTargetId === 'prop_ghat_spot'}
-        isKoshiHighlighted={activeTargetId === 'prop_sugarcane_koshi'}
-      />
-
-      {/* 5. Detailed House Architecture (Mud walls, wooden pillars, rafters, terracotta roof) */}
-      <HouseBlockout />
-
-      {/* 6. Village Handpump (Chapakal) */}
-      <Handpump position={[4.6, 0, 3.2]} />
-
-      {/* 7. Traditional Woven Charpai (Khatia) */}
-      <Charpai position={[-3.2, 0, 3.4]} rotation={[0, 0.28, 0]} />
-
-      {/* 8. Courtyard Grass Broom (Interaction target for sweeping!) */}
-      <BroomProp
-        position={[-3.1, 0, -2.5]}
-        isHighlighted={activeTargetId === 'prop_broom'}
-      />
-
-      {/* 9. Signature Preparation Props */}
+  courtyardCleaned=false, goithaCount=8, wheatStage='spread', playerPosition, playerRotationY,
+  isMoving, activeTargetId=null, dialogueTargetId=null, paused=false, showHouseholdProps=true, preparationGesture=null,
+}:VillageSceneProps){
+  // The beyond-lane detail enters well before its interaction radius. The landscape
+  // and workshop silhouette stay in view as the camera follows the family member.
+  const nearLane=playerPosition[0]>3.8
+  const nearGhat=playerPosition[0]>8.0
+  const inspectedWorkObject = dialogueTargetId === 'prop_broom' || dialogueTargetId === 'prop_wheat'
+  const actionTarget = preparationGesture === 'sweep' ? 'prop_broom'
+    : preparationGesture === 'spread' ? 'prop_wheat' : inspectedWorkObject ? 'inspect' : dialogueTargetId
+  return <group>
+    <VillageAtmosphere />
+    <CourtyardGround isCleaned={courtyardCleaned} />
+    <VillageLane />
+    {nearGhat&&<VillagePondGhat isGhatHighlighted={activeTargetId==='prop_ghat_spot'} isKoshiHighlighted={activeTargetId==='prop_sugarcane_koshi'} />}
+    <HouseBlockout />
+    {showHouseholdProps&&<>
+      <Handpump position={anchor.prop_handpump} />
+      <Charpai position={[-3.2,0,3.4]} rotation={[0,.28,0]} />
+      {preparationGesture!=='sweep'&&<group position={anchor.prop_broom}><BroomProp position={[0,.32,0]} isHighlighted={activeTargetId==='prop_broom'} /></group>}
       <GoithaCakes stage="dry" placedCount={goithaCount} />
-      <ClayChulha position={[3.2, 0.16, -2.4]} isReady={true} />
-      <WheatDryingMat position={[1.4, 0.02, 1.8]} stage={wheatStage} />
-      <BambooBaskets position={[-1.8, 0.32, -2.2]} showDaura={true} />
-
-      {/* Brass Water Lota on Veranda */}
-      <group position={[-1.0, 0.38, -2.2]}>
-        <mesh castShadow receiveShadow>
-          <sphereGeometry args={[0.09, 12, 12]} />
-          <meshStandardMaterial color="#d4af37" metalness={0.65} roughness={0.3} />
-        </mesh>
-        <mesh position={[0, 0.08, 0]} castShadow>
-          <cylinderGeometry args={[0.07, 0.05, 0.05, 12]} />
-          <meshStandardMaterial color="#d4af37" metalness={0.65} roughness={0.3} />
-        </mesh>
-      </group>
-
-      {/* 10. Respected Mother (Vrati NPC) on Veranda */}
-      <MotherNPC
-        position={[0.8, 0.32, -2.2]}
-        isHighlighted={activeTargetId === 'npc_mother'}
-      />
-
-      {/* 11. Village Bamboo Artisan Mohan Kaka */}
-      <ArtisanNPC
-        position={[12.5, 0.2, 5.4]}
-        isHighlighted={activeTargetId === 'npc_artisan'}
-      />
-
-      {/* 12. Full-Body 3D Player Character with Real Sculpted Face */}
-      <PlayerCharacter
-        position={playerPosition}
-        rotationY={playerRotationY}
-        isMoving={isMoving}
-      />
-    </group>
-  )
+      <group position={anchor.prop_chulha}><ClayChulha position={[0,.16,0]} /></group>
+      <WheatDryingMat position={anchor.prop_wheat} stage={wheatStage} />
+      <BambooBaskets position={anchor.prop_baskets} />
+      <Batch geometry={waterJar} parts={lota} cast />
+    </>}
+    <MotherNPC position={anchor.npc_mother} isHighlighted={activeTargetId==='npc_mother'} talking={dialogueTargetId==='npc_mother'} paused={paused} />
+    {nearLane&&<ArtisanNPC position={anchor.npc_artisan} isHighlighted={activeTargetId==='npc_artisan'} />}
+    <PlayerCharacter position={playerPosition} rotationY={playerRotationY} isMoving={isMoving}
+      interacting={Boolean(actionTarget)} actionTarget={actionTarget} paused={paused} />
+  </group>
 }

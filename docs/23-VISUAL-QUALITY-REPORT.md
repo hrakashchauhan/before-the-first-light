@@ -58,3 +58,9 @@ An independent review of the initial prototype identified critical visual and te
 - **Village Handpump (Chapakal):** Authentic cast-iron water pump with handle, spout, and concrete soakage apron.
 - **Woven Charpai (Khatia):** Traditional wooden four-legged cot with woven rope webbing.
 - **Courtyard Broom (Kharhara):** Hand-tied broom leaning against the wall, serving as the first gameplay interaction target.
+
+## 2026-11-20 household pass
+
+The selected direction remains the handcrafted semi-realistic stylised 3D diorama. The rebuilt view uses a low three-quarter sunrise composition with an open yard, tiled veranda, distant fields, shaped foliage, shared household anchors, and two close-readable procedural human characters. Evidence is recorded in `references/evidence/courtyard/overview.jpg`, `portrait-study.jpg`, `player-close.jpg`, and `ma-conversation.jpg`.
+
+The player and Ma use original Three.js geometry with sculpted face volumes, eyes, brows, nose, lips, ears, hair, hands, clothing, sandals, and procedural breathing, walking, conversation, and preparation poses. External GLB models were evaluated and excluded because the repository has no verified model or animation licence. Remaining visual limitation is that Mohan Kaka is a simpler block-built NPC than the two household figures.

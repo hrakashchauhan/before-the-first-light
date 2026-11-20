@@ -1,131 +1,82 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { GameCanvas } from './game/GameCanvas'
+import { SceneReadout, type SceneSample } from './game/SceneReadout'
 import { VillageScene } from './world/VillageScene'
 import { PlayerHUD } from './ui/hud/PlayerHUD'
 import { DebugDrawer } from './ui/hud/DebugDrawer'
+import { GameMenu } from './ui/hud/GameMenu'
 import { DialogueBox } from './ui/dialogue/DialogueBox'
-import { usePlayerMovement } from './systems/movement/usePlayerMovement'
+import { MovementClock, usePlayerMovement } from './systems/movement/usePlayerMovement'
 import { useInteractionTargets } from './systems/interaction/useInteractionTargets'
+import { getObjective, PLAYER_START } from './systems/interaction/household'
 import { useGameStore } from './systems/quests/gameStore'
-import { GAME_CONFIG } from './game/config'
+import { interfaceCopy } from './data/locales/interface'
+import { useCourtyardSound } from './audio/useCourtyardSound'
+import type { WheatStage } from './objects/wheat/WheatDryingMat'
 import './styles/tokens.css'
 import './App.css'
 
+const inspectEnabled = import.meta.env.DEV || new URLSearchParams(location.search).get('inspect') === '1'
+type Menu = 'pause' | 'journal' | null
+
 export default function App() {
   const store = useGameStore()
-  const movement = usePlayerMovement([0, 0, 1.8])
-
-  // Custom debug override states (or default to store state)
-  const [debugGoitha, setDebugGoitha] = useState(8)
-  const [debugWheat, setDebugWheat] = useState<'empty_mat' | 'sorting' | 'spread'>('spread')
-
-  // Auto-load saved progress on startup
+  const [menu, setMenu] = useState<Menu>(null)
+  const [previewClean, setPreviewClean] = useState<boolean | null>(null)
+  const [previewWheat, setPreviewWheat] = useState<WheatStage | null>(null)
+  const [goitha, setGoitha] = useState(8)
+  const [showProps, setShowProps] = useState(true)
+  const marker = useRef<HTMLDivElement>(null)
+  const sample = useRef<SceneSample | null>(null)
+  const blocked = Boolean(menu || store.dialogueActive || store.isDebugOpen)
+  const movement = usePlayerMovement(PLAYER_START, blocked)
+  const nearest = useInteractionTargets(movement.position, store.interactWithTarget, blocked)
+  const objective = getObjective(store.worldFlags, store.language)
+  const sound = useCourtyardSound(Boolean(menu || store.isDebugOpen), store.settings.sfxVolume)
+  const text = interfaceCopy[store.language]
+  const wheat: WheatStage = store.worldFlags.wheat_sorted ? 'spread' : 'empty_mat'
+  const inspected = store.isDebugOpen
+  useEffect(() => { store.loadGame() }, [store.loadGame])
+  useEffect(() => { document.documentElement.lang = store.language }, [store.language])
   useEffect(() => {
-    store.loadGame()
-  }, [])
-
-  // Proximity interactable detection
-  const nearestTarget = useInteractionTargets(movement.position, (targetId) => {
-    store.interactWithTarget(targetId)
-  })
-
-  // Determine active objective copy based on game state
-  const isCourtyardCleaned = store.worldFlags.courtyard_cleaned
-  const isWheatSorted = store.worldFlags.wheat_sorted
-  const isBambooCollected = store.worldFlags.bamboo_collected
-  const isGhatPrepared = store.worldFlags.ghat_prepared
-
-  let activeTitle = 'Sanctify the Courtyard'
-  let activeDesc = 'Take the broom near the veranda and sweep the courtyard clean.'
-
-  if (isGhatPrepared) {
-    activeTitle = 'Sandhya Arghya Gathering'
-    activeDesc = 'Return to the veranda to gather with Ma and family as the sun softens into evening.'
-  } else if (isBambooCollected) {
-    activeTitle = 'Inspect the Sacred Ghat'
-    activeDesc = 'Follow the lane eastward to the pond (pokhra) and verify the brick steps and koshi canopy.'
-  } else if (isWheatSorted) {
-    activeTitle = 'Collect Offering Baskets'
-    activeDesc = 'Walk along the village lane to Mohan Kaka’s workshop and collect the bamboo soop and daura.'
-  } else if (isCourtyardCleaned) {
-    activeTitle = 'Spread the Sacred Wheat'
-    activeDesc = 'Inspect the woven drying mat and lay out the wheat to dry in the sun.'
-  }
-
-  // Camera Zoom actions
-  const handleZoomIn = () => {
-    store.setCameraZoom(Math.max(GAME_CONFIG.camera.minDistance, store.cameraZoomDistance - 1.5))
-  }
-  const handleZoomOut = () => {
-    store.setCameraZoom(Math.min(GAME_CONFIG.camera.maxDistance, store.cameraZoomDistance + 1.5))
-  }
-  const handleZoomReset = () => {
-    store.setCameraZoom(GAME_CONFIG.camera.defaultDistance)
-  }
-
-  return (
-    <div className="game-container">
-      {/* 3D Scene Viewport with Camera Tracking & Controllable Zoom */}
-      <div className="canvas-wrapper">
-        <GameCanvas
-          targetPosition={movement.position}
-          zoomDistance={store.cameraZoomDistance}
-          onZoomChange={store.setCameraZoom}
-        >
-          <VillageScene
-            courtyardCleaned={isCourtyardCleaned}
-            goithaCount={debugGoitha}
-            wheatStage={isWheatSorted ? 'spread' : isCourtyardCleaned ? debugWheat : 'empty_mat'}
-            playerPosition={movement.position}
-            playerRotationY={movement.rotationY}
-            isMoving={movement.isMoving}
-            activeTargetId={nearestTarget ? nearestTarget.id : null}
-          />
-        </GameCanvas>
-      </div>
-
-      {/* Atmospheric Player Game HUD */}
-      <PlayerHUD
-        activeQuestTitle={activeTitle}
-        activeQuestDesc={activeDesc}
-        nearestTarget={nearestTarget}
-        onZoomIn={handleZoomIn}
-        onZoomOut={handleZoomOut}
-        onZoomReset={handleZoomReset}
-        onToggleDebug={store.toggleDebug}
-        onInteract={() => {
-          if (nearestTarget) store.interactWithTarget(nearestTarget.id)
-        }}
-      />
-
-      {/* Story Dialogue Box (Modal on interaction) */}
-      {store.dialogueActive && store.dialogueSpeaker && store.dialogueText && (
-        <DialogueBox
-          speaker={store.dialogueSpeaker}
-          text={store.dialogueText}
-          onClose={store.closeDialogue}
-        />
-      )}
-
-      {/* Developer Debug Drawer (Hidden by default; toggled via 'Dev' button) */}
-      <DebugDrawer
-        isOpen={store.isDebugOpen}
-        onClose={store.toggleDebug}
-        courtyardCleaned={isCourtyardCleaned}
-        onToggleCleaned={store.sweepCourtyard}
-        wheatStage={debugWheat}
-        onCycleWheat={() =>
-          setDebugWheat((prev) =>
-            prev === 'empty_mat' ? 'sorting' : prev === 'sorting' ? 'spread' : 'empty_mat'
-          )
-        }
-        goithaCount={debugGoitha}
-        onCycleGoitha={() => setDebugGoitha((prev) => (prev >= 12 ? 4 : prev + 4))}
-        playerPosition={movement.position}
-        cameraZoom={store.cameraZoomDistance}
-        onResetGame={store.resetGame}
-        onSaveGame={store.saveGame}
-      />
+    function shortcut(event: KeyboardEvent) {
+      if (event.defaultPrevented || event.repeat || event.ctrlKey || event.altKey || event.metaKey) return
+      if (blocked || (event.target instanceof Element && event.target.closest('input, textarea, select'))) return
+      const key = event.key.toLowerCase()
+      if (key === 'escape' || key === 'j') {
+        event.preventDefault()
+        setMenu(key === 'j' ? 'journal' : 'pause')
+      } else if (event.code === 'Backquote' && inspectEnabled) {
+        event.preventDefault()
+        store.toggleDebug()
+      }
+    }
+    window.addEventListener('keydown', shortcut)
+    return () => window.removeEventListener('keydown', shortcut)
+  }, [blocked, store.toggleDebug])
+  const markerTarget = blocked ? null : objective.targetId
+  const projectedTarget = markerTarget === 'npc_mother' ? (store.language === 'en' ? 'Ma' : 'माँ') : null
+  return <main className="game-container" data-player={inspectEnabled ? movement.position.join(',') : undefined}>
+    <div className="canvas-wrapper" aria-label={text.courtyard}>
+      <GameCanvas targetPosition={movement.position} zoomDistance={store.cameraZoomDistance} onZoomChange={store.setCameraZoom} paused={Boolean(menu)}>
+        <MovementClock step={movement.step}/>
+        <VillageScene courtyardCleaned={inspected ? previewClean ?? store.worldFlags.courtyard_cleaned : store.worldFlags.courtyard_cleaned}
+          goithaCount={inspected ? goitha : 8} wheatStage={inspected ? previewWheat ?? wheat : wheat}
+          showHouseholdProps={!inspected || showProps} playerPosition={movement.position} playerRotationY={movement.rotationY}
+          isMoving={movement.isMoving} activeTargetId={nearest?.id} dialogueTargetId={store.dialogueTargetId}
+          preparationGesture={store.preparationGesture} paused={Boolean(menu || inspected)}/>
+        <SceneReadout marker={marker} target={markerTarget} sample={sample}/>
+      </GameCanvas>
     </div>
-  )
+    {markerTarget && <div ref={marker} className="world-marker" aria-hidden="true">{projectedTarget && <span>{projectedTarget}</span>}<i/></div>}
+    <PlayerHUD language={store.language} objectiveTitle={objective.title} nearestTarget={blocked ? null : nearest}
+      locationX={movement.position[0]} facing={movement.rotationY} zoom={store.cameraZoomDistance} soundOn={sound.enabled}
+      soundUnavailable={sound.unavailable} onZoom={store.setCameraZoom} onJournal={()=>setMenu('journal')} onPause={()=>setMenu('pause')}
+      onSound={sound.toggle} onInteract={()=>{if(nearest && !blocked)store.interactWithTarget(nearest.id)}} onDirection={movement.setDirectionHeld}/>
+    {menu && <GameMenu mode={menu} objective={objective} x={movement.position[0]} soundOn={sound.enabled} soundUnavailable={sound.unavailable} onSound={sound.toggle} onClose={()=>setMenu(null)}/>}
+    {store.dialogueActive && store.dialogueSpeaker && store.dialogueText && <DialogueBox speaker={store.dialogueSpeaker} text={store.dialogueText} continueLabel={text.continue} onClose={store.closeDialogue}/>}
+    {inspected && <DebugDrawer position={movement.position} zoom={store.cameraZoomDistance} sample={sample} clean={previewClean ?? store.worldFlags.courtyard_cleaned}
+      onClean={setPreviewClean} wheat={previewWheat ?? wheat} onWheat={setPreviewWheat} goitha={goitha} onGoitha={setGoitha}
+      showProps={showProps} onProps={setShowProps} onClose={store.toggleDebug}/>}
+  </main>
 }

@@ -8,8 +8,8 @@ import type { GameSaveV1 } from '../../schemas/game-state'
 describe('Foundation Acceptance Tests', () => {
   it('renders application HUD with active chapter and objective', () => {
     render(<App />)
-    expect(screen.getByText(/Chapter 1: The Homecoming/i)).toBeInTheDocument()
-    expect(screen.getByText(/Sanctify the Courtyard/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', {name:'Homecoming'})).toBeInTheDocument()
+    expect(screen.getByText(/Speak with Ma/i)).toBeInTheDocument()
   })
 
   it('validates game event map structure typing', () => {

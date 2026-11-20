@@ -1,108 +1,32 @@
-import { X, RefreshCw, CheckCircle2, RotateCcw, Save } from 'lucide-react'
-
-interface DebugDrawerProps {
-  isOpen: boolean
-  onClose: () => void
-  courtyardCleaned: boolean
-  onToggleCleaned: () => void
-  wheatStage: 'empty_mat' | 'sorting' | 'spread'
-  onCycleWheat: () => void
-  goithaCount: number
-  onCycleGoitha: () => void
-  playerPosition: [number, number, number]
-  cameraZoom: number
-  onResetGame: () => void
-  onSaveGame: () => void
+import { useEffect, useState, type RefObject } from 'react'
+import { X } from 'lucide-react'
+import { GameDialog } from '../dialogue/GameDialog'
+import type { SceneSample } from '../../game/SceneReadout'
+import type { WheatStage } from '../../objects/wheat/WheatDryingMat'
+import { useGameStore } from '../../systems/quests/gameStore'
+interface Props {
+  position: [number,number,number]; zoom: number; sample: RefObject<SceneSample|null>
+  clean: boolean; onClean: (value:boolean)=>void; wheat: WheatStage; onWheat: (stage:WheatStage)=>void
+  goitha: number; onGoitha: (n:number)=>void; showProps:boolean; onProps:(value:boolean)=>void; onClose:()=>void
 }
-
-export function DebugDrawer({
-  isOpen,
-  onClose,
-  courtyardCleaned,
-  onToggleCleaned,
-  wheatStage,
-  onCycleWheat,
-  goithaCount,
-  onCycleGoitha,
-  playerPosition,
-  cameraZoom,
-  onResetGame,
-  onSaveGame,
-}: DebugDrawerProps) {
-  if (!isOpen) return null
-
-  return (
-    <aside className="debug-drawer-panel" aria-label="Developer Debug Panel">
-      <div className="debug-drawer-header">
-        <h3>Developer Inspection Panel</h3>
-        <button type="button" className="debug-close-btn" onClick={onClose} aria-label="Close Debug Panel">
-          <X size={16} />
-        </button>
-      </div>
-
-      <div className="debug-section">
-        <span className="debug-label">World Coordinates & Camera</span>
-        <div className="debug-metric-grid">
-          <div>
-            <span className="metric-tag">Player X</span>
-            <span className="metric-val">{playerPosition[0].toFixed(2)}</span>
-          </div>
-          <div>
-            <span className="metric-tag">Player Z</span>
-            <span className="metric-val">{playerPosition[2].toFixed(2)}</span>
-          </div>
-          <div>
-            <span className="metric-tag">Camera Zoom</span>
-            <span className="metric-val">{cameraZoom.toFixed(1)}m</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="debug-section">
-        <span className="debug-label">World State Overrides</span>
-        <div className="debug-btn-stack">
-          <button
-            type="button"
-            className={`debug-action-btn ${courtyardCleaned ? 'active' : ''}`}
-            onClick={onToggleCleaned}
-          >
-            <CheckCircle2 size={14} />
-            <span>Yard: {courtyardCleaned ? 'Swept Limewash' : 'Unswept Soil'}</span>
-          </button>
-
-          <button
-            type="button"
-            className="debug-action-btn"
-            onClick={onCycleWheat}
-          >
-            <RefreshCw size={14} />
-            <span>Wheat: {wheatStage}</span>
-          </button>
-
-          <button
-            type="button"
-            className="debug-action-btn"
-            onClick={onCycleGoitha}
-          >
-            <RefreshCw size={14} />
-            <span>Goitha Cakes: {goithaCount}</span>
-          </button>
-        </div>
-      </div>
-
-      <div className="debug-section">
-        <span className="debug-label">Persistence & Memory</span>
-        <div className="debug-btn-row">
-          <button type="button" className="debug-btn-save" onClick={onSaveGame}>
-            <Save size={14} />
-            <span>Save to LocalStorage</span>
-          </button>
-          <button type="button" className="debug-btn-reset" onClick={onResetGame}>
-            <RotateCcw size={14} />
-            <span>Reset Save</span>
-          </button>
-        </div>
-      </div>
-    </aside>
-  )
+export function DebugDrawer({position,zoom,sample,clean,onClean,wheat,onWheat,goitha,onGoitha,showProps,onProps,onClose}:Props) {
+  const [readout,setReadout] = useState(sample.current)
+  const [confirmReset,setConfirmReset] = useState(false)
+  const flags=useGameStore(s=>s.worldFlags)
+  const reset=useGameStore(s=>s.resetGame)
+  useEffect(()=>{const id=window.setInterval(()=>setReadout(sample.current),650);return ()=>window.clearInterval(id)},[sample])
+  return <GameDialog titleId="debug-title" className="inspector" onClose={onClose} onKeyDown={e=>{if(e.code==='Backquote'&&!e.repeat){e.preventDefault();e.stopPropagation();onClose()}}}>
+    <div className="panel-heading"><div className="eyebrow">Development</div><button className="panel-close" autoFocus onClick={onClose} aria-label="Close inspector"><X size={18}/></button></div>
+    <h2 id="debug-title">World inspector</h2>
+    <p className="readout">{position.map(n=>n.toFixed(2)).join(' / ')} m · Camera {zoom.toFixed(2)} m<br/>
+    {readout && <>{readout.fps} fps · p95 {readout.p95} ms<br/>{readout.calls} draws · {readout.triangles.toLocaleString()} triangles<br/>{readout.geometries} geometries · {readout.textures} textures</>}</p>
+    <fieldset><legend>Preview while open</legend>
+      <label>Swept yard<input type="checkbox" checked={clean} onChange={e=>onClean(e.target.checked)}/></label>
+      <label>Wheat<select value={wheat} onChange={e=>onWheat(e.target.value as WheatStage)}>{['empty_mat','sorting','spread'].map(s=><option key={s}>{s}</option>)}</select></label>
+      <label>Goitha ({goitha})<input type="range" min="0" max="16" value={goitha} onChange={e=>onGoitha(Number(e.target.value))}/></label>
+      <label>Household objects<input type="checkbox" checked={showProps} onChange={e=>onProps(e.target.checked)}/></label>
+    </fieldset>
+    <details><summary>Saved world flags</summary><pre>{JSON.stringify(flags,null,2)}</pre></details>
+    <button className="save-button" onClick={()=>{if(confirmReset){reset()}else setConfirmReset(true)}}>{confirmReset?'Confirm erase saved progress':'Reset saved progress'}</button>
+  </GameDialog>
 }

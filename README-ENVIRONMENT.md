@@ -76,6 +76,10 @@ npm run dev
 
 Open the local URL printed by Vite. Stop the server with `Ctrl+C`.
 
+## Verified production preview
+
+Run `npm run build`, then `npm run preview -- --host 127.0.0.1 --port 4173`. The verified local production preview is available at `http://127.0.0.1:4173/`. The project remains a local browser game and does not add a backend or cloud save service.
+
 ## Git checkpoint
 
 ```powershell

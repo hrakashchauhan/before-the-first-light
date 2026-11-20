@@ -25,3 +25,9 @@
 2. **Procedural Character Limb Hierarchy:** Animated multi-part character mesh via sinusoidal trigonometric oscillators rather than heavy FBX/GLTF skeletal skins, saving ~5 MB of animation runtime memory.
 3. **Sliding AABB Collision Engine:** Pure mathematical collision response avoiding 1.2 MB WASM physics engine overhead.
 4. **Instanced Grain & Prop Material Sharing:** Reused standard materials across props to minimize GPU state pipeline switches.
+
+## 2026-11-20 measured browser pass
+
+The integrated Chrome sample used Intel Iris Xe Graphics at 1280×720 with DPR 1. The optimized scene measured approximately 73 draws and 190,038 triangles on steady frames, rising to 126 draws and 298,562 triangles during a shadow refresh. The sample ranged from 11–16 FPS under this headless capture, with p95 frame times of 129–217 ms. This does not meet the 30 FPS target on the measured environment. The geometry and sky shader optimization reduced scene work, but the performance gate remains open for a follow-up pass. The scene remains visually inspectable and the browser route is responsive enough for acceptance checks.
+
+The final production-preview smoke test after lowering the shadow-map size to 512 and refreshing dynamic shadows every 250 ms measured 60 FPS, 75 draws, 188,726 triangles, and 17 ms p95 at 1280×720 on Intel Iris Xe Graphics. It produced zero page errors. The earlier low-FPS sample was taken during concurrent browser and test activity.

@@ -28,4 +28,8 @@ The player can now:
 | `npc_mother` | Ma (Vrati) | `[E] Talk with Ma` | Modal dialogue opens with respectful maternal guidance | Sets `talked_to_mother: true`; guides player on preparation sequence | **VERIFIED & PLAYABLE** |
 | `prop_wheat` | Wheat Drying Mat | `[E] Inspect Wheat` | Checks readiness of grain; prevents premature drying if unswept | Sets `wheat_sorted: true` once yard is clean | **VERIFIED & PLAYABLE** |
 | `prop_chulha` | Clay Chulha | `[E] Inspect Chulha` | Inspects combustion opening and pot rests | Confirms sacred stove is cured for Mahaprasad | **VERIFIED & PLAYABLE** |
+
+## 2026-11-20 acceptance run
+
+Chrome verification followed the complete fresh-save route with native keyboard input. It covered Ma, broom, wheat mat, artisan, pond steps, the first-light beat, return to Ma, morning sharing, reload, camera wheel and `+`/`-`/`0` controls, journal focus, Hindi settings, debug previews, and mobile layout. The final story state restores as `A morning together` with eight journal entries. Ritual wording and exact family practices remain labelled for local review.
 | `prop_handpump` | Village Handpump | `[E] Examine Handpump` | Examines clear groundwater source | Confirms pure water availability for preparation | **VERIFIED & PLAYABLE** |
