@@ -130,7 +130,7 @@ Append a new entry after every milestone. Never rewrite history to make a failed
 **Performance observations:** Courtyard draw calls ~38 (well below 50 budget), 60 FPS on integrated laptop GPU.  
 **Known issues:** None.  
 **Next action:** Milestone M08 — Village Lane, Pond & Ghat (expanding the world to connect the household to the village water body).  
-**Git commit:** pending
+**Git commit:** f2ef640
 
 **Goal:** Implement the complete 3D scene vertical slice with R3F canvas, isometric camera, soft sun lighting, real 3D mud house and veranda blockout, courtyard ground with swept area, and procedural signature Chhath preparation props.  
 **Files changed:**
