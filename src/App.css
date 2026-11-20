@@ -1,0 +1,126 @@
+.foundation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: radial-gradient(circle at 50% 20%, #2b1f1a 0%, #151318 100%);
+  color: #f3ece4;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.foundation-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.foundation-header h1 {
+  font-size: 2.4rem;
+  letter-spacing: 2px;
+  margin: 12px 0 8px;
+  color: #ffbe76;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: rgba(255, 190, 118, 0.15);
+  border: 1px solid rgba(255, 190, 118, 0.3);
+  border-radius: 999px;
+  color: #ffbe76;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: #d1ccc0;
+  font-style: italic;
+}
+
+.foundation-main {
+  width: 100%;
+  max-width: 620px;
+}
+
+.status-card {
+  background: rgba(43, 31, 26, 0.6);
+  border: 1px solid rgba(255, 190, 118, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.status-card h2 {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #f8c291;
+  border-bottom: 1px solid rgba(255, 190, 118, 0.2);
+  padding-bottom: 8px;
+}
+
+.status-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.status-card li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.95rem;
+  color: #e4dcd3;
+}
+
+.status-card li strong {
+  color: #ffbe76;
+  margin-right: 6px;
+}
+
+.status-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.test-btn {
+  background: #e58e26;
+  color: #1a120b;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.test-btn:hover {
+  background: #f39c12;
+  transform: translateY(-1px);
+}
+
+.success-text {
+  color: #2ed573;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.notice {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: #a4b0be;
+}
+
+.notice strong {
+  color: #ffbe76;
+}
