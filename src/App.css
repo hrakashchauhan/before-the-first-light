@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'DM Sans';
-  src: url('../fonts/dm-sans.woff2') format('woff2');
+  src: url('./fonts/dm-sans.woff2') format('woff2');
   font-weight: 100 1000;
   font-display: swap;
 }
 @font-face {
   font-family: 'Spectral';
-  src: url('../fonts/spectral-medium.woff2') format('woff2');
+  src: url('./fonts/spectral-medium.woff2') format('woff2');
   font-weight: 500;
   font-display: swap;
 }

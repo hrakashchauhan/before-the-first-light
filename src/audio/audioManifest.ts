@@ -10,12 +10,21 @@ export interface AudioTrackConfig {
   description: string
 }
 
+export const resolveAudioUrl = (relativePath: string) => {
+  const base = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL
+    ? import.meta.env.BASE_URL
+    : '/'
+  const cleanBase = base.endsWith('/') ? base : `${base}/`
+  const cleanPath = relativePath.startsWith('/') ? relativePath.slice(1) : relativePath
+  return `${cleanBase}${cleanPath}`
+}
+
 export const AUDIO_MANIFEST: Record<string, AudioTrackConfig> = {
   music_chhathi_maiya_bulaye: {
     id: 'music_chhathi_maiya_bulaye',
     title: 'Chhathi Maiya Bulaye (Master Score)',
     titleHi: 'छठी मईया बुलाये (मास्टर संगीत)',
-    url: '/audio/chhathi-maiya-bulaye-theme.mp3',
+    url: resolveAudioUrl('audio/chhathi-maiya-bulaye-theme.mp3'),
     durationSec: 101.28,
     loop: true,
     baseVolume: 0.75,
@@ -26,7 +35,7 @@ export const AUDIO_MANIFEST: Record<string, AudioTrackConfig> = {
     id: 'music_courtyard_morning',
     title: 'Courtyard Morning Santur',
     titleHi: 'आँगन की शांत सुबह',
-    url: '/audio/chhathi-maiya-bulaye-theme.mp3', // Fallback or derived variation
+    url: resolveAudioUrl('audio/chhathi-maiya-bulaye-theme.mp3'), // Fallback or derived variation
     durationSec: 101.28,
     loop: true,
     baseVolume: 0.6,
@@ -37,7 +46,7 @@ export const AUDIO_MANIFEST: Record<string, AudioTrackConfig> = {
     id: 'music_village_lane',
     title: 'Village Lane Journey',
     titleHi: 'गाँव की सड़क का सफ़र',
-    url: '/audio/chhathi-maiya-bulaye-theme.mp3',
+    url: resolveAudioUrl('audio/chhathi-maiya-bulaye-theme.mp3'),
     durationSec: 101.28,
     loop: true,
     baseVolume: 0.7,
@@ -48,7 +57,7 @@ export const AUDIO_MANIFEST: Record<string, AudioTrackConfig> = {
     id: 'music_ghat_dawn',
     title: 'First Light at the Ghat (Usha Arghya)',
     titleHi: 'उषा अर्घ्य — पहली रोशनी',
-    url: '/audio/chhathi-maiya-bulaye-theme.mp3',
+    url: resolveAudioUrl('audio/chhathi-maiya-bulaye-theme.mp3'),
     durationSec: 101.28,
     loop: true,
     baseVolume: 0.85,

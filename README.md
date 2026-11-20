@@ -1,10 +1,22 @@
-# BEFORE THE FIRST LIGHT (भोर से पहले)
+# 🌅 BEFORE THE FIRST LIGHT (भोर से पहले)
+
+<div align="center">
+
+# 🎮 [👉 CLICK HERE TO PLAY DIRECTLY IN YOUR BROWSER 👈](https://hrakashchauhan.github.io/before-the-first-light/)
+
+### **Live Web Hosted Game:** [https://hrakashchauhan.github.io/before-the-first-light/](https://hrakashchauhan.github.io/before-the-first-light/)
+*(No download or installation required — click the button above to play immediately in Chrome, Edge, Safari, or Firefox on desktop or mobile!)*
+
+[![Play Online Now](https://img.shields.io/badge/PLAY%20ONLINE-LIVE%20DEMO-orange?style=for-the-badge&logo=googlechrome&logoColor=white)](https://hrakashchauhan.github.io/before-the-first-light/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Deployment-success?style=for-the-badge&logo=github)](https://hrakashchauhan.github.io/before-the-first-light/)
+[![Tests Passing](https://img.shields.io/badge/tests-90%2F90%20passed-brightgreen?style=for-the-badge)](docs/55-END-TO-END-JOURNEY-TEST.md)
+
+</div>
 
 > **A living Bihar village. Sixty days of preparation. One sacred sunrise.**  
 > *A stylised 3D narrative, exploration, and living-village simulation of Chhath Puja.*
 
 [![Deploy to GitHub Pages](https://github.com/hrakashchauhan/before-the-first-light/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/hrakashchauhan/before-the-first-light/actions/workflows/deploy-pages.yml)
-[![Tests Passing](https://img.shields.io/badge/tests-90%2F90%20passed-brightgreen.svg)](docs/55-END-TO-END-JOURNEY-TEST.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue.svg)](tsconfig.json)
 [![React](https://img.shields.io/badge/React-19.3.1-blue.svg)](package.json)
 [![Three.js](https://img.shields.io/badge/Three.js-R3F%20v9-orange.svg)](src/world/VillageScene.tsx)
@@ -17,12 +29,12 @@ Experience the full playable game directly in your browser:
 
 👉 **[Launch Live Web Demo (GitHub Pages)](https://hrakashchauhan.github.io/before-the-first-light/)** 👈
 
-* **Live Web Hosted URL:** `https://hrakashchauhan.github.io/before-the-first-light/`
+* **Direct Web Play URL:** `https://hrakashchauhan.github.io/before-the-first-light/`
 * **GitHub Repository:** `https://github.com/hrakashchauhan/before-the-first-light`
 * **Localhost Play (Dev Server):** `http://localhost:5173/` (`npm run dev`)
 * **Localhost Preview (Production Build):** `http://127.0.0.1:4173/` (`npm run preview`)
 
-> **Audio Note:** Browsers enforce an audio autoplay policy. Click or press any key when the game loads to enable the devotional soundtrack and dynamic village soundscapes.
+> **🔊 Audio Tip:** Browsers enforce an audio autoplay policy. Click or press any key when the game loads to enable the devotional soundtrack (*Chhathi Maiya Bulaye*) and dynamic village soundscapes.
 
 ---
 
