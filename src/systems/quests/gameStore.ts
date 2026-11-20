@@ -84,12 +84,25 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
       get().sweepCourtyard()
     } else if (targetId === 'npc_mother') {
       const isSwept = get().worldFlags.courtyard_cleaned
+      const isWheat = get().worldFlags.wheat_sorted
+      const isBamboo = get().worldFlags.bamboo_collected
+      const isGhat = get().worldFlags.ghat_prepared
+
+      let reply = 'Welcome home, my child. The sun is rising gently. Please take the broom near the veranda and sweep the courtyard clean first.'
+      if (isGhat) {
+        reply = 'The village ghat is serene and ready, and our offerings are complete. The entire neighborhood is coming together for Sandhya Arghya.'
+      } else if (isBamboo) {
+        reply = 'Mohan Kaka’s woven baskets are so pure. Now please walk to the village pond (pokhra) to verify the ghat steps and koshi setup.'
+      } else if (isWheat) {
+        reply = 'Bless you, child. The wheat is safe in the morning sun. Now please walk down the village lane to Mohan Kaka’s workshop and collect our bamboo soop and daura.'
+      } else if (isSwept) {
+        reply = 'Bless you, child. The courtyard looks pure. Next, we must protect the wheat on the drying mat before evening.'
+      }
+
       set({
         dialogueActive: true,
         dialogueSpeaker: 'Ma (Vrati)',
-        dialogueText: isSwept
-          ? 'Bless you, child. The courtyard looks pure. Next, we must protect the wheat on the drying mat before evening.'
-          : 'Welcome home, my child. The sun is rising gently. Please take the broom near the veranda and sweep the courtyard clean first.',
+        dialogueText: reply,
         worldFlags: { ...get().worldFlags, talked_to_mother: true },
       })
       get().saveGame()
@@ -107,10 +120,10 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
         set({
           worldFlags: { ...currentFlags, wheat_sorted: true },
           completedQuestIds: Array.from(new Set([...completed, 'q_wheat_sort'])),
-          activeQuestId: 'q_goitha_prepare',
+          activeQuestId: 'q_bamboo_visit',
           dialogueActive: true,
           dialogueSpeaker: 'Ma',
-          dialogueText: 'The golden grain is cleaned and soaking in the pure morning sun. Every grain must be guarded with utmost care.',
+          dialogueText: 'The golden grain is cleaned and soaking in the pure morning sun. Now please walk down the lane to Mohan Kaka’s workshop and collect our bamboo baskets.',
         })
         get().saveGame()
       }
@@ -125,6 +138,39 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
         dialogueActive: true,
         dialogueSpeaker: 'Inner Thought',
         dialogueText: 'Fresh, clear groundwater from the village handpump. The water runs cool and pure for household preparations.',
+      })
+    } else if (targetId === 'npc_artisan') {
+      const currentFlags = get().worldFlags
+      const completed = get().completedQuestIds
+      set({
+        worldFlags: { ...currentFlags, bamboo_collected: true },
+        completedQuestIds: Array.from(new Set([...completed, 'q_bamboo_visit'])),
+        activeQuestId: 'q_ghat_clean',
+        dialogueActive: true,
+        dialogueSpeaker: 'Mohan Kaka (Artisan)',
+        dialogueText:
+          'Pranam babu! Ham sab soop aur daura taiyaar kar dehli hai. Maai ke bol diha ki e saal ke daura bohot pukaar aur pavitrata se banawal ba. Pokhra par ghat safai chal rahal ba, jaa ke dekh la!',
+      })
+      get().saveGame()
+    } else if (targetId === 'prop_ghat_spot') {
+      const currentFlags = get().worldFlags
+      const completed = get().completedQuestIds
+      set({
+        worldFlags: { ...currentFlags, ghat_prepared: true },
+        completedQuestIds: Array.from(new Set([...completed, 'q_ghat_clean'])),
+        activeQuestId: 'q_dawn_walk',
+        dialogueActive: true,
+        dialogueSpeaker: 'Devraj (You)',
+        dialogueText:
+          'The sacred red brick ghat is radiant. The steps are swept clean of river silt, ceremonial banana stalks stand at the entrance, and clay diyas await the evening arghya.',
+      })
+      get().saveGame()
+    } else if (targetId === 'prop_sugarcane_koshi') {
+      set({
+        dialogueActive: true,
+        dialogueSpeaker: 'Devraj (You)',
+        dialogueText:
+          'The four tall sugarcane stalks form the sacred Koshi canopy above the terracotta elephant and clay lamps. An auspicious family vow honoring the Sun God.',
       })
     }
   },

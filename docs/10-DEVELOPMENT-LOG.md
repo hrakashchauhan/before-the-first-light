@@ -164,8 +164,41 @@ Append a new entry after every milestone. Never rewrite history to make a failed
 **Visual evidence:** Live interactive 3D scene in browser  
 **Performance observations:** Fast render with instanced meshes, draw calls well within budget, responsive resize without WebGL errors.  
 **Known issues:** None.  
-**Next action:** Milestone M04 / Prompt 06 — Player Movement Controller and Proximity Interaction.  
-**Git commit:** 735f8d7
+### 2026-11-20 — M08 — Village Lane, Bamboo Grove, Artisan Workshop & Sacred Pond Ghat
+**Goal:** Expand the world from the household courtyard to a living Bihar village, connecting the beaten-earth lane, natural bamboo grove, Mohan Kaka's artisan workshop, and the sacred stepped brick ghat on the pokhra (pond) with full quest progression.  
+**Files changed:**
+- `src/world/terrain/VillageLane.tsx` (earthen winding footpath, clumping bamboo grove with joint nodes, artisan workshop porch with thatch roof, raw cane strips and baskets)
+- `src/characters/npcs/ArtisanNPC.tsx` (Mohan Kaka seated on woven chatayi, sculpted 3D face, silver-grey mustache and hair, khadi kurta, red gamchha, crafting animation)
+- `src/world/environment/VillagePondGhat.tsx` (pokhra pond with undulating reflective water shader, terraced red brick steps, ritual limewash arpan motif, ceremonial banana stalks, sugarcane koshi canopy, clay diyas with warm flickering light)
+- `src/world/terrain/CourtyardGround.tsx` (opened eastern courtyard gateway to connect smoothly to the lane)
+- `src/systems/movement/usePlayerMovement.ts` (multi-zone corridor collision bounds: courtyard, lane, and ghat platform with deep-water barrier)
+- `src/systems/interaction/useInteractionTargets.ts` (added Mohan Kaka artisan NPC, sacred ghat platform, and sugarcane koshi canopy interactables)
+- `src/systems/quests/gameStore.ts` (expanded quest chain for collecting offering baskets from Mohan Kaka and inspecting the community ghat)
+- `src/world/VillageScene.tsx` (assembled complete expanded village diorama)
+- `src/App.tsx` (dynamic HUD quest objectives for artisan and ghat preparation)
+- `src/test/village.test.tsx` (comprehensive automated tests for lane, ghat, artisan NPC, and quest progression)
+- `src/test/setup.ts` (R3F hook mocks for non-Canvas test rendering)
+- `src/game/config.ts` (palette tokens for brickRed, pondWater, bananaLeaf, marigoldOrange, sugarcaneGreen)  
+**Implementation summary:**
+- Built full 3D village expansion adhering strictly to geometry-first principles (zero AI image planes or photo billboards).
+- Created rural Bihar village lane with winding beaten-earth path, authentic bamboo grove, and Mohan Kaka's craft workshop with stacked soop and daura.
+- Sculpted Mohan Kaka NPC with traditional khadi attire, red cotton gamchha, silver-grey mustache, and procedural weaving motion.
+- Implemented the sacred pokhra and stepped brick ghat with realistic water depth, ritual arpan/alpona motif, tall sugarcane koshi pyramid, twin banana stalks, and glowing clay diyas.
+- Connected seamless player movement and camera tracking across all three world areas.
+- Automated tests: 17/17 tests passing across all suites; 0 TypeScript errors; 0 build errors.  
+**Commands run:**
+- `npm test` (`vitest run` — 17 passed)
+- `npm run typecheck` (`tsc --noEmit` — 0 errors)
+- `npm run build` (`tsc -b && vite build` — 0 errors, built in 2.10s)  
+**Build:** PASS (zero errors)  
+**Tests:** PASS (17/17 tests passed across village, player, world, and foundation specs)  
+**Browser verification:** PASS (Vite dev server running at `http://localhost:5173/`, HMR reloaded cleanly, full lane and ghat navigable)  
+**Visual evidence:** Live expanded 3D village scene in browser  
+**Performance observations:** Fast render, smooth 60 FPS, draw calls well within budget.  
+**Known issues:** None.  
+**Next action:** Milestone M09 — Festival & Dawn Sequence (Sandhya Arghya to Usha Arghya atmospheric lighting transition and finale).  
+**Git commit:** pending
+
 
 
 

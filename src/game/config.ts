@@ -45,5 +45,13 @@ export const GAME_CONFIG = {
     bambooYellow: '#f3c759',
     charpaiRope: '#d0af84',
     handpumpIron: '#2d3436',
+    brickRed: '#9e3d2b',
+    brickRedDark: '#782d1e',
+    pondWater: '#1e4d56',
+    pondWaterDeep: '#112b30',
+    bananaLeaf: '#438038',
+    marigoldOrange: '#f38218',
+    marigoldYellow: '#f5b820',
+    sugarcaneGreen: '#5b8232',
   },
 } as const

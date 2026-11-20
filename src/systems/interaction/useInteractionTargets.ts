@@ -44,6 +44,27 @@ const INTERACTABLES: Interactable[] = [
     position: [4.6, 0, 3.2],
     radius: 2.1,
   },
+  {
+    id: 'npc_artisan',
+    label: 'Mohan Kaka (Artisan)',
+    actionName: 'Collect Baskets',
+    position: [12.5, 0, 5.4],
+    radius: 2.3,
+  },
+  {
+    id: 'prop_ghat_spot',
+    label: 'Sacred Ghat Platform',
+    actionName: 'Inspect Ghat',
+    position: [19.8, 0, 3.5],
+    radius: 2.4,
+  },
+  {
+    id: 'prop_sugarcane_koshi',
+    label: 'Sugarcane Koshi Canopy',
+    actionName: 'Inspect Koshi',
+    position: [19.8, 0, 5.7],
+    radius: 2.2,
+  },
 ]
 
 export function useInteractionTargets(

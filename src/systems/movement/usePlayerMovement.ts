@@ -19,20 +19,30 @@ const OBSTACLES: ObstacleBox[] = [
   { minX: -4.3, maxX: 4.3, minZ: -4.2, maxZ: -1.75 },
   // 2. Sunny Wall (Left boundary where goitha cakes dry)
   { minX: -5.7, maxX: -4.8, minZ: -0.2, maxZ: 5.6 },
-  // 3. Right Perimeter Mud Wall
-  { minX: 5.8, maxX: 6.6, minZ: -4.0, maxZ: 6.2 },
+  // 3. Right Perimeter Mud Wall (Shortened with open lane gateway at z > 2.4)
+  { minX: 5.8, maxX: 6.6, minZ: -4.0, maxZ: 2.4 },
   // 4. Front Courtyard Wall
   { minX: -5.5, maxX: 3.8, minZ: 6.0, maxZ: 6.8 },
   // 5. Village Handpump
   { minX: 3.6, maxX: 5.6, minZ: 2.2, maxZ: 4.2 },
   // 6. Wooden Charpai
   { minX: -4.2, maxX: -2.2, minZ: 2.7, maxZ: 4.1 },
+  // 7. Bamboo Grove Boundary (North verge of lane)
+  { minX: 7.0, maxX: 11.2, minZ: 0.2, maxZ: 2.0 },
+  // 8. Artisan Workshop (South verge of lane)
+  { minX: 10.2, maxX: 15.0, minZ: 5.6, maxZ: 8.5 },
+  // 9. Sugarcane Koshi Canopy at Ghat
+  { minX: 19.4, maxX: 20.4, minZ: 5.3, maxZ: 6.1 },
 ]
 
 function isColliding(x: number, z: number, radius = 0.35): boolean {
-  // Courtyard overall navigable bounds
-  if (x < -4.9 || x > 5.5 || z < -1.7 || z > 5.8) {
-    return true
+  // Navigable Zones: Courtyard, Village Lane, and Sacred Ghat
+  const inCourtyard = x >= -4.9 && x <= 5.8 && z >= -1.7 && z <= 5.8
+  const inLane = x >= 5.0 && x <= 19.5 && z >= 2.0 && z <= 5.8
+  const inGhat = x >= 18.0 && x <= 23.0 && z >= -1.2 && z <= 7.5
+
+  if (!inCourtyard && !inLane && !inGhat) {
+    return true // Outside navigable world boundaries
   }
 
   for (const obs of OBSTACLES) {

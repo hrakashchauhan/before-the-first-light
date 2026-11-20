@@ -13,6 +13,7 @@ Record consequential choices here.
 | D007 | 2026-11-20 | Procedural 3D Human Geometry for Player & Mother NPC | Pure geometry-first styling; avoids external glTF asset lag & image textures | Generic capsule or 2D billboard sprite | User specifically licenses high-fidelity pre-rigged models |
 | D008 | 2026-11-20 | Bounded Camera Zoom with smooth lerp & dual controls | Accommodates both keyboard/wheel desktop users and on-screen HUD buttons | Fixed non-interactive camera | User requires free-orbiting cinematic camera |
 | D009 | 2026-11-20 | Dual-Layer Interface: Contextual HUD + Collapsible Dev Drawer | Unobtrusive player immersion with instant dev verification tools | Cluttered permanent debug overlay | When release build drops developer tools |
+| D010 | 2026-11-20 | Multi-Zone Continuous Navigation (Courtyard → Lane → Ghat) | Mathematical multi-region corridor collision with zero WASM/physics engine overhead | Rigid-body trigger volumes | Full 3D terrain navmesh needed |
 
 
 Do not silently reverse a decision. Add a new entry and explain why.

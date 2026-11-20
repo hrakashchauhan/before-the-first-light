@@ -32,16 +32,24 @@ export default function App() {
   // Determine active objective copy based on game state
   const isCourtyardCleaned = store.worldFlags.courtyard_cleaned
   const isWheatSorted = store.worldFlags.wheat_sorted
+  const isBambooCollected = store.worldFlags.bamboo_collected
+  const isGhatPrepared = store.worldFlags.ghat_prepared
 
   let activeTitle = 'Sanctify the Courtyard'
   let activeDesc = 'Take the broom near the veranda and sweep the courtyard clean.'
 
-  if (isCourtyardCleaned && !isWheatSorted) {
+  if (isGhatPrepared) {
+    activeTitle = 'Sandhya Arghya Gathering'
+    activeDesc = 'Return to the veranda to gather with Ma and family as the sun softens into evening.'
+  } else if (isBambooCollected) {
+    activeTitle = 'Inspect the Sacred Ghat'
+    activeDesc = 'Follow the lane eastward to the pond (pokhra) and verify the brick steps and koshi canopy.'
+  } else if (isWheatSorted) {
+    activeTitle = 'Collect Offering Baskets'
+    activeDesc = 'Walk along the village lane to Mohan Kaka’s workshop and collect the bamboo soop and daura.'
+  } else if (isCourtyardCleaned) {
     activeTitle = 'Spread the Sacred Wheat'
     activeDesc = 'Inspect the woven drying mat and lay out the wheat to dry in the sun.'
-  } else if (isWheatSorted) {
-    activeTitle = 'Prepare for the Holy Eve'
-    activeDesc = 'Speak with Ma on the veranda to plan the festival offerings.'
   }
 
   // Camera Zoom actions

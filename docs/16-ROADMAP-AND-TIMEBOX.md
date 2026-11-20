@@ -12,8 +12,8 @@ These are planning estimates for a solo beginner using AI assistance, not guaran
 | M05 | Interaction and one quest | 3–5 h | One complete task | **COMPLETED** |
 | M06 | State, chapter transition, save | 2–4 h | Persistent progress | **COMPLETED** |
 | M07 | NPC dialogue and UI | 3–5 h | One household story beat | **COMPLETED** |
-| M08 | Lane, pond and ghat | 4–6 h | Compact village | Next Up |
-| M09 | Festival and dawn sequence | 4–6 h | Emotional ending | Pending |
+| M08 | Lane, pond and ghat | 4–6 h | Compact village | **COMPLETED** |
+| M09 | Festival and dawn sequence | 4–6 h | Emotional ending | Next Up |
 | M10 | Audio, optimisation, QA | 4–6 h | Release candidate | Pending |
 
 

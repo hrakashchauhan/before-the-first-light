@@ -92,13 +92,13 @@ export function CourtyardGround({ isCleaned = false }: CourtyardGroundProps) {
         <planeGeometry args={[2.4, 9.0]} />
       </mesh>
 
-      {/* 5. Courtyard Right Perimeter Mud Boundary Wall */}
-      <group position={[6.2, 0, 1.2]}>
+      {/* 5. Courtyard Right Perimeter Mud Boundary Wall (With open gateway to village lane) */}
+      <group position={[6.2, 0, -0.6]}>
         <mesh position={[0, 0.75, 0]} castShadow receiveShadow material={boundaryWallMaterial}>
-          <boxGeometry args={[0.34, 1.5, 9.6]} />
+          <boxGeometry args={[0.34, 1.5, 6.0]} />
         </mesh>
         <mesh position={[0, 1.52, 0]} castShadow material={boundaryWallCopingMaterial}>
-          <boxGeometry args={[0.42, 0.08, 9.64]} />
+          <boxGeometry args={[0.42, 0.08, 6.04]} />
         </mesh>
       </group>
 

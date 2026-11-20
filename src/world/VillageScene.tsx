@@ -1,5 +1,7 @@
 import { VillageAtmosphere } from './environment/VillageAtmosphere'
 import { CourtyardGround } from './terrain/CourtyardGround'
+import { VillageLane } from './terrain/VillageLane'
+import { VillagePondGhat } from './environment/VillagePondGhat'
 import { HouseBlockout } from './buildings/HouseBlockout'
 import { GoithaCakes } from '../objects/goitha/GoithaCakes'
 import { ClayChulha } from '../objects/chulha/ClayChulha'
@@ -9,6 +11,7 @@ import { Handpump } from '../objects/household/Handpump'
 import { Charpai } from '../objects/household/Charpai'
 import { BroomProp } from '../objects/household/BroomProp'
 import { MotherNPC } from '../characters/npcs/MotherNPC'
+import { ArtisanNPC } from '../characters/npcs/ArtisanNPC'
 import { PlayerCharacter } from '../characters/player/PlayerCharacter'
 
 interface VillageSceneProps {
@@ -38,22 +41,31 @@ export function VillageScene({
       {/* 2. Authentic Ground Terrain & Curved Swept Courtyard */}
       <CourtyardGround isCleaned={courtyardCleaned} />
 
-      {/* 3. Detailed House Architecture (Mud walls, wooden pillars, rafters, terracotta roof) */}
+      {/* 3. Village Lane (Bamboo grove, artisan workshop, beaten earth footpath) */}
+      <VillageLane />
+
+      {/* 4. Sacred Village Pond & Brick Ghat (Pokhra, terraced steps, banana stalks, diyas, koshi) */}
+      <VillagePondGhat
+        isGhatHighlighted={activeTargetId === 'prop_ghat_spot'}
+        isKoshiHighlighted={activeTargetId === 'prop_sugarcane_koshi'}
+      />
+
+      {/* 5. Detailed House Architecture (Mud walls, wooden pillars, rafters, terracotta roof) */}
       <HouseBlockout />
 
-      {/* 4. Village Handpump (Chapakal) */}
+      {/* 6. Village Handpump (Chapakal) */}
       <Handpump position={[4.6, 0, 3.2]} />
 
-      {/* 5. Traditional Woven Charpai (Khatia) */}
+      {/* 7. Traditional Woven Charpai (Khatia) */}
       <Charpai position={[-3.2, 0, 3.4]} rotation={[0, 0.28, 0]} />
 
-      {/* 6. Courtyard Grass Broom (Interaction target for sweeping!) */}
+      {/* 8. Courtyard Grass Broom (Interaction target for sweeping!) */}
       <BroomProp
         position={[-3.1, 0, -2.5]}
         isHighlighted={activeTargetId === 'prop_broom'}
       />
 
-      {/* 7. Signature Preparation Props */}
+      {/* 9. Signature Preparation Props */}
       <GoithaCakes stage="dry" placedCount={goithaCount} />
       <ClayChulha position={[3.2, 0.16, -2.4]} isReady={true} />
       <WheatDryingMat position={[1.4, 0.02, 1.8]} stage={wheatStage} />
@@ -71,13 +83,19 @@ export function VillageScene({
         </mesh>
       </group>
 
-      {/* 8. Respected Mother (Vrati NPC) on Veranda */}
+      {/* 10. Respected Mother (Vrati NPC) on Veranda */}
       <MotherNPC
         position={[0.8, 0.32, -2.2]}
         isHighlighted={activeTargetId === 'npc_mother'}
       />
 
-      {/* 9. Full-Body 3D Player Character with Real Sculpted Face */}
+      {/* 11. Village Bamboo Artisan Mohan Kaka */}
+      <ArtisanNPC
+        position={[12.5, 0.2, 5.4]}
+        isHighlighted={activeTargetId === 'npc_artisan'}
+      />
+
+      {/* 12. Full-Body 3D Player Character with Real Sculpted Face */}
       <PlayerCharacter
         position={playerPosition}
         rotationY={playerRotationY}
