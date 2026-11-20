@@ -2,19 +2,20 @@
 
 These are planning estimates for a solo beginner using AI assistance, not guarantees. Time includes prompting, reviewing, debugging and testing.
 
-| Milestone | Focus | Estimated focused time | Deliverable |
-|---|---|---:|---|
-| M00 | Audit environment and scaffold | 1–2 h | App runs cleanly |
-| M01 | R3F renderer, camera, lighting | 2–4 h | Empty 3D scene |
-| M02 | Ground, courtyard and house blockout | 4–6 h | Walkable-looking courtyard |
-| M03 | Signature props | 4–6 h | Goitha, chulha, wheat, bamboo props |
-| M04 | Player movement and camera | 3–5 h | Controllable character/capsule |
-| M05 | Interaction and one quest | 3–5 h | One complete task |
-| M06 | State, chapter transition, save | 2–4 h | Persistent progress |
-| M07 | NPC dialogue and UI | 3–5 h | One household story beat |
-| M08 | Lane, pond and ghat | 4–6 h | Compact village |
-| M09 | Festival and dawn sequence | 4–6 h | Emotional ending |
-| M10 | Audio, optimisation, QA | 4–6 h | Release candidate |
+| Milestone | Focus | Estimated focused time | Deliverable | Status |
+|---|---|---:|---|---|
+| M00 | Audit environment and scaffold | 1–2 h | App runs cleanly | **COMPLETED** |
+| M01 | R3F renderer, camera, lighting | 2–4 h | Empty 3D scene | **COMPLETED** |
+| M02 | Ground, courtyard and house blockout | 4–6 h | Walkable-looking courtyard | **COMPLETED** |
+| M03 | Signature props | 4–6 h | Goitha, chulha, wheat, bamboo props | **COMPLETED** |
+| M04 | Player movement and camera | 3–5 h | Controllable character/capsule | Next Up |
+| M05 | Interaction and one quest | 3–5 h | One complete task | Pending |
+| M06 | State, chapter transition, save | 2–4 h | Persistent progress | Pending |
+| M07 | NPC dialogue and UI | 3–5 h | One household story beat | Pending |
+| M08 | Lane, pond and ghat | 4–6 h | Compact village | Pending |
+| M09 | Festival and dawn sequence | 4–6 h | Emotional ending | Pending |
+| M10 | Audio, optimisation, QA | 4–6 h | Release candidate | Pending |
+
 
 **Total indicative range: 34–55 focused hours**, potentially more for a first-time 3D developer.
 

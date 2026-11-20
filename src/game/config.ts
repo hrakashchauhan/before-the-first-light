@@ -1,0 +1,35 @@
+export const GAME_CONFIG = {
+  camera: {
+    fov: 38,
+    near: 0.1,
+    far: 200,
+    position: [11, 13, 11] as [number, number, number],
+    target: [0, 1.2, 0] as [number, number, number],
+  },
+  dpr: {
+    min: 1.0,
+    max: 1.5,
+  },
+  lighting: {
+    ambientColor: '#fff5ea',
+    ambientIntensity: 0.65,
+    sunColor: '#fff0db',
+    sunIntensity: 1.5,
+    sunPosition: [12, 18, 9] as [number, number, number],
+    shadowMapSize: 1024,
+  },
+  palette: {
+    groundEarth: '#4a3325',
+    groundSwept: '#6b4c35',
+    mudWall: '#cfbca2',
+    mudWallDark: '#a38f75',
+    verandaWood: '#6e4726',
+    roofTile: '#a24b2b',
+    roofThatch: '#9e7b51',
+    goithaMoist: '#362419',
+    goithaDry: '#755841',
+    clayChulha: '#9c4d28',
+    wheatGrain: '#f0b832',
+    bambooYellow: '#f3c759',
+  },
+} as const

@@ -1,0 +1,35 @@
+:root {
+  /* Earth and Mud tones */
+  --color-earth-dark: #2b1f1a;
+  --color-earth-base: #593d2c;
+  --color-earth-light: #8c6239;
+  --color-clay-terracotta: #b5542b;
+  --color-clay-baked: #8a3b1d;
+
+  /* Limewashed plaster */
+  --color-limewash-cream: #f7f1e3;
+  --color-limewash-weathered: #d1ccc0;
+
+  /* Bamboo & thatch */
+  --color-bamboo-yellow: #f5cd79;
+  --color-bamboo-aged: #e58e26;
+  --color-thatch-brown: #795548;
+
+  /* Vegetation & Pond */
+  --color-vegetation-dusty: #4b654c;
+  --color-pond-depth: #0f2027;
+  --color-pond-surface: #2c5364;
+
+  /* Festival & Dawn Lighting */
+  --color-festival-amber: #ff9f43;
+  --color-dawn-gold: #ffbe76;
+  --color-dawn-peach: #f8c291;
+  --color-dawn-rose: #ee5253;
+
+  /* UI Tokens */
+  --ui-bg-panel: rgba(30, 23, 20, 0.88);
+  --ui-border-gold: rgba(255, 190, 118, 0.35);
+  --ui-text-primary: #fcf9f2;
+  --ui-text-muted: #c8b9a6;
+  --ui-accent: #e58e26;
+}

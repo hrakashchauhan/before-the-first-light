@@ -89,6 +89,43 @@ Append a new entry after every milestone. Never rewrite history to make a failed
 **Performance observations:** Instant test run (27ms), minified production bundle 69.2 kB gzip.  
 **Known issues:** None.  
 **Next action:** Milestone M01 / Prompt 03 — First 3D Renderer Vertical Slice (React Three Fiber canvas, camera, simple lighting, reference ground mesh).  
-**Git commit:** c49a79f
+**Git commit:** 9c98dc4
+
+### 2026-11-20 — M01–M03 — First 3D Renderer, Courtyard Blockout & Signature Props Vertical Slice
+**Goal:** Implement the complete 3D scene vertical slice with R3F canvas, isometric camera, soft sun lighting, real 3D mud house and veranda blockout, courtyard ground with swept area, and procedural signature Chhath preparation props.  
+**Files changed:**
+- `src/styles/tokens.css` (earth, limewash, bamboo, terracotta, dawn color tokens)
+- `src/game/config.ts` (mild isometric camera, DPR clamp, lighting and palette constants)
+- `src/game/GameCanvas.tsx` (R3F canvas, soft PCF shadows, WebGL configuration, responsive resize)
+- `src/world/terrain/CourtyardGround.tsx` (real 3D outer and swept courtyard mesh with boundary stones)
+- `src/world/buildings/HouseBlockout.tsx` (real 3D mud house walls, wooden door recess, veranda platform, wooden pillars, terracotta tile roof, sunny drying wall)
+- `src/objects/goitha/GoithaCakes.tsx` (procedural flattened discs with moist/drying/dry stage coloration)
+- `src/objects/chulha/ClayChulha.tsx` (procedural clay chulha with U-shaped firebox, pot rests, and dry firewood)
+- `src/objects/wheat/WheatDryingMat.tsx` (woven bamboo mat with instanced golden wheat grains)
+- `src/objects/bamboo/BambooBaskets.tsx` (authentic flared soop offering scoop and deep woven daura basket)
+- `src/world/VillageScene.tsx` (assembled 3D diorama scene)
+- `src/App.tsx`, `src/App.css`, `src/index.css` (full 3D viewport with accessible HUD overlay and interactive world state verification toggles)
+- `src/test/world.test.tsx`, `src/test/setup.ts` (test suite and JSDOM polyfills)
+- `docs/16-ROADMAP-AND-TIMEBOX.md`, `docs/17-DECISION-LOG.md`, `docs/10-DEVELOPMENT-LOG.md`  
+**Implementation summary:**
+- Built full React Three Fiber 3D scene strictly adhering to the geometry-first requirement (zero image planes/photo backgrounds).
+- Built rural Bihar household architecture with 0.35m thick mud walls, raised veranda (ooth), authentic wooden pillars, and sloped roof.
+- Created all four signature Chhath props (Goitha drying wall, Clay Chulha stove, Wheat drying mat with instanced grains, Bamboo Soop & Daura).
+- Connected interactive state toggles in HUD to verify world reactivity: sweeping the courtyard, cycling wheat drying density, adjusting goitha cake count on the wall.
+- Resolved JSDOM `ResizeObserver` compatibility in test harness; 7/7 automated tests passed.
+- Verified TypeScript strict typecheck (0 errors) and production build.  
+**Commands run:**
+- `npm test` (`vitest run` — 7 passed)
+- `npm run typecheck` (`tsc --noEmit` — 0 errors)
+- `npm run build` (`tsc -b && vite build` — 0 errors)  
+**Build:** PASS (zero errors)  
+**Tests:** PASS (7/7 tests passed across foundation and world specs)  
+**Browser verification:** PASS (Vite HMR updated, scene rendering in browser at `http://localhost:5173/`)  
+**Visual evidence:** Live interactive 3D scene in browser  
+**Performance observations:** Fast render with instanced meshes, draw calls well within budget, responsive resize without WebGL errors.  
+**Known issues:** None.  
+**Next action:** Milestone M04 / Prompt 06 — Player Movement Controller and Proximity Interaction.  
+**Git commit:** 735f8d7
+
 
 
