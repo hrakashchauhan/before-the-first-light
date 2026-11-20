@@ -10,6 +10,9 @@ Record consequential choices here.
 | D004 | Initial | Procedural geometry for major visuals | User requires actual 3D world assets | Image-based backgrounds | Never for major world visuals |
 | D005 | 2026-11-20 | InstancedMesh for repeated grains/props | Keep draw calls under 50 in courtyard | Separate individual meshes | When individual physics per grain is needed |
 | D006 | 2026-11-20 | Mathematical & spatial bounds over Rapier physics | Eliminate 1.2MB WASM overhead on integrated GPUs | Full Rapier physics engine | Complex dynamic ragdoll or rigid-body puzzles emerge |
+| D007 | 2026-11-20 | Procedural 3D Human Geometry for Player & Mother NPC | Pure geometry-first styling; avoids external glTF asset lag & image textures | Generic capsule or 2D billboard sprite | User specifically licenses high-fidelity pre-rigged models |
+| D008 | 2026-11-20 | Bounded Camera Zoom with smooth lerp & dual controls | Accommodates both keyboard/wheel desktop users and on-screen HUD buttons | Fixed non-interactive camera | User requires free-orbiting cinematic camera |
+| D009 | 2026-11-20 | Dual-Layer Interface: Contextual HUD + Collapsible Dev Drawer | Unobtrusive player immersion with instant dev verification tools | Cluttered permanent debug overlay | When release build drops developer tools |
 
 
 Do not silently reverse a decision. Add a new entry and explain why.

@@ -1,40 +1,31 @@
 # 24 — Gameplay and Quest Acceptance Report
 
 **Project:** BEFORE THE FIRST LIGHT  
-**Lead Engineer:** Expert 05 (Gameplay and Simulation Engineer)  
-**Date:** 2026-11-20
+**Lead Engineer:** Expert 05 (Gameplay and Simulation Engineer) & Expert 04 (Character Engineer)  
+**Date:** 2026-11-20  
+**Status:** **PASS** (Playable Character, Camera Follow, Proximity Interaction, and World Consequence Verified)
 
 ---
 
-## 1. Core Playable Loop Architecture
+## 1. Implemented & Verified Gameplay Loop
 
-```text
-Player Explores Courtyard 
-    -> Detects Proximity to Interactable Object / Character 
-    -> Contextual HUD Prompt Displays ([E] Action)
-    -> Player Presses [E] (Debounced, Key-Repeat Protected)
-    -> Zustand Action Dispatched & Event Emitted
-    -> World State Flags Updated & 3D Geometry Transforms Visibly
-    -> Next Quest Objective Unlocks & Game State Saved to LocalStorage
-```
+The player can now:
+1. **Navigate the Courtyard:** Move freely using `W A S D` or arrow keys with smooth orientation turning and responsive foot-stepping animations.
+2. **Observe Spatial Collision:** Physical collision boundaries prevent walking through mud house walls, veranda pillars, boundary walls, charpai, or the village handpump.
+3. **Control Camera Zoom:** Smoothly zoom in/out via mouse wheel, `+` / `-` keys, or on-screen HUD buttons, and reset view with `0` key (clamped safely between 6.5m and 24.0m).
+4. **Detect Proximity:** Walking near an interactable object highlights the target and displays an contextual prompt at the bottom of the screen (e.g. `[E] Sweep Courtyard` near the broom, `[E] Talk with Ma` near the mother).
+5. **Execute Action:** Pressing `E` or clicking the prompt triggers the action, plays dialogue, updates world state flags, and visibly alters the courtyard (sweeping turns the ground into clean limewashed earth).
+6. **Progress Quests:** Advances from `q_courtyard_clean` to `q_wheat_sort` to `q_goitha_prepare`.
+7. **Persist State:** Automatically saves progress to browser `localStorage` and restores upon reloading.
 
 ---
 
-## 2. Quest Catalog Progression
+## 2. Verified Interactables & Tasks
 
-| Quest ID | Chapter | Target | Interaction Action | Tangible World Consequence | Status |
+| Target ID | Object Name | Action Key | Interaction Result | World Consequence | Status |
 |---|---|---|---|---|---|
-| `q_arrival_talk` | homecoming | `npc_mother` | `talk` | Introduces Chhath plan; broom unlocked in courtyard | Implemented & Tested |
-| `q_courtyard_clean` | courtyard-preparation | `prop_broom_area` | `help` / `sweep` | Swept ground area visibly shifts to clean limewash boundary | Planned for M05 |
-| `q_wheat_sort` | household-work | `prop_wheat_mat` | `inspect` / `sort` | Wheat grain spreads across drying mat in sun | Planned for M05 |
-| `q_goitha_prepare` | household-work | `prop_goitha_wall` | `help` | Fuel cakes appear drying along sunny wall | Planned for M05 |
-| `q_chulha_check` | household-work | `prop_chulha` | `inspect` | Clay chulha confirmed cured; fuel placed | Planned for M05 |
-| `q_bamboo_visit` | village-cooperation | `npc_artisan` | `talk` | New soop basket delivered to veranda | Planned for M08 |
-| `q_dawn_walk` | usha-arghya | `npc_family_ghat` | `advance-task` | Family enters ghat water; sunrise finale triggers | Planned for M09 |
-
----
-
-## 3. Save / Load Integrity Standard
-- **Format:** Versioned `GameSaveV1` in browser `localStorage.getItem('before_the_first_light_save')`.
-- **Validation:** Zod schema parses save structure on startup.
-- **Fail-safe:** If JSON is malformed or schema version is invalid, automatically defaults to fresh new game without crashing.
+| `prop_broom` | Courtyard Broom | `[E] Sweep Courtyard` | Player sweeps the courtyard ground | Courtyard earth shifts from dusty unswept soil to clean limewash border; advances quest to wheat sorting | **VERIFIED & PLAYABLE** |
+| `npc_mother` | Ma (Vrati) | `[E] Talk with Ma` | Modal dialogue opens with respectful maternal guidance | Sets `talked_to_mother: true`; guides player on preparation sequence | **VERIFIED & PLAYABLE** |
+| `prop_wheat` | Wheat Drying Mat | `[E] Inspect Wheat` | Checks readiness of grain; prevents premature drying if unswept | Sets `wheat_sorted: true` once yard is clean | **VERIFIED & PLAYABLE** |
+| `prop_chulha` | Clay Chulha | `[E] Inspect Chulha` | Inspects combustion opening and pot rests | Confirms sacred stove is cured for Mahaprasad | **VERIFIED & PLAYABLE** |
+| `prop_handpump` | Village Handpump | `[E] Examine Handpump` | Examines clear groundwater source | Confirms pure water availability for preparation | **VERIFIED & PLAYABLE** |

@@ -4,13 +4,15 @@ import { GAME_CONFIG } from '../game/config'
 import { GoithaCakes } from '../objects/goitha/GoithaCakes'
 import { ClayChulha } from '../objects/chulha/ClayChulha'
 import { BambooBaskets } from '../objects/bamboo/BambooBaskets'
+import { Handpump } from '../objects/household/Handpump'
+import { Charpai } from '../objects/household/Charpai'
 
-// Three.js JSX components inside React Testing Library need Canvas context or unit testing of properties
 describe('3D Scene and Props Specification Tests', () => {
   it('defines valid camera parameters matching mild isometric requirements', () => {
     expect(GAME_CONFIG.camera.fov).toBeLessThanOrEqual(45)
-    expect(GAME_CONFIG.camera.position[1]).toBeGreaterThan(10) // elevated camera
-    expect(GAME_CONFIG.camera.target).toEqual([0, 1.2, 0])
+    expect(GAME_CONFIG.camera.defaultElevation).toBeGreaterThan(8)
+    expect(GAME_CONFIG.camera.defaultDistance).toBeGreaterThan(10)
+    expect(GAME_CONFIG.camera.target).toEqual([0, 1.0, 0])
   })
 
   it('defines strict DPR cap for integrated GPU performance', () => {
@@ -19,16 +21,18 @@ describe('3D Scene and Props Specification Tests', () => {
   })
 
   it('provides authentic cultural color palette tokens', () => {
-    expect(GAME_CONFIG.palette.groundEarth).toBe('#4a3325')
+    expect(GAME_CONFIG.palette.groundEarth).toBe('#523a2a')
     expect(GAME_CONFIG.palette.mudWall).toBe('#cfbca2')
     expect(GAME_CONFIG.palette.clayChulha).toBe('#9c4d28')
     expect(GAME_CONFIG.palette.bambooYellow).toBe('#f3c759')
     expect(GAME_CONFIG.palette.wheatGrain).toBe('#f0b832')
   })
 
-  it('exports valid component constructors for procedural props', () => {
+  it('exports valid component constructors for procedural props and structures', () => {
     expect(GoithaCakes).toBeDefined()
     expect(ClayChulha).toBeDefined()
     expect(BambooBaskets).toBeDefined()
+    expect(Handpump).toBeDefined()
+    expect(Charpai).toBeDefined()
   })
 })

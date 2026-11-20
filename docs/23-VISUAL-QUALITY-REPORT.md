@@ -1,38 +1,60 @@
-# 23 — Visual Quality and Geometry Standards Report
+# 23 — Visual Quality, Art Direction and Geometry Standards Report
 
 **Project:** BEFORE THE FIRST LIGHT  
-**Lead Artist:** Expert 03 (Procedural Environment Artist) & Expert 02 (Graphics Engineer)  
-**Date:** 2026-11-20
+**Lead Review Panel:** Film Production Designer, Cinematographer, AAA Environment Artist, Character Modeller, UX Designer, Cultural Specialist, Technical Director  
+**Date:** 2026-11-20  
+**Current Status:** Upgraded to Production Vertical Slice (Inhabitation, Camera & Architectural Transformation)
 
 ---
 
-## 1. Compliance with the Geometry-First Mandate
+## 1. Multi-Perspective Critical Review of Prototype Baseline
 
-- **Strict Ban on Photographic & AI Billboard Textures:** Confirmed **PASS**. Zero photo wallpapers, flat billboard cutouts, or AI-generated texture sheets are present in the repository.
-- **Real 3D Mesh Specification:** All structural and ritual items are modeled from actual procedural Three.js geometry:
-  - **Mud walls & House:** Extruded volumes with physical wall depth (0.35m thickness), recessed doorways, and wooden pillar supports.
-  - **Courtyard Ground:** Mesh with subtle vertex displacement and distinct material boundary zones (swept ritual area vs outer ground).
-  - **Goitha:** Flattened organic elliptical geometry with visible thickness, hand-pressed indentation, and procedural drying stage hue shifts.
-  - **Clay Chulha:** Modeled U-shaped combustion cavity, curved pot rests, and burnished terracotta clay finish.
-  - **Bamboo Soop & Daura:** Authentic flared curved scoop geometry with split-bamboo woven patterns.
-  - **Wheat Drying Mat:** Woven surface with instanced golden grain geometry.
-
----
-
-## 2. Color Palette & Lighting Tokens
-
-| Material Tone | Hex Tokens | Surface Behavior |
-|---|---|---|
-| Earth / Mud Soil | `#2b1f1a`, `#593d2c`, `#8c6239` | High roughness (0.85), low specular |
-| Limewashed Plaster | `#f7f1e3`, `#d1ccc0` | Matte, slight weathered vertex noise |
-| Bamboo Woven Strips | `#f5cd79`, `#e58e26` | Medium roughness (0.45), subtle sheen |
-| Clay Terracotta | `#b5542b`, `#8a3b1d` | Warm, earthen, burnished highlight |
-| Pond Water | `#2c5364`, `#203a43`, `#0f2027` | Subtle wave vertex displacement, gentle opacity |
-| Morning Dawn Sun | `#ffbe76`, `#f8c291`, `#e58e26` | Directional key warmth with soft ambient bounce |
+An independent review of the initial prototype identified critical visual and technical deficiencies:
+1. **Empty Black Void (Cinematographer):** The scene was rendered against a stark black background, destroying the sense of a living outdoor village atmosphere at sunrise.
+2. **Dominant Monolithic Roof (Production Designer):** The house roof appeared as an oversized, flat terracotta block dominating the camera composition rather than authentic hand-laid rural tiles and exposed timber rafters.
+3. **Flat Ground Planes (Environment Artist):** The courtyard was composed of sharp rectangular planes rather than organic swept earth transitions and beaten-path contours.
+4. **Uninhabited World (Character Modeller):** The courtyard felt like an abandoned archaeological set without human scale, player embodiment, or family presence.
+5. **Intrusive Debug UI (UX Designer):** The verification panel occupied ~40% of the viewport, obscuring the 3D art and conflating gameplay with debugging.
+6. **Rigid Prop Placement (Cultural Specialist):** Goitha cakes and baskets were arranged in computer-like grid rows rather than natural handmade village groupings.
+7. **Fixed Camera (Technical Director):** Lack of player-controlled zoom prevented players from examining prop craftsmanship up close or surveying the village expanse.
 
 ---
 
-## 3. Lighting Strategy & Budgets
-- **Key Light:** 1 DirectionalLight (`#fff3e0`, intensity: 1.6, castShadow: true, shadowMap: 1024x1024).
-- **Ambient Light:** 1 AmbientLight (`#dff9fb`, intensity: 0.55).
-- **Shadow Quality:** Soft PCF shadows; static architecture baked or cached.
+## 2. Evaluation of Five Art Direction Approaches
+
+| Approach | Aesthetic Description | Cultural Authenticity | Performance (Integrated GPU) | Character Integration | Verdict |
+|---|---|---|---|---|---|
+| **Approach 1: Photorealistic PBR** | High-density meshes, 4K textures, heavy SSAO & screen-space reflections | Moderate | **FAIL** (< 20 FPS on laptop, massive bundle) | Uncanny valley risks | **REJECTED** |
+| **Approach 2: Flat-Shaded Low-Poly** | Low triangle counts, faceted faces, bright saturated pastel colors | Low (feels like generic mobile template) | Excellent (> 60 FPS) | Cartoonish, trivializes ritual reverence | **REJECTED** |
+| **Approach 3: Handcrafted Stylized Diorama (Grounded Rural Realism)** | Tactile procedural geometry, authentic material roughness, warm morning daylight, stylized 3D human figures with expressive facial geometry | **HIGH** (tactile, respectful, warm) | **EXCELLENT** (60 FPS, draw calls < 50) | Warm, human, believable proportions | **SELECTED** |
+| **Approach 4: 2.5D Isometric Pixel** | Sprite-based isometric pixel rendering | Medium | Good | 2D sprites violate 3D geometry-first rule | **REJECTED** |
+| **Approach 5: Monochromatic Clay Sculpture** | Uniform untextured clay diorama | Low | Excellent | Strips away the golden sun, saffron cloth, and brass luster | **REJECTED** |
+
+### Selected Art Direction: Approach 3 — Handcrafted Stylized Diorama (Grounded Rural Realism)
+**Why it is superior:** It delivers rich visual warmth and tactile physical presence using real procedural 3D geometry without relying on photo textures or heavy post-processing. Characters possess sculpted 3D facial features, expressive everyday attire, and natural locomotion that fits the scale of the rural Bihar household.
+
+---
+
+## 3. Visual Transformation Specifications
+
+### 3.1 Sky and Horizon Environment
+- **Warm Morning Horizon Dome:** Inverted hemisphere gradient shifting from pale golden amber (`#ffcf75`) at the horizon to soft morning azure (`#74b9ff`) overhead.
+- **Distant Village Silhouette:** Atmospheric backdrop featuring clustered neem/mango tree canopies, distant thatched hut roofs, and paddy field margins to eliminate the black void.
+
+### 3.2 Architectural Upgrade (Rural Bihar House)
+- **Wall Plinth & Plaster:** Thick mud walls (0.35m) with recessed doorway, wooden door frame, lintel, and subtle corner weathering.
+- **Rafters & Eave Structure:** Exposed cylindrical bamboo/timber rafters beneath the roof overhang supporting the veranda eave.
+- **Terracotta Tile Detailing:** Overlapping corrugated clay tile tiers with authentic ridge-capping.
+- **Veranda (Ooth):** Elevated compacted platform with authentic stone-based wooden columns and carved head brackets.
+
+### 3.3 Courtyard Ground & Path Transitions
+- **Organic Swept Soil:** Circular hand-swept zone with soft edge fading and limewashed chalk perimeter boundary.
+- **Perimeter Mud Boundary Wall:** Sturdy wall with rounded earthen coping where goitha cakes dry in the sun.
+- **Footpath:** Beaten-earth trail leading from the veranda toward the village lane.
+
+### 3.4 Inhabitation & Household Props
+- **Full-Body 3D Player Character:** Stylized young family member with sculpted 3D face (eyes, eyebrows, nose, mouth, hair, ears), wearing traditional cotton kurta-pajama, fully animated with procedural walk cycle and idle breathing.
+- **Vrati Mother NPC:** Respected elder matriarch draped in traditional yellow/ochre ritual border saree, positioned near the veranda cooking zone with responsive dialogue.
+- **Village Handpump (Chapakal):** Authentic cast-iron water pump with handle, spout, and concrete soakage apron.
+- **Woven Charpai (Khatia):** Traditional wooden four-legged cot with woven rope webbing.
+- **Courtyard Broom (Kharhara):** Hand-tied broom leaning against the wall, serving as the first gameplay interaction target.

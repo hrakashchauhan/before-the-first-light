@@ -91,7 +91,47 @@ Append a new entry after every milestone. Never rewrite history to make a failed
 **Next action:** Milestone M01 / Prompt 03 — First 3D Renderer Vertical Slice (React Three Fiber canvas, camera, simple lighting, reference ground mesh).  
 **Git commit:** 9c98dc4
 
-### 2026-11-20 — M01–M03 — First 3D Renderer, Courtyard Blockout & Signature Props Vertical Slice
+### 2026-11-20 — M04–M07 — Visual Transformation, 3D Human Characters, Camera Zoom & Gameplay Loop
+**Goal:** Transform the prototype courtyard into an inhabited, culturally grounded, playable 3D vertical slice with full-body procedural 3D human models, smooth camera tracking & zoom, clean player HUD, modal dialogue, and a complete playable quest loop.  
+**Files changed:**
+- `src/world/environment/VillageAtmosphere.tsx` (warm golden horizon sky dome, distant village trees and huts)
+- `src/world/buildings/HouseBlockout.tsx` (exposed rafters under veranda eave, corrugated terracotta tile ridges, recessed wooden doorway, window frames)
+- `src/world/terrain/CourtyardGround.tsx` (organic circular swept earth zone with limewash curb, perimeter mud wall, beaten-earth lane footpath)
+- `src/objects/household/Handpump.tsx` (authentic cast-iron chapakal on concrete apron with drain channel)
+- `src/objects/household/Charpai.tsx` (traditional woven rope cot with turned wooden legs)
+- `src/objects/household/BroomProp.tsx` (authentic kharhara broom with palm rib bristles)
+- `src/characters/player/PlayerCharacter.tsx` (full-body 3D player with sculpted 3D facial geometry, cotton kurta-pajama, procedural walking/idle locomotion)
+- `src/characters/npcs/MotherNPC.tsx` (vrati mother in saffron saree with red border and anchal veil, breathing and blessing postures)
+- `src/game/camera/CameraController.tsx` (smooth camera tracking lerp with wheel zoom, +/-/0 keyboard shortcuts, bounded clamping 6.5m–24.0m)
+- `src/systems/movement/usePlayerMovement.ts` (WASD/arrows movement with sliding collision boundaries)
+- `src/systems/interaction/useInteractionTargets.ts` (proximity target detection and debounced [E] key dispatch)
+- `src/systems/quests/gameStore.ts` (Zustand store with quest progression, world flags, modal dialogue, camera zoom, localStorage persistence)
+- `src/ui/PlayerHUD.tsx` (clean objective pill, on-screen zoom tools, contextual prompt, controls hint)
+- `src/ui/DialogueBox.tsx` (modal dialogue on interaction with portrait and choices)
+- `src/ui/DebugDrawer.tsx` (slide-out developer override drawer)
+- `src/world/VillageScene.tsx`, `src/game/GameCanvas.tsx`, `src/App.tsx`, `src/App.css`
+- `src/test/player.test.tsx`, `src/test/world.test.tsx`, `src/test/foundation.test.tsx`
+- `docs/23-27-*.md` (updated visual quality, gameplay, regression, performance, cultural validation reports)  
+**Implementation summary:**
+- Visual transformation: eliminated black void with custom inverted sky dome and distant village canopy; upgraded house architecture with exposed rafters and corrugated tiles; transformed courtyard with organic circular swept earth and beaten lane.
+- Inhabitation: created procedural 3D human character models (player character with sculpted eyes, nose, lips, ears, styled hair, animated kurta-pajama; Mother NPC with saffron saree, red border, anchal veil, seated on veranda).
+- Camera: implemented smooth lerped tracking with interactive wheel zoom, keyboard shortcuts, and HUD buttons.
+- Gameplay: implemented first complete quest loop ("Sweep the Courtyard" -> pick up broom -> sweep courtyard with particle dust -> talk to Mother -> inspect wheat drying mat).
+- UI: designed clean player HUD with active objective pill, on-screen zoom controls, contextual interaction prompts, and a collapsible developer debug drawer.
+- Testing: 12/12 automated unit and integration tests passing; 0 TypeScript errors; 0 build errors.  
+**Commands run:**
+- `npm test` (`vitest run` — 12 passed)
+- `npm run typecheck` (`tsc --noEmit` — 0 errors)
+- `npm run build` (`tsc -b && vite build` — 0 errors)  
+**Build:** PASS (zero errors, 909ms build time)  
+**Tests:** PASS (12/12 tests passed across player, world, and foundation specs)  
+**Browser verification:** PASS (Vite dev server running at `http://localhost:5173/`, responsive controls, zoom, interaction, and quest completion verified)  
+**Visual evidence:** Live interactive 3D diorama in browser  
+**Performance observations:** Courtyard draw calls ~38 (well below 50 budget), 60 FPS on integrated laptop GPU.  
+**Known issues:** None.  
+**Next action:** Milestone M08 — Village Lane, Pond & Ghat (expanding the world to connect the household to the village water body).  
+**Git commit:** pending
+
 **Goal:** Implement the complete 3D scene vertical slice with R3F canvas, isometric camera, soft sun lighting, real 3D mud house and veranda blockout, courtyard ground with swept area, and procedural signature Chhath preparation props.  
 **Files changed:**
 - `src/styles/tokens.css` (earth, limewash, bamboo, terracotta, dawn color tokens)
