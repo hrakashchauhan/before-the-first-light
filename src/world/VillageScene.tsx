@@ -10,10 +10,12 @@ import { BambooBaskets } from '../objects/bamboo/BambooBaskets'
 import { Handpump } from '../objects/household/Handpump'
 import { Charpai } from '../objects/household/Charpai'
 import { BroomProp } from '../objects/household/BroomProp'
+import { BicycleProp } from '../objects/bicycle/BicycleProp'
 import { MotherNPC } from '../characters/npcs/MotherNPC'
 import { ArtisanNPC } from '../characters/npcs/ArtisanNPC'
 import { PlayerCharacter } from '../characters/player/PlayerCharacter'
 import { COURTYARD_ANCHORS as anchor } from '../systems/interaction/household'
+import type { BicycleState } from '../systems/movement/bicycleController'
 import { Batch, earth, waterJar } from './craft'
 import type { Piece } from './craft'
 
@@ -24,6 +26,9 @@ interface VillageSceneProps {
   playerPosition: [number, number, number]
   playerRotationY: number
   isMoving: boolean
+  isMounted?: boolean
+  bicycleState?: BicycleState
+  bicyclePosition?: [number, number, number]
   activeTargetId?: string | null
   dialogueTargetId?: string | null
   paused?: boolean
@@ -33,7 +38,8 @@ interface VillageSceneProps {
 const lota:Piece[]=[{at:[-1.13,.32,-2.58],size:[.64,.58,.64],tint:earth.brass}]
 export function VillageScene({
   courtyardCleaned=false, goithaCount=8, wheatStage='spread', playerPosition, playerRotationY,
-  isMoving, activeTargetId=null, dialogueTargetId=null, paused=false, showHouseholdProps=true, preparationGesture=null,
+  isMoving, isMounted=false, bicycleState, bicyclePosition=anchor.prop_bicycle,
+  activeTargetId=null, dialogueTargetId=null, paused=false, showHouseholdProps=true, preparationGesture=null,
 }:VillageSceneProps){
   // The beyond-lane detail enters well before its interaction radius. The landscape
   // and workshop silhouette stay in view as the camera follows the family member.
@@ -42,6 +48,10 @@ export function VillageScene({
   const inspectedWorkObject = dialogueTargetId === 'prop_broom' || dialogueTargetId === 'prop_wheat'
   const actionTarget = preparationGesture === 'sweep' ? 'prop_broom'
     : preparationGesture === 'spread' ? 'prop_wheat' : inspectedWorkObject ? 'inspect' : dialogueTargetId
+
+  const bikeRenderPos = isMounted ? playerPosition : (bicycleState?.position ?? bicyclePosition)
+  const bikeRotationY = isMounted ? playerRotationY : (bicycleState?.rotationY ?? 0)
+
   return <group>
     <VillageAtmosphere />
     <CourtyardGround isCleaned={courtyardCleaned} />
@@ -58,9 +68,27 @@ export function VillageScene({
       <BambooBaskets position={anchor.prop_baskets} />
       <Batch geometry={waterJar} parts={lota} cast />
     </>}
+
+    {/* Procedural 3D Bicycle */}
+    <BicycleProp
+      position={bikeRenderPos}
+      rotationY={bikeRotationY}
+      steerAngle={isMounted ? bicycleState?.steerAngle : 0}
+      wheelRotation={bicycleState?.wheelRotation}
+      pedalRotation={bicycleState?.pedalRotation}
+      isParked={!isMounted}
+      isHighlighted={!isMounted && activeTargetId === 'prop_bicycle'}
+    />
+
     <MotherNPC position={anchor.npc_mother} isHighlighted={activeTargetId==='npc_mother'} talking={dialogueTargetId==='npc_mother'} paused={paused} />
     {nearLane&&<ArtisanNPC position={anchor.npc_artisan} isHighlighted={activeTargetId==='npc_artisan'} />}
-    <PlayerCharacter position={playerPosition} rotationY={playerRotationY} isMoving={isMoving}
-      interacting={Boolean(actionTarget)} actionTarget={actionTarget} paused={paused} />
+    <PlayerCharacter
+      position={isMounted ? [playerPosition[0], playerPosition[1] + 0.38, playerPosition[2]] : playerPosition}
+      rotationY={playerRotationY}
+      isMoving={isMoving}
+      interacting={Boolean(actionTarget)}
+      actionTarget={actionTarget}
+      paused={paused}
+    />
   </group>
 }

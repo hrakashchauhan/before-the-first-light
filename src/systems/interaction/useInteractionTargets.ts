@@ -26,6 +26,7 @@ const targets = [
   target('npc_artisan', 'Mohan Kaka', 'Talk with Mohan Kaka', 2.1),
   target('prop_ghat_spot', 'Pond steps', 'Inspect the steps', 2.25),
   target('prop_sugarcane_koshi', 'Sugarcane canopy', 'Inspect the canopy', 1.8),
+  target('prop_bicycle', 'Bicycle', 'Mount Bicycle', 2.2),
 ]
 
 const hindiTargets: Record<TargetId, [string, string]> = {
@@ -33,6 +34,7 @@ const hindiTargets: Record<TargetId, [string, string]> = {
   prop_chulha: ['मिट्टी का चूल्हा', 'चूल्हा देखें'], prop_handpump: ['हैंडपंप', 'हैंडपंप देखें'], prop_goitha: ['गोइठे', 'गोइठे देखें'],
   prop_baskets: ['बाँस की टोकरियाँ', 'टोकरियाँ देखें'], npc_artisan: ['मोहन काका', 'मोहन काका से बात करें'],
   prop_ghat_spot: ['तालाब की सीढ़ियाँ', 'सीढ़ियाँ देखें'], prop_sugarcane_koshi: ['गन्ने का मंडप', 'मंडप देखें'],
+  prop_bicycle: ['साइकिल', 'साइकिल पर बैठें'],
 }
 
 export function nearestInteraction([x, , z]: WorldPosition, flags: Record<string, boolean> = {}, language: 'en' | 'hi' = 'en'): Interactable | null {

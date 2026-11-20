@@ -14,6 +14,7 @@ export const COURTYARD_ANCHORS = {
   npc_artisan: [12.5, 0.2, 5.4],
   prop_ghat_spot: [19.8, 0, 3.5],
   prop_sugarcane_koshi: [19.8, 0, 5.7],
+  prop_bicycle: [5.2, 0, 3.8],
 } satisfies Record<string, WorldPosition>
 
 export type TargetId = keyof typeof COURTYARD_ANCHORS

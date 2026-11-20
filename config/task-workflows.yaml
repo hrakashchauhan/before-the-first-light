@@ -1,0 +1,62 @@
+workflows:
+  - id: "wf_homecoming"
+    chapter_id: "homecoming"
+    steps:
+      - step: 1
+        instruction_en: "Walk across the courtyard towards the veranda."
+        instruction_hi: "आँगन पार करके बरामदे की ओर जाएँ।"
+        target_id: "npc_mother"
+        action: "talk"
+      - step: 2
+        instruction_en: "Listen to Ma's plan for the morning preparations."
+        instruction_hi: "सुबह की तैयारियों के बारे में माँ से सुनें।"
+        target_id: "npc_mother"
+        action: "listen"
+
+  - id: "wf_courtyard_prep"
+    chapter_id: "courtyard-preparation"
+    steps:
+      - step: 1
+        instruction_en: "Walk to the left corner of the veranda to pick up the grass broom."
+        instruction_hi: "बरामदे के बाईं ओर जाकर झाड़ू लें।"
+        target_id: "prop_broom"
+        action: "pickup"
+      - step: 2
+        instruction_en: "Sweep fallen dry leaves away from the earthen floor."
+        instruction_hi: "कच्चे आँगन से सूखी पत्तियाँ बुहारें।"
+        target_id: "prop_broom"
+        action: "sweep"
+      - step: 3
+        instruction_en: "Confirm with Ma that the ground is sanctified."
+        instruction_hi: "माँ को बताएँ कि आँगन साफ़ हो गया है।"
+        target_id: "npc_mother"
+        action: "report"
+
+  - id: "wf_bicycle_journey_artisan"
+    chapter_id: "village-cooperation"
+    steps:
+      - step: 1
+        instruction_en: "Approach the bicycle parked at the courtyard gate."
+        instruction_hi: "आँगन के फाटक पर खड़ी साइकिल के पास जाएँ।"
+        target_id: "prop_bicycle"
+        action: "mount"
+      - step: 2
+        instruction_en: "Ride down the village lane towards Mohan Kaka's workshop."
+        instruction_hi: "मोहन काका की दुकान की ओर सड़क पर साइकिल चलाएँ।"
+        target_id: "npc_artisan"
+        action: "ride"
+      - step: 3
+        instruction_en: "Brake smoothly and dismount in the artisan parking area."
+        instruction_hi: "कारीगर के सामने साइकिल रोककर उतरें।"
+        target_id: "npc_artisan"
+        action: "dismount"
+      - step: 4
+        instruction_en: "Collect the handmade bamboo baskets."
+        instruction_hi: "हाथ से बनी बाँस की टोकरियाँ लें।"
+        target_id: "npc_artisan"
+        action: "collect"
+      - step: 5
+        instruction_en: "Ride back to the household and deliver the baskets to Ma."
+        instruction_hi: "साइकिल से घर लौटकर टोकरियाँ माँ को दें।"
+        target_id: "npc_mother"
+        action: "deliver"

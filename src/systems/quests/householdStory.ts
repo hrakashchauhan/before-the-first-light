@@ -70,5 +70,6 @@ export function householdStory(target: TargetId, flags: Record<string, boolean>,
     case 'prop_baskets': return you('Ma has set the baskets on the veranda. The strips bend close together around each rim.', 'माँ ने टोकरियाँ बरामदे में रखी हैं। किनारों पर बाँस की पट्टियाँ कसकर बुनी हैं।')
     case 'prop_handpump': return you('I remember leaning my whole weight on that handle. When I was little, Uncle would steady the pot for me.', 'बचपन में इस हत्थे को दबाने के लिए पूरा ज़ोर लगाना पड़ता था। चाचा मेरा घड़ा थाम लेते थे।')
     case 'prop_sugarcane_koshi': return you('A little canopy stands back from the steps. Someday I’ll ask the family who arranged it to tell me about it.', 'सीढ़ियों से हटकर एक छोटा मंडप है। कभी इसे बनाने वाले परिवार से इसकी कहानी पूछूँगा।')
+    case 'prop_bicycle': return you('The black roadster bicycle stands ready by the lane. I can ride it to visit Mohan Kaka or reach the ghat.', 'काली साइकिल फाटक पर खड़ी है। इस पर बैठकर मोहन काका की दुकान या घाट तक जा सकता हूँ।')
   }
 }

@@ -1,0 +1,33 @@
+bicycle:
+  model:
+    name: "Classic Indian Roadster 28-inch"
+    name_hi: "देसी क्लासिक 28-इंच साइकिल"
+    color_frame: "#1a1a1a"
+    color_chrome: "#d8d8d8"
+    wheel_radius: 0.355
+    wheelbase: 1.12
+    carrier_capacity_baskets: 2
+
+  physics:
+    max_forward_speed: 5.8
+    max_reverse_speed: 1.5
+    acceleration: 3.2
+    brake_deceleration: 7.5
+    natural_friction: 1.4
+    turn_rate: 2.4
+    max_lean_angle_rad: 0.16
+    safe_dismount_speed: 0.55
+
+  controls:
+    accelerate: ["KeyW", "ArrowUp"]
+    brake_reverse: ["KeyS", "ArrowDown"]
+    steer_left: ["KeyA", "ArrowLeft"]
+    steer_right: ["KeyD", "ArrowRight"]
+    brake_hand: ["Space"]
+    mount_dismount: ["KeyE"]
+    bell: ["KeyB"]
+
+  parking_defaults:
+    courtyard_gate: [5.2, 0.0, 3.8]
+    artisan_bay: [11.8, 0.0, 4.2]
+    ghat_threshold: [18.0, 0.0, 3.2]

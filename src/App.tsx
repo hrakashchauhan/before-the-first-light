@@ -15,6 +15,7 @@ import { useGameStore } from './systems/quests/gameStore'
 import { CANONICAL_DESTINATIONS } from './systems/destinations/destinationManager'
 import { interfaceCopy } from './data/locales/interface'
 import { useCourtyardSound } from './audio/useCourtyardSound'
+import { audioManager } from './audio/AudioManager'
 import type { WheatStage } from './objects/wheat/WheatDryingMat'
 import './styles/tokens.css'
 import './App.css'
@@ -41,8 +42,42 @@ export default function App() {
   const text = interfaceCopy[store.language]
   const wheat: WheatStage = store.worldFlags.wheat_sorted ? 'spread' : 'empty_mat'
   const inspected = store.isDebugOpen
+
   useEffect(() => { store.loadGame() }, [store.loadGame])
   useEffect(() => { document.documentElement.lang = store.language }, [store.language])
+
+  // Clear transient warnings after 3 seconds
+  useEffect(() => {
+    if (!store.warningText) return
+    const timer = setTimeout(() => store.setWarningText(null), 3200)
+    return () => clearTimeout(timer)
+  }, [store.warningText, store.setWarningText])
+
+  const handleSoundToggle = () => {
+    audioManager.init()
+    if (!sound.enabled) {
+      audioManager.playTrack('music_chhathi_maiya_bulaye')
+    } else {
+      audioManager.stopMusic()
+    }
+    sound.toggle()
+  }
+
+  const handleInteract = () => {
+    if (blocked) return
+    if (movement.isMounted) {
+      movement.dismountBicycle()
+      return
+    }
+    if (nearest?.id === 'prop_bicycle') {
+      movement.mountBicycle()
+      return
+    }
+    if (nearest) {
+      store.interactWithTarget(nearest.id)
+    }
+  }
+
   useEffect(() => {
     function shortcut(event: KeyboardEvent) {
       if (event.defaultPrevented || event.repeat || event.ctrlKey || event.altKey || event.metaKey) return
@@ -59,6 +94,7 @@ export default function App() {
     window.addEventListener('keydown', shortcut)
     return () => window.removeEventListener('keydown', shortcut)
   }, [blocked, store.toggleDebug])
+
   const handleTravel = (position: WorldPosition) => {
     movement.teleport(position)
     const matched = CANONICAL_DESTINATIONS.find(d => Math.hypot(d.position[0] - position[0], d.position[2] - position[2]) < 1.0)
@@ -69,6 +105,7 @@ export default function App() {
 
   const markerTarget = blocked ? null : objective.targetId
   const projectedTarget = markerTarget === 'npc_mother' ? (store.language === 'en' ? 'Ma' : 'माँ') : null
+
   return <main className="game-container" data-player={inspectEnabled ? movement.position.join(',') : undefined}>
     <div className="canvas-wrapper" aria-label={text.courtyard}>
       <GameCanvas targetPosition={movement.position} zoomDistance={store.cameraZoomDistance} onZoomChange={store.setCameraZoom} paused={Boolean(menu)}>
@@ -76,7 +113,9 @@ export default function App() {
         <VillageScene courtyardCleaned={inspected ? previewClean ?? store.worldFlags.courtyard_cleaned : store.worldFlags.courtyard_cleaned}
           goithaCount={inspected ? goitha : 8} wheatStage={inspected ? previewWheat ?? wheat : wheat}
           showHouseholdProps={!inspected || showProps} playerPosition={movement.position} playerRotationY={movement.rotationY}
-          isMoving={movement.isMoving} activeTargetId={nearest?.id} dialogueTargetId={store.dialogueTargetId}
+          isMoving={movement.isMoving} isMounted={movement.isMounted} bicycleState={movement.bicycleState}
+          bicyclePosition={store.bicyclePosition}
+          activeTargetId={nearest?.id} dialogueTargetId={store.dialogueTargetId}
           preparationGesture={store.preparationGesture} paused={Boolean(menu || inspected)}/>
         <SceneReadout marker={marker} target={markerTarget} sample={sample}/>
       </GameCanvas>
@@ -84,9 +123,10 @@ export default function App() {
     {markerTarget && <div ref={marker} className="world-marker" aria-hidden="true">{projectedTarget && <span>{projectedTarget}</span>}<i/></div>}
     <PlayerHUD language={store.language} objectiveTitle={objective.title} nearestTarget={blocked ? null : nearest}
       locationX={movement.position[0]} facing={movement.rotationY} zoom={store.cameraZoomDistance} soundOn={sound.enabled}
-      soundUnavailable={sound.unavailable} onZoom={store.setCameraZoom} onJournal={()=>setMenu('journal')} onGuide={()=>setShowGuide(true)} onMap={()=>setShowMap(true)} onPause={()=>setMenu('pause')}
-      onSound={sound.toggle} onInteract={()=>{if(nearest && !blocked)store.interactWithTarget(nearest.id)}} onDirection={movement.setDirectionHeld}/>
-    {menu && <GameMenu mode={menu} objective={objective} x={movement.position[0]} soundOn={sound.enabled} soundUnavailable={sound.unavailable} onSound={sound.toggle} onClose={()=>setMenu(null)}/>}
+      soundUnavailable={sound.unavailable} isMounted={movement.isMounted} warningText={store.warningText}
+      onZoom={store.setCameraZoom} onJournal={()=>setMenu('journal')} onGuide={()=>setShowGuide(true)} onMap={()=>setShowMap(true)} onPause={()=>setMenu('pause')}
+      onSound={handleSoundToggle} onInteract={handleInteract} onDirection={movement.setDirectionHeld}/>
+    {menu && <GameMenu mode={menu} objective={objective} x={movement.position[0]} soundOn={sound.enabled} soundUnavailable={sound.unavailable} onSound={handleSoundToggle} onClose={()=>setMenu(null)}/>}
     {showGuide && <HowToPlay language={store.language} objective={objective} onClose={()=>setShowGuide(false)}/>}
     {showMap && <RouteMap language={store.language} objective={objective} flags={store.worldFlags} timeOfDay={store.timeOfDay} onTravel={handleTravel} onClose={()=>setShowMap(false)}/>}
     {store.dialogueActive && store.dialogueSpeaker && store.dialogueText && <DialogueBox speaker={store.dialogueSpeaker} text={store.dialogueText} continueLabel={text.continue} onClose={store.closeDialogue}/>}

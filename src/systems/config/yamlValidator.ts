@@ -149,6 +149,102 @@ export const QualityGatesYamlSchema = z.object({
   gates: z.array(QualityGateYamlItemSchema),
 })
 
+export const BicycleYamlSchema = z.object({
+  bicycle: z.object({
+    model: z.object({
+      name: z.string().min(1),
+      name_hi: z.string().min(1),
+      color_frame: z.string(),
+      color_chrome: z.string(),
+      wheel_radius: z.number().positive(),
+      wheelbase: z.number().positive(),
+      carrier_capacity_baskets: z.number().int().nonnegative(),
+    }),
+    physics: z.object({
+      max_forward_speed: z.number().positive(),
+      max_reverse_speed: z.number().positive(),
+      acceleration: z.number().positive(),
+      brake_deceleration: z.number().positive(),
+      natural_friction: z.number().positive(),
+      turn_rate: z.number().positive(),
+      max_lean_angle_rad: z.number().positive(),
+      safe_dismount_speed: z.number().positive(),
+    }),
+    controls: z.record(z.string(), z.array(z.string())),
+    parking_defaults: z.record(z.string(), z.tuple([z.number(), z.number(), z.number()])),
+  }),
+})
+
+export const RoadZonesYamlSchema = z.object({
+  road_zones: z.object({
+    zones: z.array(
+      z.object({
+        id: z.string().min(1),
+        type: z.enum(['pedestrian-only', 'bicycle-road', 'bicycle-path', 'ritual-zone', 'water-zone', 'indoor-zone', 'parking-zone']),
+        name: z.string().min(1),
+        name_hi: z.string().min(1),
+        bounds: z.object({
+          min_x: z.number(),
+          max_x: z.number(),
+          min_z: z.number(),
+          max_z: z.number(),
+        }),
+        bicycle_permitted: z.boolean(),
+        speed_limit: z.number().optional(),
+        restriction_message_en: z.string().optional(),
+        restriction_message_hi: z.string().optional(),
+      })
+    ),
+  }),
+})
+
+export const TaskWorkflowsYamlSchema = z.object({
+  workflows: z.array(
+    z.object({
+      id: z.string().min(1),
+      chapter_id: z.string().min(1),
+      steps: z.array(
+        z.object({
+          step: z.number().int().positive(),
+          instruction_en: z.string().min(1),
+          instruction_hi: z.string().min(1),
+          target_id: z.string().min(1),
+          action: z.string().min(1),
+        })
+      ),
+    })
+  ),
+})
+
+export const NpcSchedulesYamlSchema = z.object({
+  schedules: z.array(
+    z.object({
+      character_id: z.string().min(1),
+      phases: z.array(
+        z.object({
+          time_of_day: z.string().min(1),
+          location_anchor: z.string().min(1),
+          activity: z.string().min(1),
+          activity_hi: z.string().min(1),
+        })
+      ),
+    })
+  ),
+})
+
+export const TutorialYamlSchema = z.object({
+  tutorial: z.object({
+    hints: z.array(
+      z.object({
+        id: z.string().min(1),
+        trigger: z.string().min(1),
+        text_en: z.string().min(1),
+        text_hi: z.string().min(1),
+      })
+    ),
+  }),
+})
+
 export function parseYamlContent<T>(raw: string, schema: z.ZodType<T>): T {
   const parsed = parse(raw)
   return schema.parse(parsed)

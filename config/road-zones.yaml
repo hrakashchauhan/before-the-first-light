@@ -1,0 +1,52 @@
+road_zones:
+  zones:
+    - id: "zone_courtyard"
+      type: "pedestrian-only"
+      name: "Family Courtyard"
+      name_hi: "घर का आँगन"
+      bounds:
+        min_x: -4.94
+        max_x: 4.8
+        min_z: -2.86
+        max_z: 5.93
+      bicycle_permitted: false
+      restriction_message_en: "Pedestrian only: Please dismount before entering the family courtyard."
+      restriction_message_hi: "केवल पैदल: घर के आँगन में आने से पहले कृपया साइकिल से उतरें।"
+
+    - id: "zone_village_lane"
+      type: "bicycle-road"
+      name: "Village Main Lane"
+      name_hi: "गाँव की मुख्य सड़क"
+      bounds:
+        min_x: 4.8
+        max_x: 18.2
+        min_z: 2.0
+        max_z: 5.8
+      bicycle_permitted: true
+      speed_limit: 6.0
+
+    - id: "zone_ghat_steps"
+      type: "ritual-zone"
+      name: "Sacred Pond Steps"
+      name_hi: "पवित्र तालाब की सीढ़ियाँ"
+      bounds:
+        min_x: 18.1
+        max_x: 21.5
+        min_z: -0.9
+        max_z: 7.45
+      bicycle_permitted: false
+      restriction_message_en: "Ritual space: Vehicles must be parked at the upper threshold."
+      restriction_message_hi: "पवित्र घाट: कृपया साइकिल ऊपर ही खड़ी करें।"
+
+    - id: "zone_pond_water"
+      type: "water-zone"
+      name: "Village Pond"
+      name_hi: "गाँव का तालाब"
+      bounds:
+        min_x: 21.5
+        max_x: 25.0
+        min_z: -2.0
+        max_z: 8.0
+      bicycle_permitted: false
+      restriction_message_en: "Water body: Deep pond water."
+      restriction_message_hi: "जल क्षेत्र: गहरा पानी।"

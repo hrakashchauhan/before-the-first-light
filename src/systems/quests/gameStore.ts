@@ -2,9 +2,11 @@ import { create } from 'zustand'
 import { z } from 'zod'
 import type { GameSaveV1 } from '../../../schemas/game-state'
 import { GAME_CONFIG } from '../../game/config'
-import { COURTYARD_ANCHORS, getObjective, type TargetId } from '../interaction/household'
+import { COURTYARD_ANCHORS, getObjective, type TargetId, type WorldPosition } from '../interaction/household'
 import { householdStory } from './householdStory'
 import { eventBus } from '../events/eventBus'
+import type { LocomotionMode } from '../movement/playerLocomotionState'
+import { INITIAL_BICYCLE_POSITION } from '../movement/bicycleController'
 
 const STORAGE_KEY = 'before_the_first_light_save_v1'
 const DEFAULT_FLAGS = { courtyard_cleaned: false, talked_to_mother: false, wheat_sorted: false, chulha_ready: true, dawn_witnessed: false, prasad_shared: false }
@@ -36,10 +38,21 @@ interface GameStateStore extends GameSaveV1 {
   cameraZoomDistance: number
   isDebugOpen: boolean
   currentDestinationId: string
+  locomotionMode: LocomotionMode
+  bicyclePosition: WorldPosition
+  bicycleRotationY: number
+  bicycleSpeed: number
+  warningText: string | null
   setCameraZoom: (distance: number) => void
   setLanguage: (language: GameSaveV1['language']) => void
   setSfxVolume: (volume: number) => void
+  setMusicVolume: (volume: number) => void
   setCurrentDestination: (destinationId: string) => void
+  setLocomotionMode: (mode: LocomotionMode) => void
+  setBicycleTransform: (pos: WorldPosition, rotY: number, speed: number) => void
+  setWarningText: (text: string | null) => void
+  mountBicycle: () => void
+  dismountBicycle: () => void
   toggleDebug: () => void
   interactWithTarget: (targetId: string) => void
   closeDialogue: () => void
@@ -58,7 +71,17 @@ function isTargetId(id: string): id is TargetId {
   return Object.hasOwn(COURTYARD_ANCHORS, id)
 }
 
-const runtimeDefaults = { ...CLOSED_DIALOGUE, cameraZoomDistance: GAME_CONFIG.camera.defaultDistance, isDebugOpen: false, currentDestinationId: 'hub_home' }
+const runtimeDefaults = {
+  ...CLOSED_DIALOGUE,
+  cameraZoomDistance: GAME_CONFIG.camera.defaultDistance,
+  isDebugOpen: false,
+  currentDestinationId: 'hub_home',
+  locomotionMode: 'walking' as LocomotionMode,
+  bicyclePosition: [...INITIAL_BICYCLE_POSITION] as WorldPosition,
+  bicycleRotationY: 0,
+  bicycleSpeed: 0,
+  warningText: null as string | null,
+}
 
 export const useGameStore = create<GameStateStore>((set, get) => ({
   ...DEFAULT_SAVE,
@@ -76,11 +99,32 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
     eventBus.emit('settings:changed', { settings: { sfxVolume } })
     get().saveGame()
   },
+  setMusicVolume: (volume) => {
+    if (!Number.isFinite(volume)) return
+    const musicVolume = Math.min(1, Math.max(0, volume))
+    set((state) => ({ settings: { ...state.settings, musicVolume } }))
+    eventBus.emit('settings:changed', { settings: { musicVolume } })
+    get().saveGame()
+  },
   setCurrentDestination: (destinationId: string) => {
     const prev = get().currentDestinationId
     if (prev === destinationId) return
     set({ currentDestinationId: destinationId })
     eventBus.emit('journey:destination-arrived', { destinationId, previousDestinationId: prev })
+  },
+  setLocomotionMode: (locomotionMode: LocomotionMode) => set({ locomotionMode }),
+  setBicycleTransform: (bicyclePosition: WorldPosition, bicycleRotationY: number, bicycleSpeed: number) =>
+    set({ bicyclePosition, bicycleRotationY, bicycleSpeed }),
+  setWarningText: (warningText: string | null) => set({ warningText }),
+  mountBicycle: () => {
+    const state = get()
+    if (state.locomotionMode === 'riding' || state.dialogueActive) return
+    set({ locomotionMode: 'riding', warningText: null })
+  },
+  dismountBicycle: () => {
+    const state = get()
+    if (state.locomotionMode !== 'riding') return
+    set({ locomotionMode: 'walking', bicycleSpeed: 0, warningText: null })
   },
   toggleDebug: () => set((state) => ({ isDebugOpen: !state.isDebugOpen })),
   closeDialogue: () => {

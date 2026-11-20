@@ -5,9 +5,16 @@ audio:
     fade_duration_ms: 1200
 
   tracks:
-    - id: "music_courtyard_morning"
+    - id: "music_chhathi_maiya_bulaye"
       chapter: "homecoming"
       location: "hub_home"
+      channel: "music"
+      description: "Original supplied masterpiece: Chhathi Maiya Bulaye (Vishal Mishra Arrangement, Instrumental Karaoke)."
+      licensing: "Supplied User Audio Masterwork"
+
+    - id: "music_courtyard_morning"
+      chapter: "courtyard-preparation"
+      location: "hub_courtyard"
       channel: "music"
       description: "Gentle acoustic santur and ambient morning drone."
       licensing: "Original Procedural Web Audio Composition"
@@ -16,14 +23,14 @@ audio:
       chapter: "village-cooperation"
       location: "hub_artisan"
       channel: "music"
-      description: "Rustic tanpura with gentle rhythmic phrasing."
+      description: "Rustic tanpura with gentle rhythmic phrasing for bicycle journeys."
       licensing: "Original Procedural Web Audio Composition"
 
     - id: "music_ghat_dawn"
       chapter: "usha-arghya"
       location: "hub_dawn"
       channel: "music"
-      description: "Swelling sunrise raga with morning mist atmosphere."
+      description: "Swelling sunrise raga with morning mist atmosphere as first light breaks."
       licensing: "Original Procedural Web Audio Composition"
 
     - id: "music_parana_celebration"
@@ -42,9 +49,9 @@ audio:
     - id: "amb_lane_bamboo"
       location: "hub_artisan"
       channel: "ambience"
-      description: "Rustling green bamboo leaves in gentle breeze."
+      description: "Rustling green bamboo leaves in gentle breeze along bicycle path."
 
     - id: "amb_ghat_water"
       location: "hub_ghat"
       channel: "ambience"
-      description: "Gentle rippling water on brick steps."
+      description: "Gentle rippling water on brick steps at the sacred pond."

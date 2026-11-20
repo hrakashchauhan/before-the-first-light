@@ -1,0 +1,26 @@
+tutorial:
+  hints:
+    - id: "hint_movement"
+      trigger: "game_start"
+      text_en: "Use [W, A, S, D] or the on-screen arrow pads to move through the courtyard."
+      text_hi: "आँगन में चलने के लिए [W, A, S, D] या स्क्रीन के तीरों का प्रयोग करें।"
+
+    - id: "hint_interact"
+      trigger: "near_target"
+      text_en: "Press [E] or tap the interaction button to talk or complete tasks."
+      text_hi: "बात करने या काम करने के लिए [E] दबाएँ।"
+
+    - id: "hint_bicycle_mount"
+      trigger: "near_bicycle"
+      text_en: "Press [E] to Mount the bicycle and ride along the village lane."
+      text_hi: "सड़क पर चलने के लिए [E] दबाकर साइकिल पर बैठें।"
+
+    - id: "hint_bicycle_ride"
+      trigger: "riding_bicycle"
+      text_en: "[W] Accelerate · [A/D] Steer · [Space/S] Brake · [B] Ring Bell · [E] Dismount when stopped."
+      text_hi: "[W] आगे बढ़ें · [A/D] मोड़ें · [Space/S] ब्रेक · [B] घंटी बजाएँ · [E] रुकने पर उतरें।"
+
+    - id: "hint_journal"
+      trigger: "objective_updated"
+      text_en: "Press [J] to review your active tasks, cultural notes, and walkthrough steps."
+      text_hi: "अपने काम और गाँव की डायरी देखने के लिए [J] दबाएँ।"

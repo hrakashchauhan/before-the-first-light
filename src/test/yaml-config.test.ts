@@ -11,6 +11,11 @@ import {
   EventsYamlSchema,
   UiLabelsYamlSchema,
   QualityGatesYamlSchema,
+  BicycleYamlSchema,
+  RoadZonesYamlSchema,
+  TaskWorkflowsYamlSchema,
+  NpcSchedulesYamlSchema,
+  TutorialYamlSchema,
 } from '../systems/config/yamlValidator'
 import { COURTYARD_ANCHORS } from '../systems/interaction/household'
 
@@ -151,5 +156,54 @@ describe('YAML Configuration Validation Suite', () => {
       expect(worldDestIds.has(chapter.destination_id)).toBe(true)
       expect(questIds.has(chapter.required_quest)).toBe(true)
     }
+  })
+
+  it('validates config/bicycle.yaml', () => {
+    const raw = readConfig('bicycle.yaml')
+    const parsed = parseYamlContent(raw, BicycleYamlSchema)
+
+    expect(parsed.bicycle.model.name).toContain('Classic')
+    expect(parsed.bicycle.physics.max_forward_speed).toBeGreaterThan(0)
+    expect(parsed.bicycle.physics.brake_deceleration).toBeGreaterThan(0)
+    expect(parsed.bicycle.parking_defaults.courtyard_gate).toBeDefined()
+  })
+
+  it('validates config/road-zones.yaml', () => {
+    const raw = readConfig('road-zones.yaml')
+    const parsed = parseYamlContent(raw, RoadZonesYamlSchema)
+
+    expect(parsed.road_zones.zones.length).toBeGreaterThanOrEqual(3)
+    const lane = parsed.road_zones.zones.find((z) => z.id === 'zone_village_lane')
+    expect(lane?.bicycle_permitted).toBe(true)
+    const courtyard = parsed.road_zones.zones.find((z) => z.id === 'zone_courtyard')
+    expect(courtyard?.bicycle_permitted).toBe(false)
+  })
+
+  it('validates config/task-workflows.yaml', () => {
+    const raw = readConfig('task-workflows.yaml')
+    const parsed = parseYamlContent(raw, TaskWorkflowsYamlSchema)
+
+    expect(parsed.workflows.length).toBeGreaterThanOrEqual(3)
+    for (const wf of parsed.workflows) {
+      expect(wf.steps.length).toBeGreaterThan(0)
+      for (const step of wf.steps) {
+        expect(step.instruction_en).toBeTruthy()
+        expect(step.instruction_hi).toBeTruthy()
+      }
+    }
+  })
+
+  it('validates config/npc-schedules.yaml', () => {
+    const raw = readConfig('npc-schedules.yaml')
+    const parsed = parseYamlContent(raw, NpcSchedulesYamlSchema)
+
+    expect(parsed.schedules.length).toBeGreaterThanOrEqual(2)
+  })
+
+  it('validates config/tutorial.yaml', () => {
+    const raw = readConfig('tutorial.yaml')
+    const parsed = parseYamlContent(raw, TutorialYamlSchema)
+
+    expect(parsed.tutorial.hints.length).toBeGreaterThanOrEqual(4)
   })
 })
