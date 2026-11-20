@@ -1,0 +1,112 @@
+chapters:
+  - id: "homecoming"
+    title: "The Homecoming"
+    time_of_day: "morning"
+    description: "Return to the family village home as Chhath preparations begin."
+    primary_quest: "q_arrival_talk"
+
+  - id: "courtyard-preparation"
+    title: "Sanctifying the Courtyard"
+    time_of_day: "morning"
+    description: "Help clean and prepare the open household ground for sacred tasks."
+    primary_quest: "q_courtyard_clean"
+
+  - id: "household-work"
+    title: "The Work of Hands"
+    time_of_day: "afternoon"
+    description: "Protect the wheat, shape drying fuel cakes, and verify the clay chulha."
+    primary_quest: "q_wheat_sort"
+
+  - id: "village-cooperation"
+    title: "The Living Lane"
+    time_of_day: "evening"
+    description: "Visit the bamboo artisan and help prepare the lane towards the ghat."
+    primary_quest: "q_bamboo_visit"
+
+  - id: "festival-eve"
+    title: "Festival Eve"
+    time_of_day: "night"
+    description: "Evening lamps glow across the courtyards as prayers begin."
+    primary_quest: "q_ghat_clean"
+
+  - id: "sandhya-arghya"
+    title: "The Setting Sun"
+    time_of_day: "evening"
+    description: "The first offerings made to the setting sun in quiet community reverence."
+    primary_quest: "q_sandhya_attend"
+
+  - id: "usha-arghya"
+    title: "Before the First Light"
+    time_of_day: "pre-dawn"
+    description: "Walking with the family into the cool water, awaiting the rising sun."
+    primary_quest: "q_dawn_walk"
+
+  - id: "parana-epilogue"
+    title: "The Shared Feast"
+    time_of_day: "sunrise"
+    description: "Breaking the fast, distributing thekua prasad, and mutual blessings."
+    primary_quest: "q_prasad_share"
+
+quests:
+  - id: "q_arrival_talk"
+    chapter_id: "homecoming"
+    title_key: "quest.arrival_talk.title"
+    description_key: "quest.arrival_talk.desc"
+    interaction_target_id: "npc_mother"
+    completion_flag: "talked_to_mother"
+    visible_consequence: "Courtyard cleaning area highlighted and broom prop unlocked"
+    dependencies: []
+
+  - id: "q_courtyard_clean"
+    chapter_id: "courtyard-preparation"
+    title_key: "quest.courtyard_clean.title"
+    description_key: "quest.courtyard_clean.desc"
+    interaction_target_id: "prop_broom_area"
+    completion_flag: "courtyard_cleaned"
+    visible_consequence: "Courtyard mud floor becomes freshly swept with smooth limewash edge"
+    dependencies: ["q_arrival_talk"]
+
+  - id: "q_wheat_sort"
+    chapter_id: "household-work"
+    title_key: "quest.wheat_sort.title"
+    description_key: "quest.wheat_sort.desc"
+    interaction_target_id: "prop_wheat_mat"
+    completion_flag: "wheat_sorted"
+    visible_consequence: "Golden wheat spread evenly across woven mat under sunny exposure"
+    dependencies: ["q_courtyard_clean"]
+
+  - id: "q_goitha_prepare"
+    chapter_id: "household-work"
+    title_key: "quest.goitha_prepare.title"
+    description_key: "quest.goitha_prepare.desc"
+    interaction_target_id: "prop_goitha_wall"
+    completion_flag: "goitha_placed"
+    visible_consequence: "Neatly shaped round goitha cakes drying along the sunny boundary wall"
+    dependencies: ["q_courtyard_clean"]
+
+  - id: "q_chulha_check"
+    chapter_id: "household-work"
+    title_key: "quest.chulha_check.title"
+    description_key: "quest.chulha_check.desc"
+    interaction_target_id: "prop_chulha"
+    completion_flag: "chulha_ready"
+    visible_consequence: "Clay chulha inspected with firewood ready beside the clean cooking nook"
+    dependencies: ["q_courtyard_clean"]
+
+  - id: "q_bamboo_visit"
+    chapter_id: "village-cooperation"
+    title_key: "quest.bamboo_visit.title"
+    description_key: "quest.bamboo_visit.desc"
+    interaction_target_id: "npc_artisan"
+    completion_flag: "bamboo_collected"
+    visible_consequence: "Handcrafted yellow soop basket placed carefully in the veranda"
+    dependencies: ["q_wheat_sort", "q_chulha_check"]
+
+  - id: "q_dawn_walk"
+    chapter_id: "usha-arghya"
+    title_key: "quest.dawn_walk.title"
+    description_key: "quest.dawn_walk.desc"
+    interaction_target_id: "npc_family_ghat"
+    completion_flag: "dawn_reached"
+    visible_consequence: "Sunrise break through mist over the pond; golden light reflects on water"
+    dependencies: ["q_bamboo_visit"]

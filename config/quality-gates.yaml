@@ -1,0 +1,105 @@
+gates:
+  - id: "G0_ENVIRONMENT"
+    title: "Environment & Dependencies Baseline"
+    required_commands:
+      - "npm run typecheck"
+      - "npm run build"
+      - "npm test"
+    pass_criteria:
+      - "Node v20+ / modern npm working"
+      - "TypeScript strict compilation with 0 errors"
+      - "Production bundle builds without errors"
+      - "Dev server responds with HTTP 200"
+    status: "PASS"
+
+  - id: "G1_RENDERER"
+    title: "First 3D Scene Vertical Slice"
+    required_commands:
+      - "npm run typecheck"
+      - "npm run build"
+    pass_criteria:
+      - "R3F Canvas mounts cleanly in DOM"
+      - "Isometric camera correctly framed"
+      - "Soft daylight key and ambient lighting active"
+      - "Ground plane and reference mesh visible"
+      - "Zero WebGL context loss or resize errors"
+      - "DPR capped at 1.5 max"
+    status: "READY_FOR_EXECUTION"
+
+  - id: "G2_COURTYARD"
+    title: "Courtyard & House Blockout"
+    pass_criteria:
+      - "Real 3D procedural walls, veranda, roof, doorway, swept yard"
+      - "No floating meshes; ground contact verified"
+      - "Coherent 1m world units"
+      - "Draw calls under 50"
+    status: "PENDING"
+
+  - id: "G3_PROPS"
+    title: "Signature Preparation Objects"
+    pass_criteria:
+      - "Goitha with distinct wet/drying stages"
+      - "Clay chulha with combustion opening"
+      - "Wheat drying mat with instanced grains"
+      - "Bamboo woven soop and daura props"
+      - "All built from procedural geometry"
+    status: "PENDING"
+
+  - id: "G4_PLAYER"
+    title: "Player Locomotion & Collision"
+    pass_criteria:
+      - "Responsive WASD / arrow movement"
+      - "Procedural walk cycle and orientation lerping"
+      - "Camera follows player smoothly"
+      - "Collision stops player at walls and boundaries"
+    status: "PENDING"
+
+  - id: "G5_INTERACTION"
+    title: "Proximity Detection & Contextual Prompt"
+    pass_criteria:
+      - "Nearest-target highlighted within range"
+      - "[E] contextual prompt appears and clears on exit"
+      - "Debounced key handling prevents multiple triggers"
+    status: "PENDING"
+
+  - id: "G6_QUEST_STATE"
+    title: "First Playable Task & World Consequence"
+    pass_criteria:
+      - "Active quest displays in HUD"
+      - "Task completion visibly alters 3D world"
+      - "World flags update correctly in store"
+    status: "PENDING"
+
+  - id: "G7_SAVE_LOAD"
+    title: "State Persistence & Recovery"
+    pass_criteria:
+      - "Zod-validated LocalStorage serialization"
+      - "Progress restored accurately after page reload"
+      - "Graceful reset on corrupted save data"
+    status: "PENDING"
+
+  - id: "G8_UI_LOCALISATION"
+    title: "UI Accessibility & Bilingual Support"
+    pass_criteria:
+      - "100% keyboard operable"
+      - "English and Hindi text toggle works"
+      - "Audio controls and subtitles functional"
+    status: "PENDING"
+
+  - id: "G9_FINALE"
+    title: "Dawn Arghya Story Climax"
+    pass_criteria:
+      - "Evening to dawn time-of-day progression"
+      - "Community gathered at ghat steps"
+      - "Usha Arghya sunrise lighting and reflection"
+      - "Epilogue sequence completed"
+    status: "PENDING"
+
+  - id: "G10_RELEASE"
+    title: "Production Release Gate"
+    pass_criteria:
+      - "All automated tests pass"
+      - "Zero console errors or memory leaks"
+      - "Cultural validation ledger signed off"
+      - "Asset rights cleared and attributed"
+    status: "PENDING"

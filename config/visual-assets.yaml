@@ -1,0 +1,80 @@
+assets:
+  - id: "env_courtyard_ground"
+    category: "architecture"
+    geometry_strategy: "Custom compound plane with subtle vertex elevation noise"
+    material_strategy: "Procedural earth-tone shader with swept soil boundary masks"
+    animation_requirement: "none"
+    performance_budget_triangles: 1200
+    cultural_validation_status: "verified-local"
+
+  - id: "env_house_structure"
+    category: "architecture"
+    geometry_strategy: "Extruded wall volumes with recessed door and window openings"
+    material_strategy: "Textured mud limewash with warm cream vertex coloration"
+    animation_requirement: "none"
+    performance_budget_triangles: 3500
+    cultural_validation_status: "verified-local"
+
+  - id: "env_veranda_roof"
+    category: "architecture"
+    geometry_strategy: "Layered inclined tile and thatch planes supported by wooden beam cylinders"
+    material_strategy: "Weathered terracotta clay with subtle tone shifts"
+    animation_requirement: "none"
+    performance_budget_triangles: 2800
+    cultural_validation_status: "verified-local"
+
+  - id: "prop_goitha"
+    category: "ritual_prop"
+    geometry_strategy: "Procedural flattened disc with organic rim displacement and finger impression"
+    material_strategy: "Fibrous dry earthy brown with lighter sun-baked highlights"
+    animation_requirement: "Drying stage transitions (dark moist -> light tan)"
+    performance_budget_triangles: 450
+    cultural_validation_status: "verified-local"
+
+  - id: "prop_clay_chulha"
+    category: "ritual_prop"
+    geometry_strategy: "U-shaped hollowed clay body with curved pot rests and arched fire opening"
+    material_strategy: "Burnished terracotta clay with subtle smoke smudge near mouth"
+    animation_requirement: "none"
+    performance_budget_triangles: 850
+    cultural_validation_status: "verified-local"
+
+  - id: "prop_wheat_drying_mat"
+    category: "ritual_prop"
+    geometry_strategy: "Woven rectangular mat plane with instanced golden grain particles"
+    material_strategy: "Fine cross-weave procedural pattern in pale straw tone"
+    animation_requirement: "Grain coverage progression"
+    performance_budget_triangles: 1500
+    cultural_validation_status: "verified-local"
+
+  - id: "prop_bamboo_soop"
+    category: "ritual_prop"
+    geometry_strategy: "Flared scoop-shaped woven mesh with curved raised rim and flat front lip"
+    material_strategy: "Bright natural bamboo yellow with woven split-strip shading"
+    animation_requirement: "none"
+    performance_budget_triangles: 950
+    cultural_validation_status: "verified-local"
+
+  - id: "char_player"
+    category: "character"
+    geometry_strategy: "Stylized multi-part humanoid mesh with simple clothing drape"
+    material_strategy: "Clean natural cotton cream with warm skin tones"
+    animation_requirement: "Procedural walk cycle, breathing idle, item carrying"
+    performance_budget_triangles: 2400
+    cultural_validation_status: "fictional-grounded"
+
+  - id: "char_mother_vrati"
+    category: "character"
+    geometry_strategy: "Stylized seated/standing female elder figure draped in traditional cotton saree"
+    material_strategy: "Traditional yellow/saffron ritual border cloth"
+    animation_requirement: "Breathing, hand greeting gesture, blessing"
+    performance_budget_triangles: 2600
+    cultural_validation_status: "verified-local"
+
+  - id: "env_ghat_steps"
+    category: "architecture"
+    geometry_strategy: "Stepped stone/brick tier descending into reflective water plane"
+    material_strategy: "Weathered red brick / stone with wet gloss waterline"
+    animation_requirement: "none"
+    performance_budget_triangles: 4000
+    cultural_validation_status: "verified-local"

@@ -1,0 +1,57 @@
+project:
+  name: "BEFORE THE FIRST LIGHT"
+  tagline: "A living village. Sixty days of preparation. One sunrise."
+  version: "0.1.0"
+  workspace: "D:\\Codex Game JAm\\Chhath game"
+  environment: "Windows / Google Antigravity"
+
+milestone:
+  current: "M01"
+  title: "First 3D Renderer & Scene Foundation"
+  status: "in-progress"
+  target_date: "2026-11-20"
+
+technology_stack:
+  framework: "React 19.3"
+  language: "TypeScript 7.0 (Strict Mode)"
+  bundler: "Vite 8.3"
+  engine_3d: "Three.js 0.187 + React Three Fiber 9.8 + Drei 10.7"
+  state_management: "Zustand 5.1"
+  validation: "Zod 4.6"
+  cinematics: "GSAP 3.15"
+  audio: "Howler 2.2"
+  icons: "Lucide React 1.77"
+  testing: "Vitest 3.0 + React Testing Library 16.2 + JSDOM 26"
+
+visual_direction:
+  style: "Handcrafted, tactile semi-realistic stylized 3D diorama"
+  camera: "Mild perspective three-quarter isometric with bounded follow"
+  palette:
+    earth_mud: ["#2b1f1a", "#593d2c", "#8c6239"]
+    limewash: ["#f7f1e3", "#d1ccc0"]
+    bamboo: ["#f5cd79", "#e58e26"]
+    vegetation: ["#4b654c", "#2f3e2e"]
+    pond_water: ["#2c5364", "#203a43", "#0f2027"]
+    dawn_sky: ["#ff9f43", "#ee5253", "#341f97"]
+
+performance_targets:
+  target_hardware: "Windows laptop with integrated GPU"
+  fps_target: 60
+  fps_minimum: 45
+  draw_calls_budget: 50
+  max_triangle_count: 100000
+  dpr_cap: 1.5
+  shadow_map_resolution: 1024
+
+language_settings:
+  default_language: "en"
+  supported_languages: ["en", "hi"]
+  dialect_review_required: ["bhojpuri"]
+
+non_negotiable_constraints:
+  - "Zero AI-generated images, 2D photographic environment planes, or skybox billboards"
+  - "All major world visuals must be authored from real 3D geometry and procedural materials"
+  - "No gamification of fasting, dehydration, or endurance metrics"
+  - "Mother is never portrayed as sole laborer; communal and family assistance must be depicted"
+  - "No unverified universal claims regarding locality-specific Chhath customs"
+  - "No backend, server, ads, or third-party tracking in MVP"

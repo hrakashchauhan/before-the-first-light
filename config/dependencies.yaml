@@ -1,0 +1,99 @@
+dependencies:
+  - package: "react"
+    version: "19.3.1"
+    purpose: "Application component tree and reactivity"
+    compatibility: "Stable release, Node 20+"
+    installed: true
+    reason_for_inclusion: "Project foundation"
+
+  - package: "react-dom"
+    version: "19.3.1"
+    purpose: "DOM rendering for UI menus and HUD"
+    compatibility: "React 19"
+    installed: true
+    reason_for_inclusion: "DOM overlay layer"
+
+  - package: "three"
+    version: "0.187.0"
+    purpose: "WebGL 3D engine, geometries, materials, lighting"
+    compatibility: "Industry standard WebGL engine"
+    installed: true
+    reason_for_inclusion: "Required for all 3D scene rendering"
+
+  - package: "@react-three/fiber"
+    version: "9.8.2"
+    purpose: "Declarative React renderer for Three.js"
+    compatibility: "v9 specifically designed for React 19"
+    installed: true
+    reason_for_inclusion: "Primary R3F integration"
+
+  - package: "@react-three/drei"
+    version: "10.7.9"
+    purpose: "Practical Three.js helpers (cameras, bounds, bakes)"
+    compatibility: "R3F v9 / Three 0.187"
+    installed: true
+    reason_for_inclusion: "Selective utility helpers without bloat"
+
+  - package: "zustand"
+    version: "5.1.0"
+    purpose: "Central single source of truth for game state"
+    compatibility: "React 19 compatible"
+    installed: true
+    reason_for_inclusion: "Prevents parallel state or prop-drilling"
+
+  - package: "zod"
+    version: "4.6.7"
+    purpose: "Runtime schema validation for saves and external data"
+    compatibility: "TypeScript strict mode"
+    installed: true
+    reason_for_inclusion: "Crash-proof save/load and schema validation"
+
+  - package: "gsap"
+    version: "3.15.1"
+    purpose: "Smooth camera transitions and cinematic tweening"
+    compatibility: "Pure JS animation engine"
+    installed: true
+    reason_for_inclusion: "Authoring controlled camera moves"
+
+  - package: "howler"
+    version: "2.2.4"
+    purpose: "Cross-browser audio management and pooling"
+    compatibility: "Web Audio API fallback"
+    installed: true
+    reason_for_inclusion: "Audio channels, volume control, fading"
+
+  - package: "lucide-react"
+    version: "1.77.0"
+    purpose: "Accessible iconography for menus and settings"
+    compatibility: "React 19"
+    installed: true
+    reason_for_inclusion: "Clean, consistent UI iconography"
+
+  - package: "yaml"
+    version: "2.9.1"
+    purpose: "Parsing and validating configuration manifests"
+    compatibility: "Universal Node/ESM"
+    installed: true
+    reason_for_inclusion: "Validating config/*.yaml data"
+
+devDependencies:
+  - package: "vite"
+    version: "8.3.8"
+    purpose: "Lightning-fast dev server and production bundler"
+    installed: true
+  - package: "typescript"
+    version: "7.0.2"
+    purpose: "Strict type checking"
+    installed: true
+  - package: "vitest"
+    version: "3.0.5"
+    purpose: "Unit and component test runner"
+    installed: true
+  - package: "@testing-library/react"
+    version: "16.2.0"
+    purpose: "UI component test assertions"
+    installed: true
+  - package: "jsdom"
+    version: "26.0.0"
+    purpose: "DOM simulation in test environment"
+    installed: true

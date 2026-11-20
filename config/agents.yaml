@@ -1,0 +1,149 @@
+panel:
+  - id: "expert-01"
+    name: "chief-technical-architect"
+    title: "Chief Technical Architect"
+    responsibility: "Overall architecture, React 19/TS strict conventions, module boundaries, shared contracts, system integration"
+    owned_files:
+      - "schemas/**"
+      - "src/app/**"
+      - "src/types/**"
+      - "config/**"
+      - "package.json"
+      - "tsconfig.json"
+      - "vite.config.ts"
+      - "vitest.config.ts"
+    required_skills:
+      - "react-typescript-architecture"
+      - "game-planning"
+    review_responsibilities:
+      - "Approve architectural changes and dependency additions"
+      - "Enforce strict TypeScript types and zero cyclics"
+
+  - id: "expert-02"
+    name: "threejs-graphics-engineer"
+    title: "Three.js and R3F Graphics Engineer"
+    responsibility: "R3F canvas configuration, isometric camera rigs, lighting, shaders, GPU resource management"
+    owned_files:
+      - "src/game/GameCanvas.tsx"
+      - "src/game/camera/**"
+      - "src/game/lighting/**"
+      - "src/game/shaders/**"
+    required_skills:
+      - "advanced-r3f-development"
+      - "procedural-materials-and-shaders"
+      - "threejs-performance-optimization"
+    review_responsibilities:
+      - "Review rendering loops, WebGL context lifecycle, and DPR settings"
+
+  - id: "expert-03"
+    name: "procedural-environment-artist"
+    title: "Procedural Environment Artist"
+    responsibility: "Real 3D procedural geometry for house, veranda, courtyard, props, village lane, pond and ghat"
+    owned_files:
+      - "src/world/**"
+      - "src/objects/**"
+    required_skills:
+      - "procedural-village-world-building"
+      - "procedural-materials-and-shaders"
+      - "procedural-geometry"
+    review_responsibilities:
+      - "Ensure geometry-first rule compliance; reject image plane shortcuts"
+
+  - id: "expert-04"
+    name: "character-animation-engineer"
+    title: "Character and Animation Engineer"
+    responsibility: "Player avatar, NPCs, procedural walk cycles, carrying/interaction animations, spatial bounds"
+    owned_files:
+      - "src/characters/**"
+      - "src/systems/movement/**"
+    required_skills:
+      - "3d-character-and-npc-animation"
+      - "camera-and-player-controller"
+    review_responsibilities:
+      - "Verify smooth locomotion without jerky movement or collision clipping"
+
+  - id: "expert-05"
+    name: "gameplay-simulation-engineer"
+    title: "Gameplay and Simulation Engineer"
+    responsibility: "Zustand game store, quest lifecycle, proximity detection, [E] interaction dispatch, save/load"
+    owned_files:
+      - "src/systems/interaction/**"
+      - "src/systems/quests/**"
+      - "src/systems/timeline/**"
+      - "src/systems/events/**"
+      - "src/systems/save/**"
+      - "src/data/quests/**"
+    required_skills:
+      - "quest-and-interaction-systems"
+      - "gameplay-systems"
+    review_responsibilities:
+      - "Ensure quests change world state and save/load recovers safely"
+
+  - id: "expert-06"
+    name: "ui-ux-designer"
+    title: "UI/UX and Interaction Designer"
+    responsibility: "Accessible HTML/CSS overlays, HUD, dialogue box, journal, settings, keyboard navigation"
+    owned_files:
+      - "src/ui/**"
+      - "src/styles/**"
+    required_skills:
+      - "game-accessibility-and-localisation"
+    review_responsibilities:
+      - "Ensure 100% keyboard operability and WCAG AA contrast"
+
+  - id: "expert-07"
+    name: "story-cultural-specialist"
+    title: "Story, Cultural and Research Specialist"
+    responsibility: "Chhath ritual accuracy, research ledger, dialogue tone, bilingual English/Hindi localization"
+    owned_files:
+      - "src/story/**"
+      - "src/data/locales/**"
+      - "docs/02-STORY-AND-CHARACTERS.md"
+      - "docs/03-CULTURAL-REFERENCE.md"
+    required_skills:
+      - "narrative-and-cultural-validation"
+      - "cultural-research"
+    review_responsibilities:
+      - "Sign off on cultural accuracy and reject universalized claims"
+
+  - id: "expert-08"
+    name: "audio-cinematic-designer"
+    title: "Audio and Cinematic Designer"
+    responsibility: "Atmospheric village audio, work SFX, original/licensed music ledger, cinematic transitions"
+    owned_files:
+      - "src/systems/audio/**"
+      - "src/game/cinematics/**"
+      - "docs/08-AUDIO-AND-LOCALISATION.md"
+      - "docs/11-ASSET-AND-RIGHTS-LEDGER.md"
+    required_skills:
+      - "audio-and-cinematic-design"
+    review_responsibilities:
+      - "Verify user-gesture audio initiation and rights clearance"
+
+  - id: "expert-09"
+    name: "performance-build-engineer"
+    title: "Performance and Build Engineer"
+    responsibility: "Vite build configuration, bundle optimization, draw call budgets, instanced rendering"
+    owned_files:
+      - "vite.config.ts"
+      - "docs/09-PERFORMANCE-AND-ACCESSIBILITY.md"
+      - "docs/26-PERFORMANCE-REPORT.md"
+    required_skills:
+      - "threejs-performance-optimization"
+    review_responsibilities:
+      - "Enforce < 50 draw calls and >= 45 FPS on target laptop"
+
+  - id: "expert-10"
+    name: "qa-red-team-reviewer"
+    title: "Independent QA and Red-Team Reviewer"
+    responsibility: "Code review, regression suites, edge-case probing, hallucination verification, release gates"
+    owned_files:
+      - "src/test/**"
+      - "tests/**"
+      - "docs/15-TEST-PLAN.md"
+      - "docs/21-HALLUCINATION-AND-EVIDENCE-LEDGER.md"
+      - "docs/25-TEST-AND-REGRESSION-REPORT.md"
+    required_skills:
+      - "browser-and-regression-testing"
+    review_responsibilities:
+      - "Gatekeeper sign-off; independently verify all claims with logs"
