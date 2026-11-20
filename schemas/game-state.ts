@@ -18,19 +18,22 @@ export type TimeOfDay =
 
 export type QuestStatus = "locked" | "available" | "active" | "completed";
 
+export interface GameSettings {
+  musicVolume: number;
+  sfxVolume: number;
+  subtitles: boolean;
+}
+
 export interface GameSaveV1 {
   schemaVersion: 1;
   chapterId: ChapterId;
   timeOfDay: TimeOfDay;
   language: "en" | "hi";
+  activeQuestId: string | null;
   completedQuestIds: string[];
   inventory: string[];
   worldFlags: Record<string, boolean>;
-  settings: {
-    musicVolume: number;
-    sfxVolume: number;
-    subtitles: boolean;
-  };
+  settings: GameSettings;
 }
 
 export interface InteractableDefinition {

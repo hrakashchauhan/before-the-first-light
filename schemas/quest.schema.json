@@ -16,7 +16,17 @@
       "minLength": 1
     },
     "chapterId": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "homecoming",
+        "courtyard-preparation",
+        "household-work",
+        "village-cooperation",
+        "festival-eve",
+        "sandhya-arghya",
+        "usha-arghya",
+        "parana-epilogue"
+      ]
     },
     "titleKey": {
       "type": "string"
