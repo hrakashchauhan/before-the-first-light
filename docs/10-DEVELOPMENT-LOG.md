@@ -197,7 +197,7 @@ Append a new entry after every milestone. Never rewrite history to make a failed
 **Performance observations:** Fast render, smooth 60 FPS, draw calls well within budget.  
 **Known issues:** None.  
 **Next action:** Milestone M09 — Festival & Dawn Sequence (Sandhya Arghya to Usha Arghya atmospheric lighting transition and finale).  
-**Git commit:** pending
+**Git commit:** 1e1f0e8
 
 
 
