@@ -11,8 +11,65 @@ export function householdStory(target: TargetId, flags: Record<string, boolean>,
   const hindi = language === 'hi'
   const you = (en: string, hi: string): StoryBeat => ({ speaker: hindi ? 'देवराज' : 'Devraj', text: hindi ? hi : en })
   const ma = (en: string, hi: string): StoryBeat => ({ speaker: hindi ? 'माँ' : 'Ma', text: hindi ? hi : en })
+  const babuji = (en: string, hi: string): StoryBeat => ({ speaker: hindi ? 'बाबूजी' : 'Babuji', text: hindi ? hi : en })
+  const dadi = (en: string, hi: string): StoryBeat => ({ speaker: hindi ? 'दादी' : 'Dadi', text: hindi ? hi : en })
+  const neighbour = (en: string, hi: string): StoryBeat => ({ speaker: hindi ? 'सुनीता चाची' : 'Sunita Chachi', text: hindi ? hi : en })
   const artisan = (en: string, hi: string): StoryBeat => ({ speaker: hindi ? 'मोहन काका' : 'Mohan Kaka', text: hindi ? hi : en })
   switch (target) {
+    case 'npc_father':
+      if (flags.bamboo_collected) {
+        return babuji(
+          'These bamboo baskets from Mohan Kaka are woven true. Now I will prepare the carrying pole (bahangi) for the ghat.',
+          'मोहन काका के हाथ का बुना सूप-दउरा बहुत टिकाऊ है। अब मैं घाट ले जाने के लिए बहँगी तैयार कर लेता हूँ।'
+        )
+      }
+      if (flags.wheat_sorted) {
+        return babuji(
+          'The wheat is spread out well. I have brought dried mango branches from the orchard for the sacred chulha.',
+          'गेहूँ अच्छी तरह फैल गया है। मैंने चूल्हे के लिए आम के बगीचे से सूखी लकड़ी लाकर रख दी है।'
+        )
+      }
+      return babuji(
+        'Welcome home, son. I am sorting the dry firewood and cow-dung cakes (goitha) so your mother has pure flame for the prasad.',
+        'घर में तुम्हारा स्वागत है बेटा। मैं सूखी लकड़ी और गोइठा सँभाल रहा हूँ ताकि प्रसाद के लिए चूल्हे में शुद्ध आँच रहे।'
+      )
+
+    case 'npc_dadi':
+      if (flags.dawn_witnessed) {
+        return dadi(
+          'May Chhathi Maiya bless this entire village. Seeing all of us together before first light brings peace to my heart.',
+          'छठी मईया पूरे गाँव का कल्याण करें। पहली रोशनी से पहले सबको घाट पर साथ देखकर मन भर आया।'
+        )
+      }
+      if (flags.bamboo_collected) {
+        return dadi(
+          'Keep the baskets pure and off the ground. In my mother’s time, we sang through the night while preparing the offerings.',
+          'टोकरियों को ज़मीन पर मत रखना, पवित्रता का पूरा ध्यान रहे। हमारी माँ के समय हम रात भर जागकर गीत गाते थे।'
+        )
+      }
+      return dadi(
+        'Bless you, child. Chhath is not a festival of haste, but of patience, devotion, and community harmony.',
+        'जीते रहो बेटा। छठ जल्दबाज़ी का नहीं, बल्कि धीरज, सेवा और गाँव के मिलजुल कर रहने का पावन पर्व है।'
+      )
+
+    case 'npc_neighbour':
+      if (flags.dawn_witnessed) {
+        return neighbour(
+          'Look at the golden light touching the water. All the families from our lane are standing side by side.',
+          'पानी पर उगते सूरज की लालिमा देखो। हमारी गली का हर परिवार आज एक साथ खड़ा है।'
+        )
+      }
+      if (flags.ghat_prepared) {
+        return neighbour(
+          'We have washed the lower brick steps and set out the clay lamps. There is clean space reserved for your family.',
+          'हमने सीढ़ियाँ गंगाजल से धो दी हैं और दीये लगा दिए हैं। तुम्हारे परिवार के लिए भी जगह साफ़ कर रखी है।'
+        )
+      }
+      return neighbour(
+        'Ram Ram! We are sweeping the lane and ghat path so everyone carrying the offerings can walk barefoot safely.',
+        'राम-राम! हम घाट का रास्ता बुहार रहे हैं ताकि नंगे पाँव दउरा ले जाने वालों को कोई कंकड़ न चुभे।'
+      )
+
     case 'npc_mother': {
       const objective = getObjective(flags).questId
       if (!objective) return ma('Come and sit with me a minute. Can you hear the people coming up the lane?', 'ज़रा मेरे पास बैठो। सुन रहे हो? गली से लोगों की आवाज़ आ रही है।')

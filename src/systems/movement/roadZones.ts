@@ -88,13 +88,41 @@ export function getNavZone(x: number, z: number): NavZone {
 }
 
 export function canBicycleMoveTo(x: number, z: number): { allowed: boolean; warningEn?: string; warningHi?: string } {
-  const zone = getNavZone(x, z)
-  if (!zone.bicyclePermitted) {
+  // 1. Water body check
+  if (x >= 21.5) {
     return {
       allowed: false,
-      warningEn: zone.warningEn ?? 'Bicycle not permitted in this area.',
-      warningHi: zone.warningHi ?? 'इस जगह पर साइकिल ले जाना मना है।',
+      warningEn: 'Water body: Deep pond water.',
+      warningHi: 'जल क्षेत्र: गहरा पानी।',
     }
   }
+
+  // 2. Sacred ghat steps check
+  if (x >= 18.1 && x < 21.5) {
+    return {
+      allowed: false,
+      warningEn: 'Ritual space: Vehicles must be parked at the upper threshold.',
+      warningHi: 'पवित्र घाट: कृपया साइकिल ऊपर ही खड़ी करें।',
+    }
+  }
+
+  // 3. Courtyard check (pedestrian-only)
+  if (x <= 4.8) {
+    return {
+      allowed: false,
+      warningEn: 'Pedestrian only: Please dismount before entering the courtyard.',
+      warningHi: 'केवल पैदल: घर के आँगन में आने से पहले कृपया साइकिल से उतरें।',
+    }
+  }
+
+  // 4. Roadside embankment boundaries along the village lane
+  if (z < 1.8 || z > 6.0) {
+    return {
+      allowed: false,
+      warningEn: 'Roadside boundary: Stay on the village road.',
+      warningHi: 'सड़क की सीमा: कृपया सड़क पर ही चलें।',
+    }
+  }
+
   return { allowed: true }
 }

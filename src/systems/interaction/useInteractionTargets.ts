@@ -17,6 +17,9 @@ function target(id: TargetId, label: string, actionName: string, radius: number)
 
 const targets = [
   target('npc_mother', 'Ma', 'Talk with Ma', 2.05),
+  target('npc_father', 'Babuji', 'Talk with Babuji', 2.05),
+  target('npc_dadi', 'Dadi', 'Talk with Dadi', 1.95),
+  target('npc_neighbour', 'Neighbour', 'Talk with Neighbour', 2.1),
   target('prop_broom', 'Grass broom', 'Inspect the broom', 1.85),
   target('prop_wheat', 'Wheat mat', 'Inspect the mat', 1.86),
   target('prop_chulha', 'Clay chulha', 'Inspect the chulha', 1.85),
@@ -30,10 +33,19 @@ const targets = [
 ]
 
 const hindiTargets: Record<TargetId, [string, string]> = {
-  npc_mother: ['माँ', 'माँ से बात करें'], prop_broom: ['झाड़ू', 'झाड़ू देखें'], prop_wheat: ['गेहूँ की चटाई', 'चटाई देखें'],
-  prop_chulha: ['मिट्टी का चूल्हा', 'चूल्हा देखें'], prop_handpump: ['हैंडपंप', 'हैंडपंप देखें'], prop_goitha: ['गोइठे', 'गोइठे देखें'],
-  prop_baskets: ['बाँस की टोकरियाँ', 'टोकरियाँ देखें'], npc_artisan: ['मोहन काका', 'मोहन काका से बात करें'],
-  prop_ghat_spot: ['तालाब की सीढ़ियाँ', 'सीढ़ियाँ देखें'], prop_sugarcane_koshi: ['गन्ने का मंडप', 'मंडप देखें'],
+  npc_mother: ['माँ', 'माँ से बात करें'],
+  npc_father: ['बाबूजी', 'बाबूजी से बात करें'],
+  npc_dadi: ['दादी', 'दादी से बात करें'],
+  npc_neighbour: ['पड़ोसी', 'पड़ोसी से बात करें'],
+  prop_broom: ['झाड़ू', 'झाड़ू देखें'],
+  prop_wheat: ['गेहूँ की चटाई', 'चटाई देखें'],
+  prop_chulha: ['मिट्टी का चूल्हा', 'चूल्हा देखें'],
+  prop_handpump: ['हैंडपंप', 'हैंडपंप देखें'],
+  prop_goitha: ['गोइठे', 'गोइठे देखें'],
+  prop_baskets: ['बाँस की टोकरियाँ', 'टोकरियाँ देखें'],
+  npc_artisan: ['मोहन काका', 'मोहन काका से बात करें'],
+  prop_ghat_spot: ['तालाब की सीढ़ियाँ', 'सीढ़ियाँ देखें'],
+  prop_sugarcane_koshi: ['गन्ने का मंडप', 'मंडप देखें'],
   prop_bicycle: ['साइकिल', 'साइकिल पर बैठें'],
 }
 

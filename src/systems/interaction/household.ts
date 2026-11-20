@@ -5,6 +5,9 @@ export const VERANDA_POST_Z = -1.57
 // Mesh origins in metres. Proximity uses the ground-plane projection of each origin.
 export const COURTYARD_ANCHORS = {
   npc_mother: [0.8, 0.32, -2.2],
+  npc_father: [2.8, 0, -1.8],
+  npc_dadi: [-3.2, 0.32, 3.4],
+  npc_neighbour: [18.5, 0, 4.8],
   prop_broom: [-3.1, 0, -2.5],
   prop_wheat: [1.4, 0.02, 1.8],
   prop_chulha: [3.2, 0.16, -2.4],

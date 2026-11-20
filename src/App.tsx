@@ -112,6 +112,8 @@ export default function App() {
         <MovementClock step={movement.step}/>
         <VillageScene courtyardCleaned={inspected ? previewClean ?? store.worldFlags.courtyard_cleaned : store.worldFlags.courtyard_cleaned}
           goithaCount={inspected ? goitha : 8} wheatStage={inspected ? previewWheat ?? wheat : wheat}
+          bambooCollected={store.worldFlags.bamboo_collected} ghatPrepared={store.worldFlags.ghat_prepared}
+          dawnWitnessed={store.worldFlags.dawn_witnessed} prasadShared={store.worldFlags.prasad_shared}
           showHouseholdProps={!inspected || showProps} playerPosition={movement.position} playerRotationY={movement.rotationY}
           isMoving={movement.isMoving} isMounted={movement.isMounted} bicycleState={movement.bicycleState}
           bicyclePosition={store.bicyclePosition}

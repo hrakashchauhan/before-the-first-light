@@ -276,6 +276,35 @@ Added a route map that makes the household cycle legible: veranda, courtyard wor
 **Visual Evidence:** `docs/evidence/browser_journal.png`, `docs/evidence/browser_gameplay.png`  
 **Next Action:** Completed master implementation upgrade ready for gameplay.  
 
+### 2026-11-21 — M12 Master Execution — Living Village Simulation, Complete Chapter Connectivity & End-to-End Quality
+**Goal:** Transform individual subsystems into a living, connected Bihar village experience with dynamic NPC activities, family members (Babuji, Dadi, Neighbour, Mohan Kaka), reactive world changes (baskets on carrier, swept courtyard, drying wheat), hardened road boundary collision, and automated Playwright full-journey test.
+**Files Changed:**
+- `src/characters/npcs/FatherNPC.tsx` (new procedural 3D rig with mango firewood and khadi attire)
+- `src/characters/npcs/DadiNPC.tsx` (new procedural 3D rig in Lal-Paar sari seated on Charpai with Tulsi mala)
+- `src/characters/npcs/NeighbourNPC.tsx` (new procedural 3D rig helping at ghat approach)
+- `src/objects/bicycle/BicycleProp.tsx` (added rear luggage carrier with strapped woven bamboo baskets)
+- `src/world/VillageScene.tsx` (integrated Father, Dadi, Neighbour, dynamic Mother positioning, carrier baskets)
+- `src/App.tsx` (passed dynamic world flags to VillageScene)
+- `src/systems/interaction/household.ts` & `src/systems/interaction/useInteractionTargets.ts` (added anchors and proximity detection for Father, Dadi, Neighbour)
+- `src/systems/quests/householdStory.ts` (added interactive dialogues for Father, Dadi, Neighbour)
+- `src/systems/movement/roadZones.ts` (hardened boundary checks for roadside ditches, courtyard, ghat, and water)
+- `config/npc-schedules.yaml` (full schedules for all 5 characters across morning, afternoon, evening, sunrise)
+- `scripts/verify-full-journey.js` (Playwright journey test: 56 FPS, 42MB heap, 0 console errors)
+- `docs/52-LIVING-WORLD-SIMULATION.md`
+- `docs/53-NPC-ACTIVITY-AND-CHARACTER-REACTIONS.md`
+- `docs/54-COMPLETE-TASK-DEPENDENCY-AUDIT.md`
+- `docs/55-END-TO-END-JOURNEY-TEST.md`
+- `docs/56-AUDIO-LISTENING-AND-MIXING-REPORT.md`
+- `docs/57-BICYCLE-NAVIGATION-REGRESSION.md`
+- `docs/58-FULL-GAMEPLAY-READINESS.md`
+- `docs/10-DEVELOPMENT-LOG.md`
+**Build:** PASS (0 errors, Vite production build)  
+**Tests:** PASS (90/90 passing across 13 test files)  
+**Browser Verification:** PASS (Playwright automated journey test passed at 56 FPS with 0 console errors)  
+**Visual Evidence:** `docs/evidence/e2e_01_homecoming.png`, `docs/evidence/e2e_02_dialogue_mother.png`, `docs/evidence/e2e_07_journal_walkthrough.png`, `docs/evidence/e2e_08_reloaded_state.png`  
+**Git Commit:** Ready for master commit  
+
+
 
 
 

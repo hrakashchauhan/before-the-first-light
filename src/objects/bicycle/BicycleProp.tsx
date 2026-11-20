@@ -10,6 +10,7 @@ interface BicyclePropProps {
   pedalRotation?: number
   isParked?: boolean
   isHighlighted?: boolean
+  hasBaskets?: boolean
 }
 
 export function BicycleProp({
@@ -20,6 +21,7 @@ export function BicycleProp({
   pedalRotation = 0,
   isParked = true,
   isHighlighted = false,
+  hasBaskets = false,
 }: BicyclePropProps) {
   // Shared procedural materials
   const materials = useMemo(() => {
@@ -55,6 +57,11 @@ export function BicycleProp({
         color: '#d4af37',
         roughness: 0.25,
         metalness: 0.85,
+      }),
+      bamboo: new THREE.MeshStandardMaterial({
+        color: '#c29b61',
+        roughness: 0.75,
+        metalness: 0.05,
       }),
     }
   }, [isHighlighted])
@@ -173,6 +180,35 @@ export function BicycleProp({
         <mesh material={materials.frame} position={[-halfWheelbase * 0.95, 0.14, 0]} rotation={[0, 0, 0.35]}>
           <torusGeometry args={[wheelRadius + 0.025, 0.024, 8, 24, Math.PI * 0.65]} />
         </mesh>
+
+        {/* Heavy-duty Indian Roadster Luggage Carrier */}
+        <group position={[-halfWheelbase * 0.68, 0.38, 0]}>
+          {/* Flat Carrier Rack */}
+          <mesh material={materials.frame}>
+            <boxGeometry args={[0.36, 0.015, 0.14]} />
+          </mesh>
+          {/* Support Struts to Axle */}
+          <mesh material={materials.frame} position={[-0.1, -0.16, 0.05]} rotation={[0, 0, -0.32]}>
+            <cylinderGeometry args={[0.006, 0.006, 0.38, 6]} />
+          </mesh>
+          <mesh material={materials.frame} position={[-0.1, -0.16, -0.05]} rotation={[0, 0, -0.32]}>
+            <cylinderGeometry args={[0.006, 0.006, 0.38, 6]} />
+          </mesh>
+
+          {/* Festive Woven Baskets on Carrier */}
+          {hasBaskets && (
+            <group position={[0, 0.1, 0]}>
+              <mesh castShadow material={materials.bamboo}>
+                <boxGeometry args={[0.26, 0.14, 0.2]} />
+              </mesh>
+              {/* Gamchha red tie-strap */}
+              <mesh position={[0, -0.03, 0]}>
+                <boxGeometry args={[0.27, 0.035, 0.21]} />
+                <meshStandardMaterial color="#b23b23" roughness={0.8} />
+              </mesh>
+            </group>
+          )}
+        </group>
       </group>
 
       {/* Rear Wheel (Spins around its axle at -halfWheelbase) */}
