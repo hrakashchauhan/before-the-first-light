@@ -302,7 +302,25 @@ Added a route map that makes the household cycle legible: veranda, courtyard wor
 **Tests:** PASS (90/90 passing across 13 test files)  
 **Browser Verification:** PASS (Playwright automated journey test passed at 56 FPS with 0 console errors)  
 **Visual Evidence:** `docs/evidence/e2e_01_homecoming.png`, `docs/evidence/e2e_02_dialogue_mother.png`, `docs/evidence/e2e_07_journal_walkthrough.png`, `docs/evidence/e2e_08_reloaded_state.png`  
-**Git Commit:** Ready for master commit  
+**Git Commit:** `81c2dcd`  
+
+### 2026-11-21 — M13 — Master README & Web-Hosted Game Documentation
+**Goal:** Create comprehensive project `README.md` prominently linking to the live web-hosted deployment on GitHub Pages (`https://hrakashchauhan.github.io/before-the-first-light/`), complete game manual, controls reference, technical architecture, and testing instructions.  
+**Files Changed:**
+- `README.md` (comprehensive project manual with live hosted URL, local dev commands, controls table, features, cultural context, and architecture)
+- `docs/10-DEVELOPMENT-LOG.md` (updated development log)  
+**Implementation Summary:**
+- Crafted root `README.md` with direct link to GitHub Pages live hosted URL (`https://hrakashchauhan.github.io/before-the-first-light/`).
+- Documented the complete feature set: supplied devotional music ("Chhathi Maiya Bulaye"), 3D procedural Indian roadster bicycle, road classification zones, dynamic family NPCs, reactive world, guided task journal, bilingual EN/HI localization, and save/load persistence.
+- Documented controls table for keyboard, mouse, and mobile/touch HUD.
+- Documented local installation and testing instructions (`npm run dev`, `npm test`, `npm run typecheck`, `npm run build`, `npm run preview`).
+- Provided cultural respect statements and license notes.  
+**Build:** PASS  
+**Tests:** PASS (90/90 passed)  
+**Browser Verification:** PASS  
+**Visual Evidence:** `docs/evidence/e2e_01_homecoming.png`, `docs/evidence/e2e_07_journal_walkthrough.png`  
+**Next Action:** Ready for push to GitHub repository to trigger automatic GitHub Pages deployment.  
+  
 
 
 
