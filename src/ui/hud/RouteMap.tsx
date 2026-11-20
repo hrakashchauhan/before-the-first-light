@@ -4,7 +4,7 @@ import { GameDialog } from '../dialogue/GameDialog'
 import { interfaceCopy, type Language } from '../../data/locales/interface'
 import type { HouseholdObjective } from '../../systems/interaction/household'
 import type { WorldPosition } from '../../systems/interaction/household'
-import { resolveDestinations } from '../../systems/destinations/destinationManager'
+import { resolveDestinations, notifyDestinationArrival } from '../../systems/destinations/destinationManager'
 
 interface Props {
   language: Language
@@ -51,6 +51,7 @@ export function RouteMap({ language, objective, flags, timeOfDay, onTravel, onCl
               <button
                 disabled={!isOpen}
                 onClick={() => {
+                  notifyDestinationArrival(stop.id, null)
                   onTravel(stop.position)
                   onClose()
                 }}
