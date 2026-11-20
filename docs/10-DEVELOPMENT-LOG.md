@@ -213,6 +213,9 @@ Append a new entry after every milestone. Never rewrite history to make a failed
 ### 2026-11-21 — M09/M10 release completion pass
 Added the pond-step first-light beat (`q_dawn_walk`) and morning-sharing epilogue (`q_prasad_share`), including sunrise and epilogue time-state transitions, bilingual copy, save persistence, and journal entries. Reduced shadow refresh cadence and shadow-map cost. Production preview at `http://127.0.0.1:4173/` returned HTTP 200, rendered one Canvas with zero page errors, and measured 60 FPS at 1280×720 in the clean smoke test.
 
+### 2026-11-21 — Interactive how-to-play guide
+Added a visible help button to the HUD. The guide explains movement, interaction, journal and camera controls, surfaces the live objective description as a contextual hint, supports English/Hindi copy, closes with keyboard or mouse, and can be repositioned by dragging its heading. Chrome automation verified opening, hint rendering, drag repositioning, closing, and zero page errors.
+
 
 
 

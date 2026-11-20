@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, ChevronRight, Focus, Minus, Mouse, Pause, Plus, Sunrise, Volume2, VolumeX } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, BookOpen, ChevronRight, CircleHelp, Focus, Minus, Mouse, Pause, Plus, Sunrise, Volume2, VolumeX } from 'lucide-react'
 import { DawnMark } from './DawnMark'
 import { interfaceCopy, locationName, type Language } from '../../data/locales/interface'
 import type { Interactable } from '../../systems/interaction/useInteractionTargets'
@@ -7,10 +7,10 @@ import { GAME_CONFIG } from '../../game/config'
 interface Props {
   language: Language; objectiveTitle: string; nearestTarget: Interactable | null; locationX: number; facing: number
   zoom: number; soundOn: boolean; soundUnavailable: boolean
-  onZoom: (distance: number) => void; onJournal: () => void; onPause: () => void; onSound: () => void; onInteract: () => void
+  onZoom: (distance: number) => void; onJournal: () => void; onGuide: () => void; onPause: () => void; onSound: () => void; onInteract: () => void
   onDirection: (key: 'w' | 'a' | 's' | 'd', held: boolean) => void
 }
-export function PlayerHUD({language, objectiveTitle, nearestTarget, locationX, facing, zoom, soundOn, soundUnavailable, onZoom, onJournal, onPause, onSound, onInteract, onDirection}: Props) {
+export function PlayerHUD({language, objectiveTitle, nearestTarget, locationX, facing, zoom, soundOn, soundUnavailable, onZoom, onJournal, onGuide, onPause, onSound, onInteract, onDirection}: Props) {
   const t = interfaceCopy[language]
   const soundLabel = soundUnavailable ? t.soundUnavailable : soundOn ? t.mute : t.enableSound
   const camera = GAME_CONFIG.camera
@@ -21,6 +21,7 @@ export function PlayerHUD({language, objectiveTitle, nearestTarget, locationX, f
         <span className="time-label"><Sunrise size={18}/>{t.morning}</span>
         <button className="plain-button sound-button" aria-label={soundLabel} title={soundLabel} onClick={onSound} aria-pressed={soundOn} disabled={soundUnavailable}>{soundOn ? <Volume2/> : <VolumeX/>}</button>
         <button className="journal-button" onClick={onJournal}><BookOpen size={17}/><span>{t.journal}</span><kbd>J</kbd></button>
+        <button className="plain-button guide-button" onClick={onGuide} aria-label={t.guide} title={t.guide}><CircleHelp size={18}/></button>
         <button className="pause-button" onClick={onPause} aria-label={t.pause} title={t.pause+' (Esc)'}><Pause size={15} fill="currentColor"/></button>
       </div>
     </header>

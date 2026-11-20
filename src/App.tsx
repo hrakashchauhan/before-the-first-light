@@ -5,6 +5,7 @@ import { VillageScene } from './world/VillageScene'
 import { PlayerHUD } from './ui/hud/PlayerHUD'
 import { DebugDrawer } from './ui/hud/DebugDrawer'
 import { GameMenu } from './ui/hud/GameMenu'
+import { HowToPlay } from './ui/hud/HowToPlay'
 import { DialogueBox } from './ui/dialogue/DialogueBox'
 import { MovementClock, usePlayerMovement } from './systems/movement/usePlayerMovement'
 import { useInteractionTargets } from './systems/interaction/useInteractionTargets'
@@ -22,13 +23,14 @@ type Menu = 'pause' | 'journal' | null
 export default function App() {
   const store = useGameStore()
   const [menu, setMenu] = useState<Menu>(null)
+  const [showGuide, setShowGuide] = useState(false)
   const [previewClean, setPreviewClean] = useState<boolean | null>(null)
   const [previewWheat, setPreviewWheat] = useState<WheatStage | null>(null)
   const [goitha, setGoitha] = useState(8)
   const [showProps, setShowProps] = useState(true)
   const marker = useRef<HTMLDivElement>(null)
   const sample = useRef<SceneSample | null>(null)
-  const blocked = Boolean(menu || store.dialogueActive || store.isDebugOpen)
+  const blocked = Boolean(menu || showGuide || store.dialogueActive || store.isDebugOpen)
   const movement = usePlayerMovement(PLAYER_START, blocked)
   const nearest = useInteractionTargets(movement.position, store.interactWithTarget, blocked)
   const objective = getObjective(store.worldFlags, store.language)
@@ -71,9 +73,10 @@ export default function App() {
     {markerTarget && <div ref={marker} className="world-marker" aria-hidden="true">{projectedTarget && <span>{projectedTarget}</span>}<i/></div>}
     <PlayerHUD language={store.language} objectiveTitle={objective.title} nearestTarget={blocked ? null : nearest}
       locationX={movement.position[0]} facing={movement.rotationY} zoom={store.cameraZoomDistance} soundOn={sound.enabled}
-      soundUnavailable={sound.unavailable} onZoom={store.setCameraZoom} onJournal={()=>setMenu('journal')} onPause={()=>setMenu('pause')}
+      soundUnavailable={sound.unavailable} onZoom={store.setCameraZoom} onJournal={()=>setMenu('journal')} onGuide={()=>setShowGuide(true)} onPause={()=>setMenu('pause')}
       onSound={sound.toggle} onInteract={()=>{if(nearest && !blocked)store.interactWithTarget(nearest.id)}} onDirection={movement.setDirectionHeld}/>
     {menu && <GameMenu mode={menu} objective={objective} x={movement.position[0]} soundOn={sound.enabled} soundUnavailable={sound.unavailable} onSound={sound.toggle} onClose={()=>setMenu(null)}/>}
+    {showGuide && <HowToPlay language={store.language} objective={objective} onClose={()=>setShowGuide(false)}/>}
     {store.dialogueActive && store.dialogueSpeaker && store.dialogueText && <DialogueBox speaker={store.dialogueSpeaker} text={store.dialogueText} continueLabel={text.continue} onClose={store.closeDialogue}/>}
     {inspected && <DebugDrawer position={movement.position} zoom={store.cameraZoomDistance} sample={sample} clean={previewClean ?? store.worldFlags.courtyard_cleaned}
       onClean={setPreviewClean} wheat={previewWheat ?? wheat} onWheat={setPreviewWheat} goitha={goitha} onGoitha={setGoitha}
