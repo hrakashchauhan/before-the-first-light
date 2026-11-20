@@ -1,0 +1,60 @@
+events:
+  - id: "EV_DESTINATION_ARRIVED"
+    name: "journey:destination-arrived"
+    description: "Fires when the player enters or fast-travels to a valid destination hub."
+    payload_fields: ["destinationId", "previousDestinationId"]
+
+  - id: "EV_DESTINATION_COMPLETED"
+    name: "journey:destination-completed"
+    description: "Fires when all essential objectives at a destination have been met."
+    payload_fields: ["destinationId"]
+
+  - id: "EV_QUEST_STARTED"
+    name: "quest:started"
+    description: "Fires when a new quest becomes the player's active focus."
+    payload_fields: ["questId"]
+
+  - id: "EV_QUEST_COMPLETED"
+    name: "quest:completed"
+    description: "Fires when a quest completes and updates authoritative world flags."
+    payload_fields: ["questId"]
+
+  - id: "EV_DIALOGUE_STARTED"
+    name: "character:dialogue-started"
+    description: "Fires when dialogue begins with an NPC or inspection prop."
+    payload_fields: ["speaker", "text", "targetId"]
+
+  - id: "EV_DIALOGUE_COMPLETED"
+    name: "character:dialogue-completed"
+    description: "Fires when dialogue modal is closed by player."
+    payload_fields: ["targetId"]
+
+  - id: "EV_ITEM_COLLECTED"
+    name: "player:item-collected"
+    description: "Fires when a physical narrative item (e.g. woven_basket) is added to inventory."
+    payload_fields: ["itemId"]
+
+  - id: "EV_WORLD_STATE_CHANGED"
+    name: "world:state-changed"
+    description: "Fires whenever any boolean world flag transitions."
+    payload_fields: ["flag", "value"]
+
+  - id: "EV_CHAPTER_CHANGED"
+    name: "timeline:chapter-changed"
+    description: "Fires when narrative progression advances to a new chapter."
+    payload_fields: ["chapterId", "previousChapterId"]
+
+  - id: "EV_TIMELINE_PHASE_CHANGED"
+    name: "timeline:phase-changed"
+    description: "Fires when time-of-day changes (morning, afternoon, evening, night, sunrise)."
+    payload_fields: ["timeOfDay"]
+
+  - id: "EV_AUDIO_TRANSITION"
+    name: "audio:music-transition"
+    description: "Fires to crossfade background score or location ambience."
+    payload_fields: ["trackId", "fadeMs"]
+
+  - id: "EV_SAVE_COMPLETED"
+    name: "save:completed"
+    description: "Fires when game state is securely written to persistent storage."
+    payload_fields: ["timestamp", "chapterId"]

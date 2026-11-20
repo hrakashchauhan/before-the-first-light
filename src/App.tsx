@@ -10,8 +10,9 @@ import { RouteMap } from './ui/hud/RouteMap'
 import { DialogueBox } from './ui/dialogue/DialogueBox'
 import { MovementClock, usePlayerMovement } from './systems/movement/usePlayerMovement'
 import { useInteractionTargets } from './systems/interaction/useInteractionTargets'
-import { getObjective, PLAYER_START } from './systems/interaction/household'
+import { getObjective, PLAYER_START, type WorldPosition } from './systems/interaction/household'
 import { useGameStore } from './systems/quests/gameStore'
+import { CANONICAL_DESTINATIONS } from './systems/destinations/destinationManager'
 import { interfaceCopy } from './data/locales/interface'
 import { useCourtyardSound } from './audio/useCourtyardSound'
 import type { WheatStage } from './objects/wheat/WheatDryingMat'
@@ -58,6 +59,14 @@ export default function App() {
     window.addEventListener('keydown', shortcut)
     return () => window.removeEventListener('keydown', shortcut)
   }, [blocked, store.toggleDebug])
+  const handleTravel = (position: WorldPosition) => {
+    movement.teleport(position)
+    const matched = CANONICAL_DESTINATIONS.find(d => Math.hypot(d.position[0] - position[0], d.position[2] - position[2]) < 1.0)
+    if (matched) {
+      store.setCurrentDestination(matched.id)
+    }
+  }
+
   const markerTarget = blocked ? null : objective.targetId
   const projectedTarget = markerTarget === 'npc_mother' ? (store.language === 'en' ? 'Ma' : 'माँ') : null
   return <main className="game-container" data-player={inspectEnabled ? movement.position.join(',') : undefined}>
@@ -79,7 +88,7 @@ export default function App() {
       onSound={sound.toggle} onInteract={()=>{if(nearest && !blocked)store.interactWithTarget(nearest.id)}} onDirection={movement.setDirectionHeld}/>
     {menu && <GameMenu mode={menu} objective={objective} x={movement.position[0]} soundOn={sound.enabled} soundUnavailable={sound.unavailable} onSound={sound.toggle} onClose={()=>setMenu(null)}/>}
     {showGuide && <HowToPlay language={store.language} objective={objective} onClose={()=>setShowGuide(false)}/>}
-    {showMap && <RouteMap language={store.language} objective={objective} flags={store.worldFlags} timeOfDay={store.timeOfDay} onTravel={movement.teleport} onClose={()=>setShowMap(false)}/>}
+    {showMap && <RouteMap language={store.language} objective={objective} flags={store.worldFlags} timeOfDay={store.timeOfDay} onTravel={handleTravel} onClose={()=>setShowMap(false)}/>}
     {store.dialogueActive && store.dialogueSpeaker && store.dialogueText && <DialogueBox speaker={store.dialogueSpeaker} text={store.dialogueText} continueLabel={text.continue} onClose={store.closeDialogue}/>}
     {inspected && <DebugDrawer position={movement.position} zoom={store.cameraZoomDistance} sample={sample} clean={previewClean ?? store.worldFlags.courtyard_cleaned}
       onClean={setPreviewClean} wheat={previewWheat ?? wheat} onWheat={setPreviewWheat} goitha={goitha} onGoitha={setGoitha}

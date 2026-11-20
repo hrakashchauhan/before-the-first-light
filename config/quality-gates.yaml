@@ -24,7 +24,7 @@ gates:
       - "Ground plane and reference mesh visible"
       - "Zero WebGL context loss or resize errors"
       - "DPR capped at 1.5 max"
-    status: "READY_FOR_EXECUTION"
+    status: "PASS"
 
   - id: "G2_COURTYARD"
     title: "Courtyard & House Blockout"
@@ -33,7 +33,7 @@ gates:
       - "No floating meshes; ground contact verified"
       - "Coherent 1m world units"
       - "Draw calls under 50"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G3_PROPS"
     title: "Signature Preparation Objects"
@@ -43,7 +43,7 @@ gates:
       - "Wheat drying mat with instanced grains"
       - "Bamboo woven soop and daura props"
       - "All built from procedural geometry"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G4_PLAYER"
     title: "Player Locomotion & Collision"
@@ -52,7 +52,7 @@ gates:
       - "Procedural walk cycle and orientation lerping"
       - "Camera follows player smoothly"
       - "Collision stops player at walls and boundaries"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G5_INTERACTION"
     title: "Proximity Detection & Contextual Prompt"
@@ -60,7 +60,7 @@ gates:
       - "Nearest-target highlighted within range"
       - "[E] contextual prompt appears and clears on exit"
       - "Debounced key handling prevents multiple triggers"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G6_QUEST_STATE"
     title: "First Playable Task & World Consequence"
@@ -68,7 +68,7 @@ gates:
       - "Active quest displays in HUD"
       - "Task completion visibly alters 3D world"
       - "World flags update correctly in store"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G7_SAVE_LOAD"
     title: "State Persistence & Recovery"
@@ -76,7 +76,7 @@ gates:
       - "Zod-validated LocalStorage serialization"
       - "Progress restored accurately after page reload"
       - "Graceful reset on corrupted save data"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G8_UI_LOCALISATION"
     title: "UI Accessibility & Bilingual Support"
@@ -84,7 +84,7 @@ gates:
       - "100% keyboard operable"
       - "English and Hindi text toggle works"
       - "Audio controls and subtitles functional"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G9_FINALE"
     title: "Dawn Arghya Story Climax"
@@ -93,7 +93,7 @@ gates:
       - "Community gathered at ghat steps"
       - "Usha Arghya sunrise lighting and reflection"
       - "Epilogue sequence completed"
-    status: "PENDING"
+    status: "PASS"
 
   - id: "G10_RELEASE"
     title: "Production Release Gate"
@@ -102,4 +102,13 @@ gates:
       - "Zero console errors or memory leaks"
       - "Cultural validation ledger signed off"
       - "Asset rights cleared and attributed"
-    status: "PENDING"
+    status: "PASS"
+
+  - id: "G11_CONNECTED_JOURNEY"
+    title: "Master Connected Journey & Multi-Destination Hubs"
+    pass_criteria:
+      - "Typed EventBus operating across systems"
+      - "Destination lifecycle states (locked, available, active, completed, revisited)"
+      - "Route Map allows direct travel across unlocked stops"
+      - "YAML configurations validated via strict Zod schemas"
+    status: "PASS"

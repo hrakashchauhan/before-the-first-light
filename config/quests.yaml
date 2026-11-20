@@ -1,0 +1,88 @@
+quests:
+  - id: "q_arrival_talk"
+    chapter_id: "homecoming"
+    title_en: "Speak with Ma"
+    title_hi: "माँ से बात करें"
+    desc_en: "Ma is on the veranda. Walk over to hear her plan for the morning."
+    desc_hi: "माँ बरामदे में हैं। पास जाकर सुबह के काम की बात करें।"
+    target_id: "npc_mother"
+    required_flags: []
+    completion_flag: "talked_to_mother"
+    advances_chapter: "courtyard-preparation"
+
+  - id: "q_courtyard_clean"
+    chapter_id: "courtyard-preparation"
+    title_en: "Sweep the courtyard"
+    title_hi: "आँगन बुहारें"
+    desc_en: "The grass broom is at the left end of the veranda. Clear the leaves beside the mat."
+    desc_hi: "बरामदे की बाईं तरफ़ झाड़ू रखी है। चटाई के पास की पत्तियाँ हटाएँ।"
+    target_id: "prop_broom"
+    required_flags: ["talked_to_mother"]
+    completion_flag: "courtyard_cleaned"
+    advances_chapter: "household-work"
+
+  - id: "q_wheat_sort"
+    chapter_id: "household-work"
+    title_en: "Spread the wheat"
+    title_hi: "गेहूँ फैलाएँ"
+    desc_en: "Find the woven mat beside the veranda. Spread the grain while Ma watches for birds."
+    desc_hi: "बरामदे के पास चटाई पर गेहूँ फैलाएँ। माँ चिड़ियों पर नज़र रखेंगी।"
+    target_id: "prop_wheat"
+    required_flags: ["courtyard_cleaned"]
+    completion_flag: "wheat_sorted"
+    advances_chapter: "village-cooperation"
+
+  - id: "q_bamboo_visit"
+    chapter_id: "village-cooperation"
+    title_en: "Visit the basket maker"
+    title_hi: "मोहन काका से मिलें"
+    desc_en: "Follow the lane past the handpump and collect the basket from Mohan Kaka."
+    desc_hi: "हैंडपंप के आगे गली में मोहन काका से टोकरी लें।"
+    target_id: "npc_artisan"
+    required_flags: ["wheat_sorted"]
+    completion_flag: "bamboo_collected"
+    reward_item: "woven_basket"
+    advances_chapter: "festival-eve"
+
+  - id: "q_ghat_clean"
+    chapter_id: "festival-eve"
+    title_en: "Walk to the ghat"
+    title_hi: "घाट तक जाएँ"
+    desc_en: "Follow the lane past the workshop. Look in on the neighbours at the pond steps."
+    desc_hi: "कारीगर की जगह से आगे तालाब की सीढ़ियों पर पड़ोसियों का हाल देखें।"
+    target_id: "prop_ghat_spot"
+    required_flags: ["bamboo_collected"]
+    completion_flag: "ghat_prepared"
+
+  - id: "q_dawn_walk"
+    chapter_id: "usha-arghya"
+    title_en: "Wait for first light"
+    title_hi: "पहली रोशनी देखें"
+    desc_en: "Stay at the pond steps and notice the village waking together."
+    desc_hi: "तालाब की सीढ़ियों पर ठहरें और गाँव को साथ जागते देखें।"
+    target_id: "prop_ghat_spot"
+    required_flags: ["ghat_prepared"]
+    completion_flag: "dawn_witnessed"
+    time_shift: "sunrise"
+    advances_chapter: "usha-arghya"
+
+  - id: "q_return_home"
+    chapter_id: "usha-arghya"
+    title_en: "Return to Ma"
+    title_hi: "माँ के पास लौटें"
+    desc_en: "Tell Ma on the veranda about the neighbours you met at the water."
+    desc_hi: "बरामदे में माँ को बताएँ कि तालाब के पास क्या देखा।"
+    target_id: "npc_mother"
+    required_flags: ["dawn_witnessed"]
+    completion_flag: "homecoming_shared"
+
+  - id: "q_prasad_share"
+    chapter_id: "parana-epilogue"
+    title_en: "Share the morning"
+    title_hi: "सुबह बाँटें"
+    desc_en: "Return to Ma and share what the household and neighbours made possible."
+    desc_hi: "बरामदे में माँ के पास लौटकर सबके काम को याद करें।"
+    target_id: "npc_mother"
+    required_flags: ["homecoming_shared"]
+    completion_flag: "prasad_shared"
+    advances_chapter: "parana-epilogue"

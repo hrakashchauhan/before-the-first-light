@@ -13,11 +13,11 @@ These are planning estimates for a solo beginner using AI assistance, not guaran
 | M06 | State, chapter transition, save | 2–4 h | Persistent progress | **COMPLETED** |
 | M07 | NPC dialogue and UI | 3–5 h | One household story beat | **COMPLETED** |
 | M08 | Lane, pond and ghat | 4–6 h | Compact village | **COMPLETED** |
-| M09 | Festival and dawn sequence | 4–6 h | Emotional ending | Next Up |
-| M10 | Audio, optimisation, QA | 4–6 h | Release candidate | Pending |
+| M09 | Festival and dawn sequence | 4–6 h | Emotional ending | **COMPLETED** |
+| M10 | Audio, optimisation, QA | 4–6 h | Release candidate | **COMPLETED** |
+| M11 | Master Destination & Connected Journey Architecture | 4–6 h | Full multi-hub world, typed events, YAML validation | **IN PROGRESS** |
 
-
-**Total indicative range: 34–55 focused hours**, potentially more for a first-time 3D developer.
+**Total indicative range: 38–60 focused hours**, across the full autonomous development studio.
 
 ## Work rhythm
 Use 60–90 minute sessions:

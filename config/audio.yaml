@@ -1,0 +1,50 @@
+audio:
+  master:
+    default_music_volume: 0.8
+    default_sfx_volume: 0.9
+    fade_duration_ms: 1200
+
+  tracks:
+    - id: "music_courtyard_morning"
+      chapter: "homecoming"
+      location: "hub_home"
+      channel: "music"
+      description: "Gentle acoustic santur and ambient morning drone."
+      licensing: "Original Procedural Web Audio Composition"
+
+    - id: "music_village_lane"
+      chapter: "village-cooperation"
+      location: "hub_artisan"
+      channel: "music"
+      description: "Rustic tanpura with gentle rhythmic phrasing."
+      licensing: "Original Procedural Web Audio Composition"
+
+    - id: "music_ghat_dawn"
+      chapter: "usha-arghya"
+      location: "hub_dawn"
+      channel: "music"
+      description: "Swelling sunrise raga with morning mist atmosphere."
+      licensing: "Original Procedural Web Audio Composition"
+
+    - id: "music_parana_celebration"
+      chapter: "parana-epilogue"
+      location: "hub_prasad_share"
+      channel: "music"
+      description: "Warm acoustic resolution celebrating community prasad."
+      licensing: "Original Procedural Web Audio Composition"
+
+  ambience:
+    - id: "amb_courtyard_birds"
+      location: "hub_courtyard"
+      channel: "ambience"
+      description: "Morning songbirds and distant rural village sounds."
+
+    - id: "amb_lane_bamboo"
+      location: "hub_artisan"
+      channel: "ambience"
+      description: "Rustling green bamboo leaves in gentle breeze."
+
+    - id: "amb_ghat_water"
+      location: "hub_ghat"
+      channel: "ambience"
+      description: "Gentle rippling water on brick steps."

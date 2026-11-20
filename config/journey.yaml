@@ -1,0 +1,76 @@
+journey:
+  title: "Before the First Light: The Bihar Chhath Journey"
+  version: "1.0.0"
+
+chapters:
+  - id: "homecoming"
+    order: 0
+    name_en: "The Return Home"
+    name_hi: "घर वापसी"
+    time_of_day: "morning"
+    destination_id: "hub_home"
+    required_quest: "q_arrival_talk"
+    story_hook: "Devraj arrives in the village courtyard as preparations for Chhath begin."
+
+  - id: "courtyard-preparation"
+    order: 1
+    name_en: "The Courtyard"
+    name_hi: "आँगन की तैयारी"
+    time_of_day: "morning"
+    destination_id: "hub_courtyard"
+    required_quest: "q_courtyard_clean"
+    story_hook: "Clearing dry leaves from the courtyard with the grass broom."
+
+  - id: "household-work"
+    order: 2
+    name_en: "Grain and Hearth"
+    name_hi: "गेहूँ और चूल्हा"
+    time_of_day: "morning"
+    destination_id: "hub_wheat_mat"
+    required_quest: "q_wheat_sort"
+    story_hook: "Spreading whole wheat on the woven mat under Ma's watchful eye."
+
+  - id: "village-cooperation"
+    order: 3
+    name_en: "The Bamboo Artisan"
+    name_hi: "कारीगर की चौपाल"
+    time_of_day: "afternoon"
+    destination_id: "hub_artisan"
+    required_quest: "q_bamboo_visit"
+    story_hook: "Walking down the earthen lane past the handpump to collect the mended soop from Mohan Kaka."
+
+  - id: "festival-eve"
+    order: 4
+    name_en: "The Sacred Pond"
+    name_hi: "तालाब की सीढ़ियाँ"
+    time_of_day: "evening"
+    destination_id: "hub_ghat"
+    required_quest: "q_ghat_clean"
+    story_hook: "Inspecting the swept brick ghat and community preparations at the water's edge."
+
+  - id: "sandhya-arghya"
+    order: 5
+    name_en: "Evening Arghya & Night Vigil"
+    name_hi: "संध्या अर्घ्य व रात्रि जागरण"
+    time_of_day: "night"
+    destination_id: "hub_ghat"
+    required_quest: "q_ghat_clean"
+    story_hook: "Glowing diyas and sugarcane canopy under the night sky."
+
+  - id: "usha-arghya"
+    order: 6
+    name_en: "The First Light"
+    name_hi: "उषा अर्घ्य"
+    time_of_day: "sunrise"
+    destination_id: "hub_dawn"
+    required_quest: "q_dawn_walk"
+    story_hook: "The village stands together as the rising sun warms the cold water."
+
+  - id: "parana-epilogue"
+    order: 7
+    name_en: "Parana: Sharing the Morning"
+    name_hi: "पारणा: प्रसाद बाँटना"
+    time_of_day: "morning"
+    destination_id: "hub_prasad_share"
+    required_quest: "q_prasad_share"
+    story_hook: "Returning home to share prasad and gratitude with family and neighbours."

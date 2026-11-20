@@ -1,0 +1,142 @@
+world:
+  id: "bihar_village_world"
+  name: "Before the First Light: Village of Bhojpur"
+  scale_unit: "metres"
+  coordinate_system: "RHS_Y_UP"
+
+regions:
+  - id: "region_homestead"
+    name: "The Family Homestead"
+    name_hi: "पारिवारिक आँगन व घर"
+    description: "Traditional earthen courtyard with raised veranda, mud-walled dwelling, drying wall, and handpump."
+    bounds:
+      min_x: -6.0
+      max_x: 6.0
+      min_z: -4.0
+      max_z: 6.5
+    default_spawn: [-0.85, 0.0, 2.7]
+
+  - id: "region_fields"
+    name: "Agricultural Surroundings"
+    name_hi: "खेत और गाँव की पगडंडी"
+    description: "Paths bordering open fields and gathering points for firewood, clay, and dry stalks."
+    bounds:
+      min_x: 4.0
+      max_x: 10.0
+      min_z: -8.0
+      max_z: -3.0
+    default_spawn: [6.5, 0.0, -5.0]
+
+  - id: "region_lane_artisan"
+    name: "Village Lane & Artisan Quarter"
+    name_hi: "गाँव की गली व कारीगर की चौपाल"
+    description: "Earthen winding path through bamboo groves leading to Mohan Kaka's basketry workshop."
+    bounds:
+      min_x: 5.0
+      max_x: 16.0
+      min_z: 1.5
+      max_z: 6.5
+    default_spawn: [12.5, 0.2, 5.4]
+
+  - id: "region_village_commons"
+    name: "Village Commons & Market"
+    name_hi: "गाँव की चौपाल व हाट"
+    description: "Meeting grounds under ancient banyan trees, festive stalls with sugarcane and seasonal fruit."
+    bounds:
+      min_x: 11.0
+      max_x: 18.0
+      min_z: -5.0
+      max_z: 1.0
+    default_spawn: [14.0, 0.0, -2.0]
+
+  - id: "region_sacred_ghat"
+    name: "Sacred Pokhra & Ghat"
+    name_hi: "पवित्र पोखर व सीढ़ीदार घाट"
+    description: "Terraced brick ghat leading into the calm pond, adorned with arpan motifs, sugarcane canopies, and clay lamps."
+    bounds:
+      min_x: 16.0
+      max_x: 23.5
+      min_z: -2.0
+      max_z: 8.0
+    default_spawn: [19.8, 0.0, 3.5]
+
+destinations:
+  - id: "hub_home"
+    region_id: "region_homestead"
+    name: "Family Veranda"
+    name_hi: "घर का बरामदा"
+    day_label: "Early Morning"
+    day_label_hi: "सुबह की शुरुआत"
+    position: [0.8, 0.32, -2.2]
+    interactable_targets: ["npc_mother", "prop_baskets"]
+    primary_quest: "q_arrival_talk"
+
+  - id: "hub_courtyard"
+    region_id: "region_homestead"
+    name: "Household Courtyard"
+    name_hi: "आँगन का काम"
+    day_label: "Morning Work"
+    day_label_hi: "सुबह का काम"
+    position: [-3.1, 0.0, -2.5]
+    interactable_targets: ["prop_broom", "prop_chulha", "prop_goitha"]
+    primary_quest: "q_courtyard_clean"
+
+  - id: "hub_wheat_mat"
+    region_id: "region_homestead"
+    name: "Wheat Drying Mat"
+    name_hi: "गेहूँ की चटाई"
+    day_label: "Grain Care"
+    day_label_hi: "अन्न की देखरेख"
+    position: [1.4, 0.02, 1.8]
+    interactable_targets: ["prop_wheat"]
+    primary_quest: "q_wheat_sort"
+
+  - id: "hub_artisan"
+    region_id: "region_lane_artisan"
+    name: "Artisan Workshop"
+    name_hi: "मोहन काका की दुकान"
+    day_label: "Village Lane"
+    day_label_hi: "गाँव की गली"
+    position: [12.5, 0.2, 5.4]
+    interactable_targets: ["npc_artisan"]
+    primary_quest: "q_bamboo_visit"
+
+  - id: "hub_ghat"
+    region_id: "region_sacred_ghat"
+    name: "Sacred Pond Steps"
+    name_hi: "तालाब की सीढ़ियाँ"
+    day_label: "Community Prep"
+    day_label_hi: "घाट की तैयारी"
+    position: [19.8, 0.0, 3.5]
+    interactable_targets: ["prop_ghat_spot", "prop_sugarcane_koshi"]
+    primary_quest: "q_ghat_clean"
+
+  - id: "hub_dawn"
+    region_id: "region_sacred_ghat"
+    name: "First Light Horizon"
+    name_hi: "पहली रोशनी का छोर"
+    day_label: "Dawn Witness"
+    day_label_hi: "उषा अर्घ्य"
+    position: [19.8, 0.0, 3.5]
+    interactable_targets: ["prop_ghat_spot"]
+    primary_quest: "q_dawn_walk"
+
+  - id: "hub_homecoming"
+    region_id: "region_homestead"
+    name: "Return to Veranda"
+    name_hi: "घर वापसी"
+    day_label: "Morning Return"
+    day_label_hi: "घर लौटना"
+    position: [0.8, 0.32, -2.2]
+    interactable_targets: ["npc_mother"]
+    primary_quest: "q_return_home"
+
+  - id: "hub_prasad_share"
+    region_id: "region_homestead"
+    name: "Prasad Celebration"
+    name_hi: "प्रसाद वितरण"
+    day_label: "Epilogue"
+    day_label_hi: "सबके साथ"
+    position: [0.8, 0.32, -2.2]
+    interactable_targets: ["npc_mother"]
+    primary_quest: "q_prasad_share"

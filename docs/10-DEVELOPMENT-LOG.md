@@ -219,6 +219,17 @@ Added a visible help button to the HUD. The guide explains movement, interaction
 ### 2026-11-21 — Morning route map and cycle flow
 Added a route map that makes the household cycle legible: veranda, courtyard work, wheat mat, basket maker, pond steps, first light, homecoming, and morning sharing. Each stop shows its use/day label, completed state, current availability, and a direct travel action for revisiting reached stops. Direct travel only moves the player; story flags still advance through the real walk, dialogue, and task interactions. Chrome automation verified all eight stops render and direct travel closes the map and changes the player position without page errors.
 
+### 2026-11-21 — Master Game Production & Connected Bihar Journey Integration
+**Goal:** Transform the single-courtyard prototype into a complete, connected, destination-based Bihar village journey across the complete Chhath Puja preparation and festival cycle.
+**Delivered Specifications:**
+- Authored complete design documents: `docs/28-COMPLETE-GAME-DESIGN.md`, `docs/29-BIHAR-JOURNEY-MAP.md`, `docs/30-CHAPTER-AND-DESTINATION-PLAN.md`, `docs/31-QUEST-AND-PROGRESSION-DESIGN.md`, `docs/32-CHARACTER-AND-RELATIONSHIP-DESIGN.md`, `docs/33-AUDIO-AND-EVENT-DESIGN.md`, `docs/34-PLAYER-GUIDANCE-AND-UX.md`, `docs/35-RESEARCH-SOURCE-LEDGER.md`, `docs/36-FULL-GAME-ACCEPTANCE-PLAN.md`.
+- Updated logs: `docs/16-ROADMAP-AND-TIMEBOX.md`, `docs/17-DECISION-LOG.md`, `docs/20-AUTONOMOUS-ENGINEERING-AUDIT.md`.
+**System Architecture & Content:**
+- Authored YAML content configurations: `config/game-world.yaml`, `config/journey.yaml`, `config/quests.yaml`, `config/characters.yaml`, `config/events.yaml`, `config/audio.yaml`, `config/ui-labels.yaml`, `config/quality-gates.yaml`.
+- Implemented typed EventBus in `src/systems/events/eventBus.ts` for decoupled publish/subscribe architecture.
+- Implemented destination state machine (`locked` -> `available` -> `active` -> `completed` -> `revisited`) and journey travel engine.
+- Verified test suite, strict typecheck, and Vite production bundle.
+
 
 
 
