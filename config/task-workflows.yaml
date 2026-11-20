@@ -60,3 +60,50 @@ workflows:
         instruction_hi: "साइकिल से घर लौटकर टोकरियाँ माँ को दें।"
         target_id: "npc_mother"
         action: "deliver"
+
+  - id: "wf_ghat_preparation"
+    chapter_id: "festival-eve"
+    steps:
+      - step: 1
+        instruction_en: "Mount bicycle and ride down the lane to the pond."
+        instruction_hi: "साइकिल पर बैठकर तालाब की ओर बढ़ें।"
+        target_id: "prop_bicycle"
+        action: "ride"
+      - step: 2
+        instruction_en: "Park at the upper threshold outside the ritual boundary."
+        instruction_hi: "पवित्र सीढ़ियों से पहले साइकिल खड़ी करें।"
+        target_id: "prop_ghat_spot"
+        action: "park"
+      - step: 3
+        instruction_en: "Walk down the brick steps to inspect the ghat."
+        instruction_hi: "सीढ़ियों पर उतरकर घाट की तैयारी देखें।"
+        target_id: "prop_ghat_spot"
+        action: "inspect"
+
+  - id: "wf_usha_arghya_dawn"
+    chapter_id: "usha-arghya"
+    steps:
+      - step: 1
+        instruction_en: "Join the community assembled at the sacred pond steps."
+        instruction_hi: "तालाब की सीढ़ियों पर गाँव वालों के साथ खड़े हों।"
+        target_id: "prop_ghat_spot"
+        action: "gather"
+      - step: 2
+        instruction_en: "Witness the morning sun break across the water with the devotional theme."
+        instruction_hi: "पानी पर उगते सूरज और पावन संगीत का अनुभव करें।"
+        target_id: "prop_ghat_spot"
+        action: "witness"
+
+  - id: "wf_parana_epilogue"
+    chapter_id: "parana-epilogue"
+    steps:
+      - step: 1
+        instruction_en: "Return to the courtyard veranda to join Ma and family."
+        instruction_hi: "बरामदे में माँ और परिवार के पास लौटें।"
+        target_id: "npc_mother"
+        action: "return"
+      - step: 2
+        instruction_en: "Share the sacred thekua prasad with everyone who helped."
+        instruction_hi: "सहायता करने वाले सभी लोगों में पावन प्रसाद बाँटें।"
+        target_id: "npc_mother"
+        action: "share"

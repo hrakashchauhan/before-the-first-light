@@ -19,6 +19,7 @@ export type TimeOfDay =
 export type QuestStatus = "locked" | "available" | "active" | "completed";
 
 export interface GameSettings {
+  masterVolume?: number;
   musicVolume: number;
   sfxVolume: number;
   subtitles: boolean;

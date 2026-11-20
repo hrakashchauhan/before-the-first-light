@@ -39,6 +39,14 @@ export function HowToPlay({ language, objective, onClose }: Props) {
         <li><Move size={18}/><span>{t.guideSteps[1]}</span></li>
         <li><BookOpen size={18}/><span>{t.guideSteps[2]}</span></li>
         <li><Mouse size={18}/><span>{t.guideSteps[3]}</span></li>
+        <li style={{ borderTop: '1px solid rgba(212,175,55,0.2)', paddingTop: '6px', marginTop: '6px' }}>
+          <span style={{ fontSize: '1.1rem' }}>🚲</span>
+          <span>
+            {language === 'hi'
+              ? 'साइकिल: पास जाकर [E] दबाएँ · [W] आगे बढ़ें · [A/D] मोड़ें · [Space/S] ब्रेक · [B] घंटी · रुकने पर [E] से उतरें।'
+              : 'Bicycle: Approach & press [E] to mount · [W] Accelerate · [A/D] Steer · [Space/S] Brake · [B] Bell · [E] to dismount when stopped.'}
+          </span>
+        </li>
       </ul>
       <button className="resume-button" onClick={onClose}>{t.resume}</button>
     </div>

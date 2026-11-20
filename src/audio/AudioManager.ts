@@ -58,6 +58,27 @@ class AudioManagerClass {
       this.playTrack(trackId, fadeMs ?? 1000)
     })
 
+    eventBus.on('timeline:chapter-changed', ({ chapterId }) => {
+      const chapterTracks: Record<string, string> = {
+        'homecoming': 'music_chhathi_maiya_bulaye',
+        'courtyard-preparation': 'music_courtyard_morning',
+        'household-work': 'music_courtyard_morning',
+        'village-cooperation': 'music_village_lane',
+        'festival-eve': 'music_village_lane',
+        'sandhya-arghya': 'music_village_lane',
+        'usha-arghya': 'music_ghat_dawn',
+        'parana-epilogue': 'music_chhathi_maiya_bulaye',
+      }
+      const trackId = chapterTracks[chapterId] ?? 'music_chhathi_maiya_bulaye'
+      if (this.currentHowl?.playing()) {
+        this.playTrack(trackId, 1400)
+      }
+    })
+
+    eventBus.on('quest:completed', () => {
+      this.playTaskComplete()
+    })
+
     eventBus.on('audio:play', ({ soundId, channel }) => {
       if (channel === 'sfx') {
         this.triggerSfx(soundId)

@@ -7,6 +7,7 @@ import { householdStory } from './householdStory'
 import { eventBus } from '../events/eventBus'
 import type { LocomotionMode } from '../movement/playerLocomotionState'
 import { INITIAL_BICYCLE_POSITION } from '../movement/bicycleController'
+import { audioManager } from '../../audio/AudioManager'
 
 const STORAGE_KEY = 'before_the_first_light_save_v1'
 const DEFAULT_FLAGS = { courtyard_cleaned: false, talked_to_mother: false, wheat_sorted: false, chulha_ready: true, dawn_witnessed: false, prasad_shared: false }
@@ -24,7 +25,15 @@ const saveSchema = z.object({
   language: z.enum(['en', 'hi']), activeQuestId: z.string().nullable(),
   completedQuestIds: z.array(z.string()).default([]), inventory: z.array(z.string()).default([]),
   worldFlags: z.record(z.string(), z.boolean()),
-  settings: z.object({ musicVolume: z.number().min(0).max(1), sfxVolume: z.number().min(0).max(1), subtitles: z.boolean() }).default(DEFAULT_SETTINGS),
+  settings: z.object({
+    masterVolume: z.number().min(0).max(1).optional(),
+    musicVolume: z.number().min(0).max(1),
+    sfxVolume: z.number().min(0).max(1),
+    subtitles: z.boolean(),
+  }).default(DEFAULT_SETTINGS),
+  bicyclePosition: z.tuple([z.number(), z.number(), z.number()]).optional(),
+  bicycleRotationY: z.number().optional(),
+  currentDestinationId: z.string().optional(),
 })
 
 const CLOSED_DIALOGUE = { dialogueActive: false, dialogueSpeaker: null, dialogueText: null, dialogueTargetId: null, preparationGesture: null } as const
@@ -45,6 +54,7 @@ interface GameStateStore extends GameSaveV1 {
   warningText: string | null
   setCameraZoom: (distance: number) => void
   setLanguage: (language: GameSaveV1['language']) => void
+  setMasterVolume: (volume: number) => void
   setSfxVolume: (volume: number) => void
   setMusicVolume: (volume: number) => void
   setCurrentDestination: (destinationId: string) => void
@@ -92,10 +102,19 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
     eventBus.emit('settings:changed', { settings: { ...get().settings } })
     get().saveGame()
   },
+  setMasterVolume: (volume) => {
+    if (!Number.isFinite(volume)) return
+    const masterVolume = Math.min(1, Math.max(0, volume))
+    set((state) => ({ settings: { ...state.settings, masterVolume } }))
+    audioManager.setSettings({ masterVolume })
+    eventBus.emit('settings:changed', { settings: { masterVolume } })
+    get().saveGame()
+  },
   setSfxVolume: (volume) => {
     if (!Number.isFinite(volume)) return
     const sfxVolume = Math.min(1, Math.max(0, volume))
     set((state) => ({ settings: { ...state.settings, sfxVolume } }))
+    audioManager.setSettings({ sfxVolume })
     eventBus.emit('settings:changed', { settings: { sfxVolume } })
     get().saveGame()
   },
@@ -103,6 +122,7 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
     if (!Number.isFinite(volume)) return
     const musicVolume = Math.min(1, Math.max(0, volume))
     set((state) => ({ settings: { ...state.settings, musicVolume } }))
+    audioManager.setSettings({ musicVolume })
     eventBus.emit('settings:changed', { settings: { musicVolume } })
     get().saveGame()
   },
@@ -182,7 +202,13 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
   saveGame: () => {
     try {
       const state = get()
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(saveSchema.parse(state)))
+      const dataToSave = {
+        ...state,
+        bicyclePosition: state.bicyclePosition,
+        bicycleRotationY: state.bicycleRotationY,
+        currentDestinationId: state.currentDestinationId,
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(saveSchema.parse(dataToSave)))
       eventBus.emit('save:completed', { timestamp: Date.now(), chapterId: state.chapterId })
       return true
     } catch { return false }
@@ -194,7 +220,17 @@ export const useGameStore = create<GameStateStore>((set, get) => ({
       const saved = saveSchema.safeParse(JSON.parse(raw))
       if (!saved.success) return false
       const worldFlags = { ...DEFAULT_FLAGS, ...saved.data.worldFlags }
-      set({ ...saved.data, ...CLOSED_DIALOGUE, worldFlags, activeQuestId: getObjective(worldFlags).questId })
+      set({
+        ...saved.data,
+        ...CLOSED_DIALOGUE,
+        worldFlags,
+        activeQuestId: getObjective(worldFlags).questId,
+        bicyclePosition: saved.data.bicyclePosition ?? [...INITIAL_BICYCLE_POSITION],
+        bicycleRotationY: saved.data.bicycleRotationY ?? 0,
+        currentDestinationId: saved.data.currentDestinationId ?? 'hub_home',
+        locomotionMode: 'walking',
+        bicycleSpeed: 0,
+      })
       return true
     } catch { return false }
   },

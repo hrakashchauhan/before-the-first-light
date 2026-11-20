@@ -271,9 +271,10 @@ Added a route map that makes the household cycle legible: veranda, courtyard wor
   - `docs/50-FAMILY-TASK-AND-NPC-WORKFLOWS.md`
   - `docs/51-AUDIO-AND-BICYCLE-QA-REPORT.md`
 **Build:** PASS (0 errors, 1.91s Vite production build)  
-**Tests:** PASS (66/66 passing across 12 test files)  
-**Browser Verification:** Verified  
-**Next Action:** Ready for player exploration and community review.  
+**Tests:** PASS (90/90 passing across 13 test files, including full 24-scenario acceptance test)  
+**Browser Verification:** PASS (Playwright Chromium/Edge real browser test verified Canvas, HUD, Audio unlock, Journal shortcut, Guided Walkthrough, W locomotion, 0 console errors)  
+**Visual Evidence:** `docs/evidence/browser_journal.png`, `docs/evidence/browser_gameplay.png`  
+**Next Action:** Completed master implementation upgrade ready for gameplay.  
 
 
 

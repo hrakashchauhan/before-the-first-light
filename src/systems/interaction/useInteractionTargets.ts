@@ -37,12 +37,13 @@ const hindiTargets: Record<TargetId, [string, string]> = {
   prop_bicycle: ['साइकिल', 'साइकिल पर बैठें'],
 }
 
-export function nearestInteraction([x, , z]: WorldPosition, flags: Record<string, boolean> = {}, language: 'en' | 'hi' = 'en'): Interactable | null {
+export function nearestInteraction([x, , z]: WorldPosition, flags: Record<string, boolean> = {}, language: 'en' | 'hi' = 'en', bicyclePosition?: WorldPosition): Interactable | null {
   let nearest: Interactable | null = null
   let min = Infinity
   for (const item of targets) {
-    const distance = (x - item.position[0]) ** 2 + (z - item.position[2]) ** 2
-    if (distance <= item.radius ** 2 && distance < min) { nearest = item; min = distance }
+    const itemPos = item.id === 'prop_bicycle' && bicyclePosition ? bicyclePosition : item.position
+    const distance = (x - itemPos[0]) ** 2 + (z - itemPos[2]) ** 2
+    if (distance <= item.radius ** 2 && distance < min) { nearest = { ...item, position: itemPos }; min = distance }
   }
   if (!nearest) return null
   const hindi = language === 'hi'
@@ -59,7 +60,8 @@ export function nearestInteraction([x, , z]: WorldPosition, flags: Record<string
 export function useInteractionTargets(position: WorldPosition, onInteract: (id: TargetId) => void, blocked = false) {
   const flags = useGameStore((state) => state.worldFlags)
   const language = useGameStore((state) => state.language)
-  const nearest = nearestInteraction(position, flags, language)
+  const bicyclePosition = useGameStore((state) => state.bicyclePosition)
+  const nearest = nearestInteraction(position, flags, language, bicyclePosition)
   const current = useRef({ nearest, onInteract, blocked })
   useLayoutEffect(() => { current.current = { nearest, onInteract, blocked } }, [nearest, onInteract, blocked])
   useEffect(() => {
